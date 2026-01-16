@@ -125,7 +125,7 @@ title: About Us
       <div class="partners-grid">
         {% assign partner_files = site.static_files | where: "extname", ".png" %}
         {% for file in partner_files %}
-          {% if file.path contains "/assets/images/partners/" %}
+          {% if file.path contains "{{ site.baseurl }}/assets/images/partners/" %}
             <div class="partner-card">
               <img src="{{ file.path }}" alt="{{ file.name | split: "." | first | replace: "-", " " | replace: "_", " " | capitalize }}" class="partner-logo" loading="lazy">
             </div>

@@ -2,7 +2,7 @@
   title_short: "Robotics"
   title: "ROBOTICS IS MOVING"
   title_emphasis: "FROM LABS<br>TO THE REAL WORLD."
-  background_image: "/assets/images/robotics-bg.png"
+  background_image: "{{ site.baseurl }}/assets/images/robotics-bg.png"
   paragraphs:
     - "Robotics is no longer confined to controlled environments or research labs. Advances in AI, simulation, and learning systems are enabling robots to operate in real, complex, and dynamic environments. This shift is transforming how we build, inspect, design, and operate, across manufacturing, infrastructure, logistics, and beyond. And it is happening faster than any technological wave before."
     - "This shift is transforming how we build, inspect, design, and operate, across manufacturing, infrastructure, logistics, and beyond. And it is happening faster than any technological wave before."
