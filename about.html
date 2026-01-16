@@ -1,0 +1,196 @@
+---
+layout: default
+title: About Us
+---
+
+<!-- Hero Section -->
+<section class="about-hero">
+  <div class="about-hero-content">
+    <h1>
+      ITALAI IS A <span class="highlight italic">RESEARCH-DRIVEN ORGANIZATION</span>
+      BRIDGING ACADEMIA AND INDUSTRY<span class="period">.</span>
+    </h1>
+    <div class="breadcrumb">
+      <a href="/">HOME</a> / ABOUT
+      <span class="breadcrumb-tagline">Building intelligent systems from research to reality.</span>
+    </div>
+  </div>
+</section>
+
+<!-- Who We Are Section - 40% Image, 60% Content -->
+<section class="who-we-are">
+  <div class="who-container">
+    <div class="who-image">
+      <!-- Image placeholder - add image here later -->
+    </div>
+    <div class="who-content">
+      <p class="section-label">WHO WE ARE</p>
+      <h2>
+        A <span class="highlight-green italic">research-first</span><br>
+        <span class="highlight-blue">AI</span> organization<span class="period">.</span>
+      </h2>
+      <p class="description">
+        Founded in 2024, ItalAI operates at the intersection of academic research and industrial application.
+      </p>
+      <p class="description">
+        <strong>We collaborate with leading universities, research centers,</strong> and <strong>technology partners</strong> to advance artificial intelligence, and translate that knowledge into deployable systems. Our work spans fundamental research, applied AI, and system-level design, with a <span class="emphasis">strong emphasis on correctness, reliability, and scalability.</span>
+      </p>
+      <p class="description">
+        We do not position ourselves as a traditional AI consultancy. Our role is to <span class="emphasis">invent, engineer, and validate AI systems</span> designed to function beyond experimental settings.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Principles Section - Light Background -->
+<section class="principles-light">
+  <div class="principles-light-content">
+    <h2 class="principle-statement">
+      <span class="principle-label highlight-green">DEPTH</span> BEFORE SCALE<span class="period">.</span>
+    </h2>
+    <h2 class="principle-statement">
+      <span class="principle-label highlight-blue">RIGOR</span> BEFORE SPEED<span class="period">.</span>
+    </h2>
+    <p class="principle-description">
+      <strong class="highlight-blue">We design AI systems starting from first principles.</strong><br>
+      <strong>Research, correctness, and long-term reliability guide every decision we make.</strong>
+    </p>
+  </div>
+  <a class="cta-button cta-center cta-overlap" href="#contact">
+    <div class="cta-label cta-overlap">Want to know more?</div>
+    GET IN TOUCH
+  </a>
+</section>
+
+<!-- Values Section - Dark Background -->
+<section class="values-section">
+  <div class="values-container">
+    <div class="values-header">
+      <p class="section-label">VALUES</p>
+      <h2 class="values-title">Our principles<span class="period">.</span></h2>
+      <p class="values-intro">These principles guide how we research, design, and collaborate, independent of technologies or market cycles.</p>
+    </div>
+    
+    <div class="principles-grid">
+      <div class="principle-card">
+        <div class="principle-content">
+          <div class="principle-number">01</div>
+          <div class="principle-text">
+            <h3 class="principle-card-title">Global Standards,<br>Local Excellence<span class="period">.</span></h3>
+            <p class="principle-card-text">We operate internationally while leveraging Italy's exceptional research talent and engineering culture.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="principle-card">
+        <div class="principle-content">
+          <div class="principle-number">02</div>
+          <div class="principle-text">
+            <h3 class="principle-card-title">Long-term Vision<span class="period">.</span></h3>
+            <p class="principle-card-text">We build systems meant to last in a fast-changing AI landscape.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="principle-card">
+        <div class="principle-content">
+          <div class="principle-number">03</div>
+          <div class="principle-text">
+            <h3 class="principle-card-title">Depth before Scale<span class="period">.</span></h3>
+            <p class="principle-card-text">We favor technical depth and correctness before rapid expansion.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="principles-carousel-nav">
+      <button class="carousel-arrow prev" aria-label="Previous principle">←</button>
+      <button class="carousel-arrow next" aria-label="Next principle">→</button>
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- Partners Section -->
+<section class="partners-section">
+  <div class="partners-inner">
+    <p class="section-label">PARTNERSHIP</p>
+    <h2 class="partners-title">
+      Advancing AI through<br>
+      <span class="highlight-blue italic">global collaboration</span><span class="period">.</span>
+    </h2>
+    <div class="partner-container">
+      <div class="partners-grid">
+        {% assign partner_files = site.static_files | where: "extname", ".png" %}
+        {% for file in partner_files %}
+          {% if file.path contains "/assets/images/partners/" %}
+            <div class="partner-card">
+              <img src="{{ file.path }}" alt="{{ file.name | split: "." | first | replace: "-", " " | replace: "_", " " | capitalize }}" class="partner-logo" loading="lazy">
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Team Section -->
+<section class="team-section">
+  <div class="team-grid-wrapper">
+    <div class="team-grid">
+      <!-- Work With Us Section - Injected into grid -->
+      <div class="work-with-us-card">
+        <div class="work-with-us-content">
+          <p class="section-label">TEAM</p>
+          <h2>
+            Blending AI research<br>
+            and Industry<br>
+            Expertise<span class="period">.</span>
+          </h2>
+          <a class="cta-alt-button" href="#contact">
+            WORK WITH US
+          </a>
+        </div>
+      </div>
+
+
+      {% assign person_count = 0 %}
+      {% for person in site.data.people.team %}
+            {% if person_count == 4 %}
+              <!-- Research Driven Team Section - Injected into grid -->
+              <div class="research-driven-card">
+                <div class="research-driven-content">
+                  <p class="research-label highlight-green">Research driven</p>
+                  <p class="research-subtext">Team</p>
+                </div>
+              </div>
+            {% endif %}
+            
+            <div class="person-card">
+              <div class="person-image">
+                <img
+                  src="/assets/images/people/{{ person.name | replace: " ", "-" | downcase }}.png"
+                  alt="{{ person.name }}"
+                  class="person-img"
+                  {% if person.url %}
+                    onclick="window.open('{{ person.url }}', '_blank')"
+                    style="cursor: pointer;"
+                  {% endif %}
+                >
+              </div>
+              <div class="person-info">
+                <h3 class="person-name">{{ person.name }}</h3>
+                <p class="person-role">{{ person.role }}</p>
+                {% if person.credentials %}
+                    <p class="person-credentials">{{ person.credentials }}</p>
+                {% endif %}
+              </div>
+            </div>
+            
+            {% assign person_count = person_count | plus: 1 %}
+      {% endfor %}
+    </div>
+  </div>
+</section>

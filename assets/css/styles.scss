@@ -1,0 +1,13 @@
+---
+---
+/* Import partials from _sass */
+@use "globals";
+@use "components";
+@use "header";
+@use "main";
+@use "blogs";
+@use "footer";
+
+.current {
+  color: green;
+}

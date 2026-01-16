@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="/assets/logo.svg" type="image/x-icon">
+<title>🦛 Beyond Vanilla SSMs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body>
+    <nav class="navbar">
+    <a href="/" class="logo">
+        <img src="/assets/logo.svg" alt="ItalAI">
+    </a>
+    
+    <ul class="nav-links">
+        <li><a href="/about" >About</a></li>
+        <li><a href="/work" >What We Do</a></li>
+        <li><a href="/roadmap" >What's Next</a></li>
+        <li><a href="/insights" >Insights</a></li>
+    </ul>
+
+    <a href="#contact" class="cta-button">Get in Touch</a>
+</nav>
+<div class="spacer">
+</div>
+
+    <article class="post-paginated">
+  <header class="post-header">
+    <h1>🦛 Beyond Vanilla SSMs</h1>
+    <time datetime="2025-05-02T00:00:00-07:00">
+      May 02, 2025
+    </time>
+    
+    <p class="series-link" style="margin-top: 1rem; font-size: 1.1rem;">
+      Part of the <a href="/series/mamba/" style="color: #6A7CFF; text-decoration: none; font-weight: 600; border-bottom: 2px solid #6A7CFF; padding-bottom: 2px; transition: all 0.3s ease;">mamba</a> series
+    </p>
+    
+  </header>
+
+  <div class="post-intro">
+    <h1 id="-beyond-vanilla-ssms">🦛 Beyond Vanilla SSMs</h1>
+
+<ul id="markdown-toc">
+  <li><a href="#intro" id="markdown-toc-intro">Intro</a></li>
+  <li><a href="#the-memory-problem-and-the-s4-model" id="markdown-toc-the-memory-problem-and-the-s4-model">The memory problem and the S4 model</a>    <ul>
+      <li><a href="#happy-happy-hippo" id="markdown-toc-happy-happy-hippo">Happy Happy Hippo!</a></li>
+      <li><a href="#the-mamba-model" id="markdown-toc-the-mamba-model">The Mamba model</a></li>
+    </ul>
+  </li>
+  <li><a href="#applications" id="markdown-toc-applications">Applications</a>    <ul>
+      <li><a href="#dim-diffusion-mamba-for-efficient-high-resolution-images" id="markdown-toc-dim-diffusion-mamba-for-efficient-high-resolution-images">DiM: Diffusion Mamba for efficient high-resolution images</a></li>
+      <li><a href="#motion-mamba-efficient-and-long-sequence-motion-generation" id="markdown-toc-motion-mamba-efficient-and-long-sequence-motion-generation">Motion Mamba: Efficient and Long Sequence Motion Generation</a></li>
+      <li><a href="#vision-mamba-efficient-visual-representation-learning-with-bidirectional-state-space-model" id="markdown-toc-vision-mamba-efficient-visual-representation-learning-with-bidirectional-state-space-model">Vision Mamba: Efficient Visual Representation Learning with Bidirectional State Space Model</a></li>
+      <li><a href="#audio-mamba-bidirectional-state-space-model-for-audio-representation-learning" id="markdown-toc-audio-mamba-bidirectional-state-space-model-for-audio-representation-learning">Audio Mamba: Bidirectional State Space Model for Audio Representation Learning</a></li>
+      <li><a href="#hymba-a-hybrid-head-architecture-for-small-language-models" id="markdown-toc-hymba-a-hybrid-head-architecture-for-small-language-models">Hymba: A Hybrid-head Architecture for Small Language Models</a></li>
+      <li><a href="#serpent-selective-resampling-for-expressive-state-space-models" id="markdown-toc-serpent-selective-resampling-for-expressive-state-space-models">SeRpEnt: Selective Resampling for Expressive State Space Models</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="intro">Intro</h3>
+
+<p>In the previous sections, we explored the fundamentals and applications of traditional state space models (SSMs), revealing their versatility in handling complex temporal dynamics. However, a persistent challenge with these “vanilla” models is their susceptibility to the vanishing and exploding gradients problem—particularly when applied to long data sequences. This complicates training and limits the potential depth and accuracy of these models. Indeed, a new class of models, known as <strong>S4</strong> (Structured State-space Models for Sequences), has emerged to address these shortcomings. S4 models incorporate advanced architectural innovations that stabilize the training process and enhance model performance across extensive sequences. This chapter delves into the mechanics of S4 models, illustrating how they effectively counter the gradient issues that plague their traditional counterparts and why they represent a significant advancement in the field of sequential data analysis.</p>
+
+<h2 id="the-memory-problem-and-the-s4-model">The memory problem and the S4 model</h2>
+
+<p>Bearing in mind the fundamental equations of discrete SSMs:</p>
+
+\[h\_{n}=Ah\_{n-1}+Bx\_n,\\ \\ y\_n = Ch\_n+Dx\_n\]
+
+<p>we can see that the vector <em>hn</em> carries the information extracted from the input sequence <em>𝑥</em> up to the current time <em>n</em>. This remark lets us interpret the internal state as the system’s <em>memory</em>. Indeed, every new data point <em>xn</em> influences the next stage of the memory being “gated” by the input matrix <em>B</em> and then added to the memory, including its piece of information within the history recorded by <em>hn</em>. Moreover, the matrix <em>A</em> describes the evolution of the memory through time, selecting the parts of it that need to be forgotten to allocate the information content of the more recent entries.</p>
+
+<p>This very intuitive formulation again recalls the RNNs formalization, and, unfortunately, the parallel between the two also involves the issues we know from recurrent models, such as exploding or vanishing gradients. Indeed, the elegant formulation of the SSM layer we delved into in the previous chapter actually reported poor results in practice. However, the <a href="https://scholar.google.com/citations?user=DVCHv1kAAAAJ&amp;hl=en">Albert Gu</a>, <a href="https://tridao.me/">Tri Dao</a>, and <a href="https://cs.stanford.edu/~chrismre/">Christopher Ré</a> team at Stanford University studied this problem in recent years and came up with a novel solution that allows the state to better remember the past.</p>
+
+<h3 id="happy-happy-hippo">Happy Happy Hippo!</h3>
+
+<p>As evident from the preceding discussion, the matrix <em>A</em> plays a crucial role in determining the memory retention capabilities of the state. A key innovation introduced by the researchers Albert Gu and Christopher Ré in their exploration of the S4 model is the <strong>High Order Polynomial Projection Operator</strong> (<strong>HiPPO</strong>) theory, which systematically addresses the limitations of matrix <em>A</em> in conventional SSMs.</p>
+
+<p>The HiPPO method fundamentally rethinks how the matrix <em>A</em> is structured, focusing on enhancing the model’s ability to handle long-range dependencies more effectively. Instead of a typical linear transformation that might excessively dilute information over time, HiPPO designs <em>A</em> to project the internal state onto a basis of orthogonal polynomials, encoding the input into the coefficients of <a href="https://en.wikipedia.org/wiki/Legendre_polynomials">Legendre Polynomials</a>. This projection is mathematically optimized to maximize information retention over the course of an input sequence.</p>
+
+<p>The HiPPO method defines a mathematical framework that allows <em>A</em> to operate as a continuous operator over a finite interval, effectively transforming it into a generator of a stable dynamical system. By projecting the state space onto a high-degree polynomial basis, HiPPO ensures that each component of the vector <em>hn</em> encodes information at various temporal scales, from the most recent inputs to those far back in the sequence.</p>
+
+<p>This orthogonal projection prevents the gradient problems commonly seen with deep or recurrent neural networks and provides a structured way to selectively remember and forget information. As a result, each element of the state vector <em>hn</em> maintains a balance between capturing new data and preserving relevant historical details, thereby enabling the system to recall significant events or patterns over lengthy time horizons.</p>
+
+<p>Implementing HiPPO within an SSM framework involves modifying the matrix <em>A</em> initialization to reflect polynomial terms that correspond to the desired memory characteristics. Indeed, in the vanilla SSM layer, all the matrices (i.e., layers’ parameters) were randomly initialized, and during the training phase, they are learned to solve the task at hand. The authors of this first paper provide the structure of the matrix A when initialized:</p>
+
+\[\text{HiPPO Matrix} \quad
+A_{i,j} = \begin{cases}
+(2i+1)^{1/2}(2j+1)^{1/2}, &amp; i &lt; j \\
+i+1, &amp; i = j \\
+0, &amp; i &gt; j
+\end{cases}\]
+
+<p>This approach is highly flexible; depending on the application, one can tweak the polynomial degree and the basis to tailor the memory decay and retention properties. Further, since after the application of the HiPPO initialization, the system is still Linear and Time-Invariant, it is still possible to take advantage of both the two discrete SSMs’ representations, namely the recurrent and the convolutional forms. This novelty, together with a novel and faster method to precompute the kernels in the convolutional representations, is presented in the <a href="https://arxiv.org/pdf/2111.00396">Structured State-Space models for Sequences</a> (<a href="https://arxiv.org/pdf/2110.13985">S4</a>) paper, which the authors also complement with several experiments on the <strong>Long-Range Arena</strong> (<strong>LRA</strong>) benchmark.</p>
+
+<p><img src="/assets/images/blog/pages/ssm/ssm_3_img1.png" alt="Mass-spring-damper animation" /></p>
+
+<p>As can be seen from the table just reported, the S4 model marks a clear step forward in dealing with extremely long inputs, outperforming several (specialized) transformer-based models on every task and surpassing them by more than 30 p.p. on average. It is worth noting that the tasks within the LRA benchmark include different input modalities (e.g., text and images). Moreover, the S4 model succeeded in the <strong>PATH-X</strong> task, a challenging image task that transformer-based architectures cannot handle properly due to the extremely long context they have to deal with to make their own predictions.</p>
+
+<p><img src="/assets/images/blog/pages/ssm/ssm_3_img2.png" alt="Mass-spring-damper animation" /></p>
+
+<p>The <strong>PATH-X</strong> task is a binary classification task where the models are fed with an image, including two dots and several dashed curves. The label is positive if a line connects the two dots, as in the figure above.</p>
+
+<p>In general, the introduction of HiPPO into SSMs has shown remarkable improvements in various tasks that require processing long sequences, such as time series forecasting, speech recognition, and complex sequential reasoning. This has validated the theoretical underpinnings of HiPPO and demonstrated its practical efficacy across diverse domains.</p>
+
+<h3 id="the-mamba-model">The Mamba model</h3>
+
+<p><img src="/assets/images/blog/pages/ssm/ssm_3_img3.png" alt="Mass-spring-damper animation" /></p>
+
+<p>While the S4 model showed promising results and beat transformer-based architectures on challenging long-range tasks for the first time, they still report limitations in other tasks currently dominated by transformers. In particular, a free byproduct of the attention mechanism is selectivity. Since the context during the attention operation is not compressed, transformers can <em>evaluate</em> the importance of every token by directly comparing it with the others in the context window and later leverage these selected parts of the input to obtain the result. On the other hand, SSMs do not benefit from a similar property since it is Time-Invariant, as all the input tokens <em>xi</em> are identically transformed by leveraging the same matrix <em>B</em>, which is constant regardless of the (semantic importance of the) input. For example, a task where S4 does not perform well is the <em>selective copy</em>, i.e., the task of copying or retrieving only and all the elements that match a certain condition. For example, we could provide the model with a sentence and require it to selectively copy only the nouns or the verbs.</p>
+
+<p>In this case, we would our SSMs’ memory to choose if the new input represents something we need to remember (and, thus, add it to our memory content) or, instead, if we can overlook it, as we do not need it for the final output. Mamba aims to retain a compressed context (as opposed to the large context used by transformers), which is, however, structured and encodes only relevant pieces of information.</p>
+
+<p>The Mamba model achieves <em>selectivity</em> by allowing <em>B</em> and <em>C</em> to be dynamic as opposed to the fixed (per iteration) <em>A</em>, <em>B</em>, <em>C</em>, and <em>D</em> defined in the vanilla SSM layer or in the S4 model. The matrices <em>B=B(x)</em> and <em>C=C(x)</em> within the Mamba layers depend now on the input, allowing for more context awareness. On the other hand, this modification makes the model not Time-Invariant, which, in turn, makes the precalculation of the convolutional kernel impossible. Thus, with this modification, we lose the possibility to use the SSM in the Convolutional representation. On the other hand, in the <a href="https://arxiv.org/pdf/2312.00752">Mamba paper</a>, the authors describe the <em>parallel scan algorithm</em> that allows for the parallelization of the scan operation by assuming the order in which we do operations does not matter. The parallel scan algorithm calculates the sequences in parts and iteratively adds them. These two novel features (the dynamicity of matrices <em>B</em> and <em>C</em> and the usage of the parallel scan algorithm) together represent the first novelty introduced in Mamba: the <strong>selective scan algorithm</strong>, making this model able to solve dynamic tasks such as the selective copy.</p>
+
+<p>Gu <em>et al.</em> also introduce a second modification to speed up the computations of the model. This technical innovation regards the use of the GPU. Indeed, the authors find that the main bottleneck in Mamba’s computation comes from the frequent copying of data between the small but efficient SRAM and their larger but less efficient DRAM, since data, initially hosted in the DRAM, is copied on the SRAM for calculations, and the intermediate results are copied back to the DRAM. Their modification, dubbed <em>kernel fusion</em>, aims to avoid that many interactions between SRAM and DRAM, preventing to write the intermediate results on the DRAM, and directly making all the computations in the fast SRAM. In particular, they propose to have the Discretization, the Selective Scan, and the final multiplication with <em>C</em> in a single SRAM kernel, speeding up the Mamba’s operations. On the other hand, those intermediate results that were originally stored in the large and less efficient memory are critical for backpropagation. However, the authors find it more efficient to recalculate those during the backpropagation phase.</p>
+
+<p>With these two modifications on the S4 model, Gu <em>et al.</em> presented this new and highly efficient architecture named <strong>Structured State-Space model with Selective Scan for Sequences</strong> (or S6), dubbed later on as Mamba for its <em>hissing</em> acronym reminiscent of the serpentine sound, echoing the model’s swift and powerful processing capabilities akin to the agility of a mamba snake.</p>
+
+<h2 id="applications">Applications</h2>
+
+<p>The Mamba family of models has revolutionized sequence modeling by bridging the gap between the computational efficiency of state space models (SSMs) and the representational power required for diverse, high-dimensional data. Where traditional architectures like Transformers falter due to quadratic scaling or where convolutional neural networks struggle with long-range dependencies, Mamba models bring a refreshing balance of scalability, precision, and versatility.</p>
+
+<p>What makes Mamba truly exceptional is its ability to adapt across vastly different domains, from generating lifelike human motions to synthesizing high-resolution images, all while maintaining a hardware-aware efficiency that unlocks previously unattainable possibilities. Below, we explore the groundbreaking applications of Mamba models in vision, motion modelling, audio, language, and generative modeling—showcasing how this innovative framework is reshaping the future of machine learning.</p>
+
+<h3 id="dim-diffusion-mamba-for-efficient-high-resolution-images">DiM: Diffusion Mamba for efficient high-resolution images</h3>
+
+<p><a href="https://arxiv.org/abs/2405.14224"><strong>Diffusion Mamba (DiM)</strong></a> demonstrates the versatility of the Mamba architecture by applying it to high-resolution image synthesis in diffusion models, a task traditionally dominated by resource-intensive Transformer-based architectures. While Transformers face significant computational challenges due to quadratic scaling, DiM capitalizes on Mamba’s efficient state space model (SSM) design, repurposing it for two-dimensional image data. This adaptation underscores the power of Mamba as a scalable, hardware-aware sequence model capable of addressing diverse data structures.</p>
+
+<p>To adapt Mamba, which was initially designed for one-dimensional sequences, the authors introduced several key innovations:</p>
+
+<ul>
+  <li><strong>Multi-Directional Scanning Patterns:</strong> Instead of scanning image patches in a single direction (e.g., row by row), which limits the receptive field, DiM alternates between multiple scanning directions (e.g., row-major, reverse row-major, column-major, reverse column-major). This ensures that each patch can aggregate information from across the image, providing a more global understanding of the spatial structure.</li>
+  <li><strong>Learnable Padding Tokens:</strong> Flattening images into patch sequences often disrupts spatial continuity, as adjacent patches in the sequence may not be spatially adjacent. By appending learnable padding tokens at the ends of rows and columns, DiM helps the model recognize the boundaries and maintain awareness of the original image layout.</li>
+  <li><strong>Lightweight Local Feature Enhancement:</strong> To preserve the local continuity of image features, DiM incorporates lightweight depth-wise convolutional layers at both the input and output stages of the model. These layers reintroduce local spatial relationships lost during tokenization, ensuring that fine details are not neglected.</li>
+</ul>
+
+<p><img src="/assets/images/blog/pages/ssm/ssm_3_img4.png" alt="Diffusion Mamba architecture" /></p>
+
+<p>In addition to these architectural adaptations, DiM employs a <em>“weak-to-strong”</em> training strategy, pretraining on lower-resolution images before fine-tuning on higher resolutions, which reduces the computational burden. DiM also supports training-free upsampling, enabling the generation of ultra-high-resolution images without additional fine-tuning.</p>
+
+<p>By combining Mamba’s efficiency with these specialized techniques, DiM achieves competitive performance in terms of FID-50K scores while significantly reducing computational costs compared to Transformer-based diffusion models. This work highlights Mamba’s potential as a foundational model for efficient, scalable, and high-quality image generation.</p>
+
+<h3 id="motion-mamba-efficient-and-long-sequence-motion-generation">Motion Mamba: Efficient and Long Sequence Motion Generation</h3>
+
+<p><a href="https://steve-zeyu-zhang.github.io/MotionMamba/"><strong>Motion Mamba</strong></a> extends the capabilities of the Mamba architecture to human motion generation, addressing the challenges of long-sequence modeling and computational efficiency in generative motion tasks. Motion generation inherently involves modeling sequences of human poses over time, where maintaining coherence and consistency across hundreds or even thousands of frames is essential for generating realistic motion. Akin to the previously discussed <a href="https://www.notion.so/Beyond-vanilla-SSMs-16967463eca580d4a9d5d7fbf26a2e5b?pvs=21">Diffusion Mamba</a> paper, here motion generation is achieved with a diffusive process, but Motion Mamba leverages a latent diffusion framework, which operates on compressed latent representations to efficiently model complex data distributions. Furthermore, Motion Mamba introduces two novel components: the <strong>Hierarchical Temporal Mamba (HTM)</strong> block and the <strong>Bidirectional Spatial Mamba (BSM)</strong> block.</p>
+
+<p>The <strong>HTM block</strong> organizes the temporal dimension hierarchically, processing motion frames with varying densities of scanning operations at different depths of the model. This means that lower-level features, which often encode richer and denser motion details, receive more frequent scanning operations, while higher-level features, which represent abstract and sparse motion patterns, are scanned less frequently. This strategy not only accommodates the diverse temporal dynamics of human motion but also reduces computational overhead by allocating resources proportionally to the complexity of the features being processed.</p>
+
+<p>The <strong>BSM block</strong> addresses spatial coherence by rearranging and scanning latent representations bidirectionally, analyzing motion data from both forward and reverse perspectives. By swapping the temporal and channel dimensions during scanning, the BSM block ensures better flow of structural information across frames. This approach maintains a dense exchange of information within latent spaces, enabling the model to accurately capture skeleton-level features critical for generating realistic and temporally consistent motion sequences.</p>
+
+<p><img src="/assets/images/blog/pages/ssm/ssm_3_img5.png" alt="Motion Mamba model" /></p>
+
+<p>These innovations allow Motion Mamba to preserve motion consistency across frames and improve accuracy in temporal alignment. Compared to transformer-based diffusion models, Motion Mamba achieves up to 50% better FID scores and a fourfold increase in inference speed, as demonstrated on benchmarks like HumanML3D and KIT-ML. This pioneering integration of Mamba into motion generation showcases its potential for efficient, high-quality modeling of complex motion sequences.</p>
+
+<h3 id="vision-mamba-efficient-visual-representation-learning-with-bidirectional-state-space-model">Vision Mamba: Efficient Visual Representation Learning with Bidirectional State Space Model</h3>
+
+<p><a href="https://arxiv.org/abs/2401.09417"><strong>Vision Mamba (ViM)</strong></a> explores the potential of Mamba as a generic backbone for vision tasks, addressing the computational inefficiencies and inductive biases of traditional architectures like Transformers and CNNs. Unlike hybrid approaches or convolution-based adaptations, ViM adopts a pure sequence modeling framework, processing images as flattened sequences of patches while leveraging bidirectional state space modeling to capture global visual context. To preserve spatial coherence, ViM incorporates positional embeddings and processes data bidirectionally within each block, enabling it to model high-resolution images without resorting to computationally expensive self-attention mechanisms.</p>
+
+<p><img src="/assets/images/blog/pages/ssm/ssm_3_img6.png" alt="Motion Mamba model" /></p>
+
+<p>Resultswise, ViM outperforms well-established vision backbones like Vision Transformers (DeiT) and ResNet on tasks such as ImageNet classification, COCO object detection, and ADE20k semantic segmentation. For instance, Vim-Tiny achieves 2.8× faster inference and uses 86.8% less GPU memory compared to DeiT when processing 1248×1248 resolution images, while also demonstrating superior accuracy. These efficiency gains make ViM particularly suited for high-resolution applications, such as medical imaging and aerial analysis, where long sequence modeling is critical.</p>
+
+<p><img src="/assets/images/blog/pages/ssm/ssm_3_img7.png" alt="Motion Mamba model" /></p>
+
+<p>By maintaining linear scaling with sequence length and removing image-specific inductive biases, ViM establishes itself as a versatile and efficient backbone for next-generation vision models.</p>
+
+<h3 id="audio-mamba-bidirectional-state-space-model-for-audio-representation-learning">Audio Mamba: Bidirectional State Space Model for Audio Representation Learning</h3>
+
+<p><a href="https://arxiv.org/pdf/2406.03344"><strong>Audio Mamba (AuM)</strong></a> introduces a novel, self-attention-free architecture for audio classification, leveraging the efficiency of SSMs to address the computational challenges faced by transformer-based models. Traditional Audio Spectrogram Transformers (ASTs) particularly suffer from quadratic scaling, as the audio sequences are commonly very lengthy, making them expensive to encode. AuM replaces self-attention with bidirectional scanning, adapting the Mamba architecture for audio representation tasks. It processes audio spectrograms (which are provided as images to the model) by dividing them into square patches, embedding each patch into a sequence, and passing this sequence through a bidirectional Mamba encoder. This encoder processes data both forward and backward, ensuring spatial and temporal coherence while maintaining global context—similar to self-attention but significantly more efficient.</p>
+
+<p><img src="/assets/images/blog/pages/ssm/ssm_3_img8.png" alt="Motion Mamba model" /></p>
+
+<p>AuM also introduces an innovative use of classification tokens, strategically placed at the sequence midpoint, to optimize bidirectional processing. Experiments show that AuM achieves comparable or superior performance to ASTs across six audio classification benchmarks while being <strong>1.6 times faster</strong> during inference and scaling linearly with sequence length. Its ability to handle long audio inputs with minimal memory consumption makes AuM a promising alternative for tasks requiring efficient audio representation, such as multimodal learning, audio-visual pretraining, and automatic speech recognition. This work demonstrates the potential of SSM-based architectures to redefine efficiency in audio processing.</p>
+
+<h3 id="hymba-a-hybrid-head-architecture-for-small-language-models">Hymba: A Hybrid-head Architecture for Small Language Models</h3>
+
+<p><a href="https://arxiv.org/pdf/2411.13676"><strong>Hymba</strong></a> introduces a hybrid-head architecture for small language models, combining transformer attention mechanisms with Mamba-based state space models (SSMs) to balance high-resolution recall and efficient context summarization. The parallel fusion of attention and SSM heads allows Hymba to leverage the strengths of both: <strong>attention heads act as “snapshot memories”</strong>, capturing fine-grained details, while <strong>SSM heads function as “fading memories”</strong>, summarizing global context. This design avoids the bottlenecks of sequentially stacked modules and ensures efficient information processing across tasks.</p>
+
+<p><img src="/assets/images/blog/pages/ssm/ssm_3_img9.png" alt="Motion Mamba model" /></p>
+
+<p>To enhance its efficiency, Hymba proposes several key innovations. <strong>Meta tokens</strong>, a set of learned embeddings prepended to inputs, act as a “learned cache,” guiding attention to focus on relevant information and improving both memory and reasoning efficiency. These tokens redistribute attention, preventing the wasteful focus on initial tokens (e.g., BOS tokens) often seen in transformer models. <strong>KV cache optimization</strong> introduces a blend of local (sliding window) and global attention, reducing the memory and computational demands of traditional full attention. The inclusion of SSM heads further supports global context summarization, enabling more aggressive use of local attention without losing essential context. Together, these innovations reduce KV cache size by up to 4× and boost throughput by 3× while maintaining high task performance. With these advancements, Hymba achieves state-of-the-art results in both accuracy and efficiency, setting a new benchmark for small language models.</p>
+
+<h3 id="serpent-selective-resampling-for-expressive-state-space-models">SeRpEnt: Selective Resampling for Expressive State Space Models</h3>
+
+<p>This work, produced by ItalAI, represents a theoretical advancement in the field of state space models SSMs, focusing on enhancing sequence compression and information efficiency. Building on the success of Mamba’s learned <a href="https://www.notion.so/Beyond-vanilla-SSMs-16967463eca580d4a9d5d7fbf26a2e5b?pvs=21">selectivity mechanism</a>, which empirically improves SSM performance, SeRpEnt provides a formal analysis of selectivity, demonstrating that the learned time intervals in Mamba serve as linear approximators of the information content contained in the sequence elements. This insight lays the foundation for SeRpEnt’s key innovation: a selective resampling mechanism that compresses sequences by aggregating elements based on their informational relevance.</p>
+
+<p>The <strong>SeRpEnt framework</strong> introduces a novel approach to compress and process sequences by leveraging a selective resampling mechanism that identifies and retains the most informative elements. By dynamically learning the informational relevance of sequence elements through time intervals, SeRpEnt compresses input sequences into shorter representations that are processed at multiple scales to efficiently capture both short- and long-range dependencies. This information-aware compression allows SeRpEnt to enhance the expressiveness of state space models (SSMs) while maintaining computational efficiency.</p>
+
+<p>The novel <strong>selective resampling mechanism</strong> operates by resampling sequence elements at intervals proportional to their <strong>learned time intervals</strong> ($\Delta_l$), which reflect their contribution to the overall information of the sequence. Resampled sequences are represented with a constant time interval and interpolated using a nearest-neighbors approach. Here’s how it works:</p>
+
+<ol>
+  <li><strong>Learned Time Intervals as Information Proxies:</strong> In Mamba, the time intervals $\Delta_l$ are dynamically learned during training and reflect the importance of each sequence element ($x_l$). Larger $\Delta_l$ values indicate elements that contribute more unique information to the overall sequence, while smaller $\Delta_l$ values suggest redundancy or lower significance. SeRpEnt formalizes this understanding, showing that these intervals can be treated as linear approximators of the element’s informational content.</li>
+  <li><strong>Resampling Process:</strong> The sequence ${x_l}<em>{l \leq L}$ is resampled into a compressed version ${\tilde{x}_l}</em>{l \leq L}$ using the learned $\Delta_l$. The resampling aligns the elements onto a uniform time grid with a fixed interval $\Delta$, aggregating elements that fall within the same resampling window. Since the original sequence’s continuous function $x(t)$ is generally not directly accessible, SeRpEnt uses a nearest-neighbors interpolation approach to infer the values of resampled elements $\tilde{x}_l$ based on their neighbors in the input sequence.</li>
+  <li><strong>Compression Control:</strong> The compression rate is controlled by a hyperparameter $\kappa$, which determines the minimum and maximum time intervals for the resampled sequence. This ensures that the compressed sequence retains sufficient information while reducing the number of elements. For example, $\kappa$ guarantees that the compressed sequence has at least $\kappa L$ elements, providing a balance between computational efficiency and informational fidelity.</li>
+</ol>
+
+<p><img src="/assets/images/blog/pages/ssm/ssm_3_img10.png" alt="Motion Mamba model" /></p>
+
+<ol>
+  <li><strong>Parallel Compression Rates:</strong> SeRpEnt processes sequences at multiple compression rates ($\kappa$) in parallel, enabling it to capture both short- and long-range dependencies. Each compressed sequence is passed through a separate SSM, allowing the model to specialize in different scales of information. The outputs of these SSMs are later decompressed and combined, restoring the original sequence length while preserving the essential information captured during compression.</li>
+  <li><strong>Reverse Resampling:</strong> After processing, the compressed sequences are decompressed back to the original sequence length. This reverse resampling operation ensures that the model can output results consistent with the original sequence’s temporal resolution, using interpolation techniques similar to those in the compression step.</li>
+</ol>
+
+<p><img src="/assets/images/blog/pages/ssm/ssm_3_img11.png" alt="Motion Mamba model" /></p>
+
+<p>SeRpEnt extends SSMs like Mamba and S4, offering an orthogonal architectural component for tasks involving long-range dependencies. Empirical results on the Long Range Arena benchmark and language modeling tasks show that SeRpEnt consistently improves the performance of baseline models, especially in sequence classification and language modeling. Notably, it effectively compresses sequences without sacrificing essential information, enhancing both computational efficiency and model expressiveness.</p>
+
+<p>This work is more theoretical than prior advancements in SSMs, providing a rigorous analysis of the mechanics of learned selectivity while introducing a compression and resampling mechanism grounded in information theory. SeRpEnt represents a significant step forward in understanding and optimizing the capabilities of SSMs, with implications for future architectures designed to process long and complex sequences efficiently.</p>
+
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+
+  <nav class="page-navigation bottom-nav">
+    <div class="nav-arrows">
+      
+      <a class="nav-btn" href="/transformers/2025/05/02/mamba-stateof.html" style="text-decoration: none;">
+        ← Previous: 🚀 The State Space Models
+      </a>
+      
+      
+      
+      <button class="nav-btn" disabled>Next →</button>
+      
+    </div>
+    
+    <a class="nav-btn back-to-toc" href="/series/mamba/" style="text-decoration: none;">
+      ← Back to Series Hub
+    </a>
+  </nav>
+  
+</article>
+    <footer id="contact">
+    <section class="footer-hero">
+        <div class="footer-content">
+            <!-- Left Column -->
+            <div class="footer-left">
+                <h1>
+                    BUILDING THE<br>
+                    NEXT <span class="highlight-italic">INDUSTRIAL<br>
+                    REVOLUTION</span><span class="period">.</span>
+                </h1>
+                <p>We turn frontier AI and robotics research into systems that work in the real world.</p>
+                <p>Designed for scale. Built for impact. Ready for reality.</p>
+
+                <div class="footer-meta">
+                    <div class="footer-sections-row">
+                        <div class="footer-section">
+                            <div class="footer-section-title">Partnership & Collaborations</div>
+                            <a href="mailto:research@italalabs.com" class="footer-email">research@italalabs.com</a>
+                        </div>
+
+                        <div class="footer-section">
+                            <div class="footer-section-title">Stay tuned</div>
+                            <div class="social-links">
+                                <a href="https://www.linkedin.com/company/italai/" target="_blank" aria-label="LinkedIn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                        <path fill="#6A7CFF" d="M416 32L31.9 32C14.3 32 0 46.5 0 64.3L0 447.7C0 465.5 14.3 480 31.9 480L416 480c17.6 0 32-14.5 32-32.3l0-383.4C448 46.5 433.6 32 416 32zM135.4 416l-66.4 0 0-213.8 66.5 0 0 213.8-.1 0zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77zM384.3 416l-66.4 0 0-104c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9l0 105.8-66.4 0 0-213.8 63.7 0 0 29.2 .9 0c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9l0 117.2z"/>
+                                    </svg>
+                                </a>
+                                <a href="https://x.com/_italai" target="_blank" aria-label="Twitter">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                        <path fill="#6A7CFF" d="M357.2 48L427.8 48 273.6 224.2 455 464 313 464 201.7 318.6 74.5 464 3.8 464 168.7 275.5-5.2 48 140.4 48 240.9 180.9 357.2 48zM332.4 421.8l39.1 0-252.4-333.8-42 0 255.3 333.8z"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="footer-logo-container">
+                        <div class="footer-logo">
+                            <img src="/assets/logo.svg" alt="ItalAI">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="footer-right">
+                <div class="contact-card">
+                    <h2>GET IN TOUCH</h2>
+                    <p>Let's explore how AI and robotics can move your project beyond the lab.</p>
+
+                    <form id="mailForm">
+                        <div class="form-group">
+                            <input type="text" for="name" placeholder="Full name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" for="email" placeholder="Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" for="subject" placeholder="Subject">
+                        </div>
+                        <div class="form-group">
+                            <textarea for="idea" placeholder="Message"></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">SEND MESSAGE</button>
+                    </form>
+                    <!-- Success/Error Messages -->
+                    <div id="errorMessage" class="error-message mt-2" style="display: none; color: red;">
+                        An error occurred. We are sorry, but
+                        our contact form is not working at
+                        the moment. Please contact us using
+                        the info listed on this page.
+                    </div>
+                    <div id="successMessage" class="success-message mt-2" style="display: none; color: green;">
+                        Message sent successfully!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</footer>
+<script src="/assets/js/form.js"></script>
+<script src="/assets/js/revolution_cards.js"></script>
+
+<!-- KaTeX Auto-render Configuration -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+        delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+            {left: '\\[', right: '\\]', display: true},
+            {left: '\\(', right: '\\)', display: false}
+        ],
+        throwOnError: false,
+        trust: true
+    });
+});
+</script>
+
+<!-- Custom KaTeX Styling -->
+<style>
+/* Inline math */
+.katex {
+    font-size: 1.1em;
+}
+
+/* Display math */
+.katex-display {
+    margin: 1.5rem 0 !important;
+    padding: 1.5rem;
+    background: rgba(106, 124, 255, 0.05);
+    border-left: 4px solid #6A7CFF;
+    border-radius: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+/* Make KaTeX text match your color scheme */
+.katex * {
+    color: #F6F4EC !important;
+}
+
+/* Scrollable for long equations */
+.katex-display > .katex {
+    white-space: nowrap;
+}
+</style>
+</body>
+</html>

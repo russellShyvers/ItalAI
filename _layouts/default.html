@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="/assets/logo.svg" type="image/x-icon">
+<title>{{ page.title }}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body>
+    {% include header.html %}
+    {{ content }}
+    {% include footer.html %}
+<script src="/assets/js/form.js"></script>
+<script src="/assets/js/revolution_cards.js"></script>
+
+<!-- KaTeX Auto-render Configuration -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+        delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+            {left: '\\[', right: '\\]', display: true},
+            {left: '\\(', right: '\\)', display: false}
+        ],
+        throwOnError: false,
+        trust: true
+    });
+});
+</script>
+
+<!-- Custom KaTeX Styling -->
+<style>
+/* Inline math */
+.katex {
+    font-size: 1.1em;
+}
+
+/* Display math */
+.katex-display {
+    margin: 1.5rem 0 !important;
+    padding: 1.5rem;
+    background: rgba(106, 124, 255, 0.05);
+    border-left: 4px solid #6A7CFF;
+    border-radius: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+/* Make KaTeX text match your color scheme */
+.katex * {
+    color: #F6F4EC !important;
+}
+
+/* Scrollable for long equations */
+.katex-display > .katex {
+    white-space: nowrap;
+}
+</style>
+</body>
+</html>

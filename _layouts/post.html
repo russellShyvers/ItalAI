@@ -1,0 +1,61 @@
+---
+layout: default
+---
+<article class="post-paginated">
+  <header class="post-header">
+    <h1>{{ page.title }}</h1>
+    <time datetime="{{ page.date | date_to_xmlschema }}">
+      {{ page.date | date: "%B %d, %Y" }}
+    </time>
+    {% if page.series %}
+    <p class="series-link" style="margin-top: 1rem; font-size: 1.1rem;">
+      Part of the <a href="/series/{{ page.series | slugify }}/" style="color: #6A7CFF; text-decoration: none; font-weight: 600; border-bottom: 2px solid #6A7CFF; padding-bottom: 2px; transition: all 0.3s ease;">{{ page.series }}</a> series
+    </p>
+    {% endif %}
+  </header>
+
+  <div class="post-intro">
+    {{ content }}
+  </div>
+
+  {% if page.series %}
+    {% assign series_posts = site.posts | where: "series", page.series | sort: "part" %}
+    {% assign current_part = page.part | plus: 0 %}
+    {% assign prev_part = current_part | minus: 1 %}
+    {% assign next_part = current_part | plus: 1 %}
+    {% assign prev_post = nil %}
+    {% assign next_post = nil %}
+    {% for post in series_posts %}
+      {% if post.part == prev_part %}
+        {% assign prev_post = post %}
+      {% endif %}
+      {% if post.part == next_part %}
+        {% assign next_post = post %}
+      {% endif %}
+    {% endfor %}
+
+  <nav class="page-navigation bottom-nav">
+    <div class="nav-arrows">
+      {% if prev_post %}
+      <a class="nav-btn" href="{{ prev_post.url }}" style="text-decoration: none;">
+        ← Previous: {{ prev_post.title }}
+      </a>
+      {% else %}
+      <button class="nav-btn" disabled>← Previous</button>
+      {% endif %}
+      
+      {% if next_post %}
+      <a class="nav-btn" href="{{ next_post.url }}" style="text-decoration: none;">
+        Next: {{ next_post.title }} →
+      </a>
+      {% else %}
+      <button class="nav-btn" disabled>Next →</button>
+      {% endif %}
+    </div>
+    
+    <a class="nav-btn back-to-toc" href="/series/{{ page.series | slugify }}/" style="text-decoration: none;">
+      ← Back to Series Hub
+    </a>
+  </nav>
+  {% endif %}
+</article>

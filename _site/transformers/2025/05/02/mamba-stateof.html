@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="/assets/logo.svg" type="image/x-icon">
+<title>🚀 The State Space Models</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body>
+    <nav class="navbar">
+    <a href="/" class="logo">
+        <img src="/assets/logo.svg" alt="ItalAI">
+    </a>
+    
+    <ul class="nav-links">
+        <li><a href="/about" >About</a></li>
+        <li><a href="/work" >What We Do</a></li>
+        <li><a href="/roadmap" >What's Next</a></li>
+        <li><a href="/insights" >Insights</a></li>
+    </ul>
+
+    <a href="#contact" class="cta-button">Get in Touch</a>
+</nav>
+<div class="spacer">
+</div>
+
+    <article class="post-paginated">
+  <header class="post-header">
+    <h1>🚀 The State Space Models</h1>
+    <time datetime="2025-05-02T00:00:00-07:00">
+      May 02, 2025
+    </time>
+    
+    <p class="series-link" style="margin-top: 1rem; font-size: 1.1rem;">
+      Part of the <a href="/series/mamba/" style="color: #6A7CFF; text-decoration: none; font-weight: 600; border-bottom: 2px solid #6A7CFF; padding-bottom: 2px; transition: all 0.3s ease;">mamba</a> series
+    </p>
+    
+  </header>
+
+  <div class="post-intro">
+    <h1 id="-the-state-space-models">🚀 The State Space Models</h1>
+
+<ul id="markdown-toc">
+  <li><a href="#brief-historical-context" id="markdown-toc-brief-historical-context">Brief Historical Context</a>    <ul>
+      <li><a href="#-the-space-race-and-beyond" id="markdown-toc--the-space-race-and-beyond">🌔 The Space Race and Beyond</a></li>
+      <li><a href="#-the-ssms-in-the-machine-learning-era" id="markdown-toc--the-ssms-in-the-machine-learning-era">📈 The SSMs in the Machine Learning Era</a></li>
+    </ul>
+  </li>
+  <li><a href="#the-state-space-models" id="markdown-toc-the-state-space-models">The State Space Models</a>    <ul>
+      <li><a href="#-mass-spring-damper-system" id="markdown-toc--mass-spring-damper-system">🪝 Mass-Spring-Damper System</a></li>
+      <li><a href="#️-the-racing-car-example" id="markdown-toc-️-the-racing-car-example">🏎️ The Racing Car example</a></li>
+      <li><a href="#-mathematical-formalization" id="markdown-toc--mathematical-formalization">📐 Mathematical Formalization</a></li>
+    </ul>
+  </li>
+  <li><a href="#properties-of-state-space-models" id="markdown-toc-properties-of-state-space-models">Properties of State Space Models</a>    <ul>
+      <li><a href="#the-general-continuous-time-model" id="markdown-toc-the-general-continuous-time-model">The General Continuous-Time Model</a></li>
+      <li><a href="#from-continuous-time-to-discrete-observations" id="markdown-toc-from-continuous-time-to-discrete-observations">From Continuous Time to Discrete Observations</a></li>
+      <li><a href="#dual-nature-of-ssms-recurrent-and-convolutional-representations" id="markdown-toc-dual-nature-of-ssms-recurrent-and-convolutional-representations">Dual Nature of SSMs: Recurrent and Convolutional Representations</a></li>
+      <li><a href="#advantages-of-ssms-against-current-architectures" id="markdown-toc-advantages-of-ssms-against-current-architectures">Advantages of SSMs against current architectures</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="brief-historical-context">Brief Historical Context</h3>
+
+<p>The story of State Space Models (SSMs) is a fascinating journey that spans over six decades, from the Space Race to today’s cutting-edge AI models like Mamba. Let’s explore how a mathematical framework designed to guide rockets became a cornerstone of modern sequence modeling.</p>
+
+<h5 id="-the-space-race-and-beyond">🌔 The Space Race and Beyond</h5>
+
+<p>In the early 1960s, as NASA was racing to put humans on the moon, they faced a critical challenge: how to precisely track and control spacecraft trajectories. Meanwhile, a breakthrough was emerging from the work of <a href="https://en.wikipedia.org/wiki/Rudolf_E._K%C3%A1lm%C3%A1n">Rudolf Kalman</a>, whose elegant mathematical framework for control theory would far outlive its original purpose. Indeed, in 1960, Kalman introduced what we now know as State Space Models.</p>
+
+<p>The core idea was elegant yet powerful: any system could be described by its “state” (like the position and velocity of a spacecraft) and how this state evolves over time. The mathematics behind SSMs provided a way to estimate these states even with noisy measurements – <a href="https://www.lancaster.ac.uk/stor-i-student-sites/jack-trainer/how-nasa-used-the-kalman-filter-in-the-apollo-program/">crucial for keeping Apollo missions on course</a> .</p>
+
+<p>Throughout the 1970s and 1980s, SSMs expanded beyond aerospace into diverse fields. Engineers deployed them to control chemical plants and robotic systems, while economists adopted them for financial forecasting. Their ability to handle complex, dynamic systems while managing uncertainty made them invaluable across industries.</p>
+
+<h5 id="-the-ssms-in-the-machine-learning-era">📈 The SSMs in the Machine Learning Era</h5>
+
+<p>As machine learning gained momentum in the 1990s and 2000s, researchers noticed parallels between SSMs and popular AI architectures. Hidden Markov Models, widely used in speech recognition, could be viewed as discrete versions of SSMs. Recurrent Neural Networks (RNNs), the early workhorses of sequence modeling, shared similar mathematical foundations.</p>
+
+<p>However, SSMs remained largely in the background of deep learning, overshadowed by architectures like <a href="https://en.wikipedia.org/wiki/Long_short-term_memory">Long Short-Term Memory (LSTM)</a> networks and, later, <a href="https://en.wikipedia.org/wiki/Transformer_(deep_learning_architecture)">Transformers</a>. The computational tools and hardware needed to efficiently implement continuous-time SSMs in neural networks were unavailable.</p>
+
+<p>The real breakthrough came in the 2020s. As researchers grappled with the limitations of Transformer architectures – particularly their quadratic memory scaling – they began looking for alternatives. The S4 (Structured State Space Sequence) model demonstrated that SSMs could be efficiently implemented in deep learning architectures, achieving remarkable performance on long-sequence tasks.</p>
+
+<p>This sparked a renaissance in SSM research. The mathematical foundations laid down during the Space Race were being reinvented with modern deep-learning techniques. The culmination of this evolution is the Mamba architecture, which combines the efficiency of SSMs with selective state spaces, offering a compelling alternative to attention-based models.</p>
+
+<p>After this brief recap about where SSMs came from, we can now dive into <strong>how they actually work</strong>. In the next section, we’ll explore the core mathematical components of SSMs through a practical example, illustrating how the concept of an internal “state” allows these models to handle everything from noisy sensor readings to complex time-series predictions.</p>
+
+<h3 id="the-state-space-models">The State Space Models</h3>
+
+<p>State Space Models (SSMs) are a versatile mathematical framework used to describe dynamic systems. At their core, SSMs capture how a system evolves over time through a set of internal states influenced by external inputs while providing observable outputs that depend on these states. This framework is built on two main equations:</p>
+
+<ol>
+  <li>
+    <p><strong>State Equation:</strong><br />
+\(h'(t) = Ah(t) + Bx(t)\)
+This equation describes how the system’s internal state ($h’(t)$) evolves over time under the influence of its current state ($h(t)$) and external inputs ($x(t)$).</p>
+  </li>
+  <li>
+    <p><strong>Observation Equation:</strong><br />
+\(y(t) = Ch(t) + Dx(t)\)
+This equation maps the internal state ($h(t)$) and the current input ($x(t)$) to observable outputs ($y(t)$), providing a way to measure the system’s behavior.</p>
+  </li>
+</ol>
+
+<p>SSMs are extensively applied in fields like physics, engineering, economics, and machine learning, where understanding and predicting system behavior is essential.</p>
+
+<p>The next chapter will introduce two illustrative examples to contextualize the concepts: one rooted in physics, showcasing a <strong>continuous-time SSM</strong>, and another more heuristic, featuring a <strong>discrete-time SSM</strong> through the racing car analogy. After exploring these examples, we will delve into the mathematical details of SSMs, examining their features, discretization methods, and dual representation as recurrent models and convolutional operations.</p>
+
+<h5 id="-mass-spring-damper-system">🪝 Mass-Spring-Damper System</h5>
+
+<p>Consider a mass-spring-damper system where a mass ($m$) is attached to a fixed wall by a spring with elastic constant $k$ and a damper with friction coefficient $b$. The system’s position ($y(t)$) evolves over time as a varying external force ($x(t)$) is applied to the mass.</p>
+
+<p>The motion of the system is governed by Newton’s second law of motion:</p>
+
+\[F(t) = x(t) - b y'(t) - k y(t), \quad \text{and} \quad F(t) = m a(t)\]
+
+<p><img src="/assets/images/blog/pages/ssm/ssm_2_img0.png" alt="mass spring diagram" /></p>
+
+<p>By substituting the first equation in the second and bearing in mind that the velocity is the first derivative of the position ($v(t)=\frac{d}{dt}y(t)$), and the acceleration is, in turn, its derivative ($a(t)=\frac{dy}{d^2t}(t)$) we obtain:</p>
+
+\[m \frac{d^2}{d^2t} y(t) = x(t) - b \frac{d}{dt} y(t) - k y(t)\]
+
+<p>This is a second-order ODE, which we can convert into a system of two first-order equations by making explicit use of the velocity $y’(t)$:</p>
+
+<p>\(\frac{d}{dt} y(t) = y'(t) \Rightarrow \frac{d^2}{dt^2} y(t) = \frac{d}{dt} y'(t)\)
+\(\begin{cases}
+\frac{d}{dt} y(t) = y'(t) \\
+m \frac{d}{dt} y'(t) = x(t) - b y'(t) - k y(t)
+\end{cases}\)</p>
+
+<p>Dividing both sides of the second equation by $m$:</p>
+
+\[\begin{cases}
+\frac{d}{dt} y(t) = y'(t) \\
+\frac{d}{dt} y'(t) = \frac{1}{m} x(t) - \frac{b}{m} y'(t) - \frac{k}{m} y(t)
+\end{cases}\]
+
+<p>Now we can notice that the <em>state variable</em> that controls the dynamic of the system are $(y(t), y’(t))$, thus we can rewrite the system in its matrix form by using the linearity of the derivation operator:</p>
+
+\[\frac{d}{dt}
+\begin{pmatrix}
+y \\
+y'
+\end{pmatrix}(t)
+=
+\begin{pmatrix}
+0 &amp; 1 \\
+-\frac{k}{m} &amp; -\frac{b}{m}
+\end{pmatrix}
+\begin{pmatrix}
+y \\
+y'
+\end{pmatrix}(t)
++
+\begin{pmatrix}
+0 \\
+\frac{1}{m}
+\end{pmatrix}
+x(t)\]
+
+<p>Identifying the state $h(t)$ with the state variable and observing that we solve the system by knowing the evolution of the position $y(t)$, that is:</p>
+
+\[y(t) =
+\begin{pmatrix}
+1 &amp; 0
+\end{pmatrix}
+\begin{pmatrix}
+y \\
+y'
+\end{pmatrix}(t)\]
+
+<p>We have reached the SSM form:</p>
+
+<p><strong>State Equation:</strong></p>
+
+\[\underbrace{
+\frac{d}{dt}
+\begin{pmatrix}
+y \\
+y'
+\end{pmatrix}(t)
+}_{h'(t)}
+=
+\underbrace{
+\begin{pmatrix}
+0 &amp; 1 \\
+-\frac{k}{m} &amp; -\frac{b}{m}
+\end{pmatrix}
+}_A
+\underbrace{
+\begin{pmatrix}
+y \\
+y'
+\end{pmatrix}(t)
+}_{h(t)}
++
+\underbrace{
+\begin{pmatrix}
+0 \\
+\frac{1}{m}
+\end{pmatrix}
+}_B
+x(t)\]
+
+<p><strong>Observation Equation:</strong></p>
+
+\[y(t) =
+\underbrace{
+\begin{pmatrix}
+1 &amp; 0
+\end{pmatrix}
+}_C
+\underbrace{
+\begin{pmatrix}
+y \\
+y'
+\end{pmatrix}(t)
+}_{h(t)}\]
+
+<p>By fixing the values for all the constants and forces applied to the system, we can also resolve the problem. For example, choosing $m=1, b=5, k=40, x(t)=\max(\sin(x), 0.5)$ provides the following dynamic:</p>
+
+<p><img src="/assets/images/blog/pages/ssm/ssm_2_img1.gif" alt="Mass-spring-damper animation" /></p>
+
+<h5 id="️-the-racing-car-example">🏎️ The Racing Car example</h5>
+
+<p>Imagine having a racing car that you want to keep in a good state to win competitions. To do so, you have to monitor the car’s state daily and perform some operations to address any problems that can arise. In the context of SSMs, we can break down the dynamics of this process as follows:</p>
+
+<ol>
+  <li>
+    <p><strong>🚗 Car’s wealth [$h_t$]</strong>:</p>
+
+    <ul>
+      <li>⛽ <strong>Gas level</strong>: Determines how far and fast the car can go.</li>
+      <li>🛢️ <strong>Oil level</strong>: Critical for maintaining engine performance.</li>
+      <li>🛞 <strong>Tires’ wear</strong>: Affects grip and stability on the track.</li>
+      <li>🚨 <strong>Engine</strong>: Influences overall power and efficiency.</li>
+    </ul>
+
+    <p>Over time, these components degrade due to usage and wear. Indeed, without interventions, the car’s state will naturally worsen. Thus, to maintain the car at an optimal state, some operations must be done on the car with a certain frequency. Let’s represent them:</p>
+  </li>
+  <li>
+    <p><strong>🔧 Maintenance [$x_t$]</strong>:</p>
+
+    <ul>
+      <li>🧪 <strong>Fluids filling</strong>: Refueling gas or replenishing oil.</li>
+      <li>🛠️ <strong>Reparations</strong>: Replacing tires or fixing engine issues.</li>
+    </ul>
+
+    <p>These actions help restore or improve the car’s state, ensuring optimal performance.</p>
+  </li>
+  <li>
+    <p><strong>🚀 Performance [$y_t$]</strong>:</p>
+
+    <ul>
+      <li>⏩ <strong>Maximum Speed:</strong> Represents the observable output of the system.</li>
+    </ul>
+
+    <p>When the car’s state is good, its maximum speed is high; performance declines as it deteriorates.</p>
+  </li>
+</ol>
+
+<p><img src="/assets/images/blog/pages/ssm/ssm_2_img2a.png" alt="Car diagram" /></p>
+
+<p>We will monitor this process daily, meaning that starting from a certain day, we will find a function that describes the dependencies between the performance of our car, its state, and the maintenance operations we do on it day after day.</p>
+
+<p>First, you can notice that in the absence of any mechanical intervention, the car’s state will generally worsen day after day as the gas and oil levels will reduce, and the tires and motor conditions will deteriorate because of the use of the car. In other words, the state \( h_{t+1} \) of the car on a certain day depends on the previous state through a matrix \( A \):</p>
+
+\[h\_t = A h\_{t-1}\]
+
+<p>Now, every single day, you can choose what kind of maintenance you want to do on your car, which will again affect the state of the car. In other words, we can expand the previous equation by adding a term that takes care of the reparation you do on your car:</p>
+
+\[h\_t = Ah\_{t-1} + Bx\_{t}\]
+
+<p>Finally, the performance will depend on how well the car does, so they directly depend on the current car’s state \( h_t \). Let’s thus introduce the matrix \( C \) that explicitly shows the dependency of the speed on the state:</p>
+
+\[y\_t = Ch\_t\]
+
+<p>For the sake of completeness, we can also think of a mapping between the maintenance and the performance as, for example, filling the gas will make the car weigh more, directly affecting the speed. Generally, this can be represented using a further matrix \( D \) and adding the term \( Dx_t \) in the last equation.</p>
+
+\[y\_t = Ch\_t+Dx\_t\]
+
+<p><img src="/assets/images/blog/pages/ssm/ssm_2_img2b.png" alt="Car dynamics equations" /></p>
+
+<p>Leveraging these two equations, you can control the racing car’s performance or, knowing the <strong>sequence</strong> of reparations that you perform on the car, even forecast its <strong>sequence</strong> of speeds for the future days.</p>
+
+<p>This simple example provides a tangible introduction to the dynamics modeled by SSMs, illustrating how states, actions, and outputs are interconnected. We’re ready to explore more complex systems and their applications with this foundation.</p>
+
+<h5 id="-mathematical-formalization">📐 Mathematical Formalization</h5>
+
+<p>We have then summarized the interaction between these components in the two equations below:</p>
+
+\[\overbrace{
+\begin{cases}
+h'(t) = Ah(t) + Bx(t) \\
+y_t = Ch(t) + Dx(t)
+\end{cases}
+}^{\text{Continuous time}},
+\quad
+\overbrace{
+\begin{cases}
+h_t = Ah_{t-1} + Bx_t \\
+y_t = Ch_t + Dx_t
+\end{cases}
+}^{\text{Discrete time}}\]
+
+<p>The two systems represent the cases where the evolution is described in continuous time (similar to the first example) or discrete-time (as in the racing car example).</p>
+
+<p>Let’s have a more fine-grained look at the twos:</p>
+
+<ol>
+  <li><strong>State Equation:</strong><br />
+The car’s state evolves daily based on its current state and any maintenance performed:
+    <ul>
+      <li><strong>A</strong>: Captures the natural decay or persistence of the car’s state over time.</li>
+      <li><strong>B</strong>: Represents the impact of maintenance actions on the car’s state.</li>
+    </ul>
+  </li>
+  <li><strong>Observation Equation:</strong><br />
+The car’s performance depends directly on its current state:
+    <ul>
+      <li><strong>C</strong>: Defines how each aspect of the internal state influences the performance.</li>
+      <li><strong>D</strong>: Represents the direct effects of the reparations on the speed.</li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="properties-of-state-space-models">Properties of State Space Models</h3>
+
+<p>Building on the intuitive example of the racing car, we now move to a more general and formal description of State Space Models (SSMs) in <strong>continuous time</strong>, which is essential for many real-world applications where processes evolve continuously rather than in discrete steps.</p>
+
+<h5 id="the-general-continuous-time-model">The General Continuous-Time Model</h5>
+
+<p>At their core, SSMs in continuous time describe the evolution of a system’s internal state $h(t)$ over time, influenced by external inputs $x(t)$. The mathematical representation consists of two key equations:</p>
+
+<p><strong>The State Equation</strong></p>
+
+\[\frac{dh(t)}{dt} = Ah(t) + Bx(t)\]
+
+<ul>
+  <li>$h(t)\in\mathbb{R}^n$ is the <em>system’s internal state</em>, a vector representing the key variables that describe the system at any given time. You can think of it as the <strong>memory</strong> of the system.</li>
+  <li>$A\in\mathbb{R}^{n\times n}$ is the state transition matrix governing how the system evolves autonomously over time.</li>
+  <li>$x(t)\in\mathbb{R}^m$ is the <em>input array</em> that represents the observations we feed to the model to obtain the result.</li>
+  <li>$B\in\mathbb{R}^{n\times m}$ the input matrix that describes how each new input influences the system’s current state.</li>
+</ul>
+
+<p><strong>The Observation Equation</strong></p>
+
+\[y(t) = Ch(t) + Dx(t)\]
+
+<ul>
+  <li>$y(t)\in\mathbb{R}^p$ is the observable output, capturing what we can measure from the system. It is also called the <em>target variable</em>.</li>
+  <li>$C\in\mathbb{R}^{p\times n}$ is the observation matrix, linking the internal state to the outputs.</li>
+  <li>$D\in\mathbb{R}^{p \times m}$ is a matrix that represents a skip connection, linking the last input to the outputs. Often, we can overlook this term as the input influences the hidden state, which, in turn, defines the final outcome.</li>
+</ul>
+
+<p>The following figure describes the whole SSM!</p>
+
+<p><img src="/assets/images/blog/pages/ssm/ssm_2_img3.png" alt="" /></p>
+
+<p>It is worth noting that all the matrices just introduced do not depend on time, making the SSMs a time-invariant model. Moreover, we only use matrix multiplications to get the results, so we can acknowledge the SSMs as <strong>Linear Time Invariant (LTI)</strong> models.</p>
+
+<h5 id="from-continuous-time-to-discrete-observations">From Continuous Time to Discrete Observations</h5>
+
+<p>Many real-world systems operate in continuous time, but digital computers inherently process data in discrete intervals. For instance, when monitoring a physical process like temperature changes (which is inherently a continuos-time phenomenon), we typically record measurements at fixed time intervals—say, every second or minute. Similarly, in machine learning, sequence models often work with time series or sampled signals, which are inherently discrete.</p>
+
+<p><img src="/assets/images/blog/pages/ssm/ssm_2_img4.png" alt="" /></p>
+
+<p>In its native form, the SSM equations describe continuous processes, evolving smoothly over time. However, to leverage SSMs in practical applications—whether for simulations, digital control systems, or sequence modeling—we need a way to bridge the gap between these continuous dynamics and the discrete nature of computational systems. This process, known as <strong>discretization</strong>, transforms continuous-time SSMs into a form suitable for handling discrete sequences while preserving the system’s dynamic behavior. As for the input, the discrete form of a continuous signal can simply be obtained by sampling at regular time intervals $\Delta t$.</p>
+
+<p><img src="/assets/images/blog/pages/ssm/ssm_2_img5.png" alt="" /></p>
+
+<p>This process, also known as discretization, approximates the continuous evolution of states at specific time intervals. Two common approaches to discretization are the Euler Method and the Zero-Order Hold (ZOH).</p>
+
+<p><strong>The Euler Method</strong></p>
+
+<p>The Euler Method provides a straightforward approximation of the state equation by assuming that the derivative is constant over the interval $\Delta t$. This leads to the following discretized equations:</p>
+
+\[h_{t+1} \approx h_t + \Delta t (A h_t + B x_t)\]
+
+<p><strong>Zero Order Hold</strong></p>
+
+<p>The ZOH approach assumes that the input $x(t)$ remains constant over each small interval $[t, t+\Delta t]$. The discretized state equation becomes:</p>
+
+\[h_{t+1} = \bar{A} h_t + \bar{B} x_t\]
+
+<p>where:</p>
+
+\[\bar{A} = \exp(A \Delta t), \quad \bar{B} = \int_0^{\Delta t} [\exp(As) B] ds\]
+
+<p>In both cases, the Observation Equation does not require any modification:</p>
+
+\[y_t = C h_t + D x_t\]
+
+<p>The discretization bridges the gap between continuous theoretical models and their practical implementation in digital systems, enabling applications such as real-time simulations, control systems, and machine learning pipelines. Choosing the right discretization method can mean the difference between a simulation that mirrors reality and one that diverges wildly. For example, in real-time control systems, precise discretization ensures that interventions are accurately timed and effective, while in sequence modeling, it enables SSMs to efficiently process input sequences and generate meaningful predictions. In short, discretization unlocks the practical utility of SSMs across a wide range of digital applications.</p>
+
+<h5 id="dual-nature-of-ssms-recurrent-and-convolutional-representations">Dual Nature of SSMs: Recurrent and Convolutional Representations</h5>
+
+<p>One of the unique strengths of State Space Models is their dual nature: they can be expressed both as <strong>recurrent models</strong> and as <strong>convolutional operations</strong>. This versatility makes SSMs particularly powerful in sequence modeling and signal processing.</p>
+
+<p><img src="/assets/images/blog/pages/ssm/ssm_2_img6.png" alt="Recurrent representation step 2" /></p>
+
+<ul>
+  <li><strong>Recurrent Representation:</strong><br />
+The discretized state equation allows SSMs to process sequences one step at a time, updating the internal state iteratively based on the inputs. We can see it explicitly by inspecting the process from its start:
+    <ul>
+      <li>In the very first step, the step of the system is empty (i.e., initialized as 0), thus we have: \( h_0 = \bar{B}x_0 \) and \( y_0=Ch_0 + Dx_0 \). The state is updated with the information coming from \( x_0 \).</li>
+      <li>As for the second step, we can use the just-updated state \( h_0 \) and the next input \( x_1 \) to update the state and get the output: \( h_1=\bar{A}h_0+\bar{B}x_1=\bar{A}(\bar{B}x_0) +\bar{B}x_1 \) and \( y_1=Ch_1+Dx_1 \). And we can continue obtaining…</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="/assets/images/blog/pages/ssm/ssm_2_img7.png" alt="" /></p>
+
+<p>Following this scheme, we can see that there is a pattern! In particular, the matrices \( \bar{A}, \bar{B} \) always multiply the inputs, and we can leverage this remark for a second characteristic representation of the SSMs.</p>
+
+<ul>
+  <li><strong>Convolution Representation:</strong><br />
+The State-Space model can even be represented using the convolutional operation. Indeed, unfolding the SSM’s two main equations we found explicitly the multiplications we perform to calculate the output. Putting everything together, we can obtain the same result we got with the recurrent representation by using a fixed convolutional kernel that depends on the <em>state transition</em> and the <em>input</em> <em>matrices</em>. The calculations are shown below:</li>
+</ul>
+
+<p><img src="/assets/images/blog/pages/ssm/ssm_2_img8.png" alt="" /></p>
+
+<p>Thus, we can represent the SSM as a convolution with a 1-D Kernel with fixed length and some padding:</p>
+
+\[SSM(x) = K * x = [CA^n B]_n * \begin{pmatrix}
+x_0 \\
+x_1 \\
+\vdots \\
+x_N
+\end{pmatrix}\]
+
+<p>The convolutional form is particularly efficient for parallel computation, as it allows for batched operations across the entire sequence, making it suitable for modern hardware like GPUs.</p>
+
+<h5 id="advantages-of-ssms-against-current-architectures">Advantages of SSMs against current architectures</h5>
+
+<p>As sequence modeling tasks grow increasingly complex—ranging from processing entire books to analyzing hours of video—limitations in current approaches become evident. RNNs , while efficient in terms of computation (their operations scale linearly with the input length as each step requires a fixed amount of time), struggle with retaining information over long sequences due to vanishing gradients. Transformers, on the other hand, excel at capturing long-range dependencies and allow for parallel computation across sequences, but their self-attention mechanism introduces quadratic memory and computational scaling, making them resource-intensive for very long inputs.</p>
+
+<p>SSMs address these limitations by offering a framework that combines memory efficiency, scalability, and numerical stability. With their dual representation as recurrent and convolutional models, SSMs enable seamless processing of long-range dependencies while maintaining interpretability and fast computation.<br />
+Indeed, SSMs overcome the major limitations of traditional architectures like RNNs and Transformers when modeling long sequences:</p>
+
+<ol>
+  <li><strong>Memory Efficiency</strong>
+    <ul>
+      <li><strong>RNNs</strong>: Struggle to retain information across long sequences due to the vanishing gradient problem, limiting their effective memory. Moreover, their training cannot be parallelized due to the need of sequentially processing the input.</li>
+      <li><strong>Transformers</strong>: Require quadratic memory and computational resources because of their self-attention mechanism, making them impractical for extremely long sequences.</li>
+      <li><strong>SSMs</strong>: Represent sequence information compactly through state transitions \( A \) and input mappings \( B \), reducing memory requirements while maintaining long-range dependencies.</li>
+    </ul>
+  </li>
+  <li><strong>Scalability</strong>
+    <ul>
+      <li>SSMs can leverage their convolutional representation for efficient parallel computation, enabling them to process long sequences faster than RNNs during the training phase.</li>
+      <li>By avoiding the quadratic scaling of self-attention, SSMs are better suited for handling extremely long inputs, such as entire books or hours of video, than Transformers.</li>
+    </ul>
+  </li>
+  <li><strong>Numerical Stability</strong>
+    <ul>
+      <li>RNNs often suffer from instability due to repeated multiplications of weight matrices.</li>
+      <li>SSMs use carefully designed state transition matrices \( (A, B, C, D) \) that can be tuned for stability, ensuring consistent performance even over long sequences.</li>
+    </ul>
+  </li>
+</ol>
+
+<p>In conclusion, State Space Models offer a powerful framework for modeling dynamic systems by capturing the evolution of internal states through continuous or discrete-time equations, with many applications ranging from aerospace to sequence modeling. At their core, SSMs describe how a system’s internal state, influenced by external inputs, determines observable outputs via state and observation equations. While natively describing continuous-time systems, the Discretization methods like the Euler Method and Zero-Order Hold allow seamless adaptation to digital systems, enabling practical implementations for Sequence-to-Sequence tasks. Moreover, SSMs exhibit a dual nature: they can be expressed as recurrent models, ideal for step-by-step sequence processing, or as convolutional operations, which efficiently compute outputs over entire sequences using modern hardware. This flexibility and computational efficiency make SSMs a versatile tool for understanding and predicting the behavior of complex systems.</p>
+
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+
+  <nav class="page-navigation bottom-nav">
+    <div class="nav-arrows">
+      
+      <a class="nav-btn" href="/transformers/2025/05/02/mamba-intro.html" style="text-decoration: none;">
+        ← Previous: 🏆 Introduction: Sequence-to-Sequence Modeling
+      </a>
+      
+      
+      
+      <a class="nav-btn" href="/transformers/2025/05/02/mamba-beyond.html" style="text-decoration: none;">
+        Next: 🦛 Beyond Vanilla SSMs →
+      </a>
+      
+    </div>
+    
+    <a class="nav-btn back-to-toc" href="/series/mamba/" style="text-decoration: none;">
+      ← Back to Series Hub
+    </a>
+  </nav>
+  
+</article>
+    <footer id="contact">
+    <section class="footer-hero">
+        <div class="footer-content">
+            <!-- Left Column -->
+            <div class="footer-left">
+                <h1>
+                    BUILDING THE<br>
+                    NEXT <span class="highlight-italic">INDUSTRIAL<br>
+                    REVOLUTION</span><span class="period">.</span>
+                </h1>
+                <p>We turn frontier AI and robotics research into systems that work in the real world.</p>
+                <p>Designed for scale. Built for impact. Ready for reality.</p>
+
+                <div class="footer-meta">
+                    <div class="footer-sections-row">
+                        <div class="footer-section">
+                            <div class="footer-section-title">Partnership & Collaborations</div>
+                            <a href="mailto:research@italalabs.com" class="footer-email">research@italalabs.com</a>
+                        </div>
+
+                        <div class="footer-section">
+                            <div class="footer-section-title">Stay tuned</div>
+                            <div class="social-links">
+                                <a href="https://www.linkedin.com/company/italai/" target="_blank" aria-label="LinkedIn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                        <path fill="#6A7CFF" d="M416 32L31.9 32C14.3 32 0 46.5 0 64.3L0 447.7C0 465.5 14.3 480 31.9 480L416 480c17.6 0 32-14.5 32-32.3l0-383.4C448 46.5 433.6 32 416 32zM135.4 416l-66.4 0 0-213.8 66.5 0 0 213.8-.1 0zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77zM384.3 416l-66.4 0 0-104c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9l0 105.8-66.4 0 0-213.8 63.7 0 0 29.2 .9 0c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9l0 117.2z"/>
+                                    </svg>
+                                </a>
+                                <a href="https://x.com/_italai" target="_blank" aria-label="Twitter">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                        <path fill="#6A7CFF" d="M357.2 48L427.8 48 273.6 224.2 455 464 313 464 201.7 318.6 74.5 464 3.8 464 168.7 275.5-5.2 48 140.4 48 240.9 180.9 357.2 48zM332.4 421.8l39.1 0-252.4-333.8-42 0 255.3 333.8z"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="footer-logo-container">
+                        <div class="footer-logo">
+                            <img src="/assets/logo.svg" alt="ItalAI">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="footer-right">
+                <div class="contact-card">
+                    <h2>GET IN TOUCH</h2>
+                    <p>Let's explore how AI and robotics can move your project beyond the lab.</p>
+
+                    <form id="mailForm">
+                        <div class="form-group">
+                            <input type="text" for="name" placeholder="Full name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" for="email" placeholder="Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" for="subject" placeholder="Subject">
+                        </div>
+                        <div class="form-group">
+                            <textarea for="idea" placeholder="Message"></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">SEND MESSAGE</button>
+                    </form>
+                    <!-- Success/Error Messages -->
+                    <div id="errorMessage" class="error-message mt-2" style="display: none; color: red;">
+                        An error occurred. We are sorry, but
+                        our contact form is not working at
+                        the moment. Please contact us using
+                        the info listed on this page.
+                    </div>
+                    <div id="successMessage" class="success-message mt-2" style="display: none; color: green;">
+                        Message sent successfully!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</footer>
+<script src="/assets/js/form.js"></script>
+<script src="/assets/js/revolution_cards.js"></script>
+
+<!-- KaTeX Auto-render Configuration -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+        delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+            {left: '\\[', right: '\\]', display: true},
+            {left: '\\(', right: '\\)', display: false}
+        ],
+        throwOnError: false,
+        trust: true
+    });
+});
+</script>
+
+<!-- Custom KaTeX Styling -->
+<style>
+/* Inline math */
+.katex {
+    font-size: 1.1em;
+}
+
+/* Display math */
+.katex-display {
+    margin: 1.5rem 0 !important;
+    padding: 1.5rem;
+    background: rgba(106, 124, 255, 0.05);
+    border-left: 4px solid #6A7CFF;
+    border-radius: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+/* Make KaTeX text match your color scheme */
+.katex * {
+    color: #F6F4EC !important;
+}
+
+/* Scrollable for long equations */
+.katex-display > .katex {
+    white-space: nowrap;
+}
+</style>
+</body>
+</html>

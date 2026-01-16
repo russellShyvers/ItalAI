@@ -1,0 +1,9 @@
+social:
+  twitter: https://x.com/_italai
+  linkedin: https://www.linkedin.com/company/italai/
+markdown: kramdown
+kramdown:
+  toc_levels: 2..5
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag

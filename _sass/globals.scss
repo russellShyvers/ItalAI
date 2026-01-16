@@ -1,0 +1,49 @@
+/* Minimal global reset + design tokens + control normalization */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: inherit; // Ensure inheritance for all elements
+}
+
+:root {
+  --navbar-height: 75px;
+
+  /* Fluid type scale */
+  --fz-xs: clamp(0.7rem, 0.9vw, 0.9rem);
+  --fz-sm: clamp(0.85rem, 1.2vw, 1rem);
+  --fz-base: clamp(1rem, 1.6vw, 1.125rem);
+  --fz-lg: clamp(1.25rem, 2vw, 1.5rem);
+  --fz-xl: clamp(1.75rem, 3vw, 2.5rem);
+  --fz-display: clamp(2rem, 4.5vw, 3rem);
+  --fz-hero: clamp(2rem, 6vw, 3rem);
+  --fz-hero-meets: clamp(1.5rem, 4.5vw, 2.5rem);
+  --fz-subtitle: clamp(0.95rem, 1.8vw, 1.15rem);
+
+  /* Spacing & radii */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --radius-lg: 20px;
+
+  --container-max: 1200px;
+}
+
+/* Prevent mobile browsers from auto-resizing text */
+html {
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  font-family: 'JetBrains Mono', monospace; // Set font-family globally
+}
+
+/* Base body (moved here so all partials inherit same base) */
+body {
+  font-family: inherit; // Inherit from html
+  font-weight: 800;
+  font-size: var(--fz-base);
+  letter-spacing: -0.03em;
+  background-color: #6A7CFF;
+  color: #fff;
+}
