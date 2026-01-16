@@ -2,7 +2,7 @@
 layout: post
 title: "🚀 The State Space Models"
 category: "Transformers"
-image: "{{ site.baseurl }}/assets/images/ssm.png"
+image: "/assets/images/ssm.png"
 excerpt: "Is there an alternative to transformer networks?"
 series: mamba
 part: 2

@@ -1,13 +1,13 @@
 <nav class="navbar">
-    <a href="{{ site.baseurl }}/" class="logo">
-        <img src="{{ site.baseurl }}/assets/logo.svg" alt="ItalAI">
+    <a href="/" class="logo">
+        <img src="/assets/logo.svg" alt="ItalAI">
     </a>
     
     <ul class="nav-links">
-        <li><a href="{{ site.baseurl }}/about" {% if page.url == "/about.html" or page.url == "/about/" %}class="active"{% endif %}>About</a></li>
-        <li><a href="{{ site.baseurl }}/work" {% if page.url contains "/work" %}class="active"{% endif %}>What We Do</a></li>
-        <li><a href="{{ site.baseurl }}/roadmap" {% if page.url contains "/roadmap" %}class="active"{% endif %}>What's Next</a></li>
-        <li><a href="{{ site.baseurl }}/insights" {% if page.url contains "/insights" %}class="active"{% endif %}>Insights</a></li>
+        <li><a href="/about" {% if page.url == "/about.html" or page.url == "/about/" %}class="active"{% endif %}>About</a></li>
+        <li><a href="/work" {% if page.url contains "/work" %}class="active"{% endif %}>What We Do</a></li>
+        <li><a href="/roadmap" {% if page.url contains "/roadmap" %}class="active"{% endif %}>What's Next</a></li>
+        <li><a href="/insights" {% if page.url contains "/insights" %}class="active"{% endif %}>Insights</a></li>
     </ul>
 
     <a href="#contact" class="cta-button">Get in Touch</a>

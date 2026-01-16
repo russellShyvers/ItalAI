@@ -2,7 +2,7 @@
 layout: post
 title: "🏆 Introduction: Sequence-to-Sequence Modeling"
 category: "Transformers"
-image: "{{ site.baseurl }}/assets/images/ssm.png"
+image: "/assets/images/ssm.png"
 excerpt: "Is there an alternative to transformer networks?"
 series: mamba
 part: 1

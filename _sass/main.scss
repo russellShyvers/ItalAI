@@ -10,7 +10,7 @@
             rgba(26, 10, 46, 0.75),
             rgba(10, 10, 26, 0.75)
         ),
-        url("{{ site.baseurl }}/assets/images/hero-bg.png");
+        url("/assets/images/hero-bg.png");
 
     background-size: cover;
     background-position: top center;
@@ -86,7 +86,7 @@
             #6A7CFF75,
             #6A7CFF75
         ),
-        url("{{ site.baseurl }}/assets/images/hero-bg.png");
+        url("/assets/images/hero-bg.png");
 }
 
 .card.dark {
@@ -96,7 +96,7 @@
             #1C1C1E75,
             #1C1C1E75
         ),
-        url("{{ site.baseurl }}/assets/images/hero-bg.png");}
+        url("/assets/images/hero-bg.png");}
 
 .card.green {
     background-image:
@@ -105,7 +105,7 @@
             #32B69275,
             #32B69275
         ),
-        url("{{ site.baseurl }}/assets/images/hero-bg.png");
+        url("/assets/images/hero-bg.png");
 }
 
 .card p {
