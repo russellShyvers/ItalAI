@@ -47,3 +47,27 @@ body {
   background-color: #6A7CFF;
   color: #fff;
 }
+
+/* Layout utilities (use these instead of styling all div/section) */
+.container {
+  width: min(100%, var(--container-max));
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 3vw, 2rem);
+}
+
+/* Quick centering helpers */
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.grid-center {
+  display: grid;
+  place-items: center;
+}
+
+/* Optional: normalize sections without forcing alignment globally */
+section {
+  display: block;
+}

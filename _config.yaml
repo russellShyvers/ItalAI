@@ -7,3 +7,5 @@ kramdown:
 plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
+baseurl: "/ItalAI"   # <-- your repo name
+url: "https://russellshyvers.github.io"
