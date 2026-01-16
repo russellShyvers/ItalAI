@@ -17,7 +17,7 @@
 }
 
 .post-header h1 {
-    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-size: var(--fz-display);
     font-weight: 800;
     color: #F6F4EC;
     margin-bottom: 1rem;
@@ -26,7 +26,7 @@
 
 .post-header time {
     color: #6A7CFF;
-    font-size: 1rem;
+    font-size: var(--fz-base);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -39,7 +39,7 @@
 
 .toc-container h2 {
     text-align: center;
-    font-size: 2.5rem;
+    font-size: var(--fz-display);
     font-weight: 800;
     margin-bottom: 3rem;
     color: #F6F4EC;
@@ -99,14 +99,14 @@
     height: 50px;
     border-radius: 12px;
     font-weight: 800;
-    font-size: 1.5rem;
+    font-size: var(--fz-lg);
     margin-bottom: 1rem;
     box-shadow: 0 4px 15px rgba(106, 124, 255, 0.4);
 }
 
 .toc-preview {
     color: #F6F4EC;
-    font-size: 1rem;
+    font-size: var(--fz-base);
     line-height: 1.6;
     opacity: 0.9;
 }
@@ -124,7 +124,7 @@
 
 .post-intro p {
     font-family: 'DM Sans', sans-serif;
-    font-size: 1.25rem;
+    font-size: var(--fz-xl);
     line-height: 1.8;
     color: #F6F4EC;
     margin-bottom: 1rem;
@@ -132,7 +132,7 @@
 
 .post-intro h2 {
     color: #6A7CFF;
-    font-size: 2rem;
+    font-size: var(--fz-3xl);
     margin-top: 2rem;
     margin-bottom: 1rem;
 }
@@ -174,7 +174,7 @@
     color: white;
     border: none;
     border-radius: 10px;
-    font-size: 1rem;
+    font-size: var(--fz-base);
     font-weight: 700;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -212,7 +212,7 @@
 }
 
 .page-indicator {
-    font-size: 1.3rem;
+    font-size: var(--fz-lg);
     color: #6A7CFF;
     font-weight: 700;
     letter-spacing: 1px;
@@ -257,7 +257,7 @@
 }
 
 .page-content h1 {
-    font-size: 2.5rem;
+    font-size: var(--fz-display);
     font-weight: 800;
     color: #F6F4EC;
     margin-bottom: 2rem;
@@ -265,7 +265,7 @@
 }
 
 .page-content h2 {
-    font-size: 2rem;
+    font-size: var(--fz-3xl);
     font-weight: 700;
     color: #6A7CFF;
     margin-top: 3rem;
@@ -273,7 +273,7 @@
 }
 
 .page-content h3 {
-    font-size: 1.5rem;
+    font-size: var(--fz-xl);
     font-weight: 600;
     color: #00D9A3;
     margin-top: 2rem;
@@ -282,7 +282,7 @@
 
 .page-content p {
     font-family: 'DM Sans', sans-serif;
-    font-size: 1.125rem;
+    font-size: var(--fz-lg);
     line-height: 1.8;
     color: #F6F4EC;
     margin-bottom: 1.5rem;
@@ -297,7 +297,7 @@
 
 .page-content li {
     font-family: 'DM Sans', sans-serif;
-    font-size: 1.125rem;
+    font-size: var(--fz-lg);
     line-height: 1.8;
     color: #F6F4EC;
     margin-bottom: 0.75rem;
@@ -310,7 +310,7 @@
     padding: 2px 8px;
     border-radius: 4px;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.9em;
+    font-size: var(--fz-sm);
 }
 
 .page-content pre {
@@ -327,7 +327,7 @@
     background: none;
     padding: 0;
     color: #F6F4EC;
-    font-size: 0.95rem;
+    font-size: var(--fz-sm);
     line-height: 1.6;
 }
 
@@ -421,7 +421,7 @@
 .page-content figcaption,
 .post-intro figcaption {
     color: #6A7CFF;
-    font-size: 0.9rem;
+    font-size: var(--fz-xs);
     margin-top: 0.5rem;
     font-style: italic;
 }

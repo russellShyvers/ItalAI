@@ -48,7 +48,7 @@
 }
 
 .footer-left p {
-    font-size: clamp(14px, 1.5vw, 16px);
+    font-size: var(--fz-base);
     line-height: 1.6;
     margin-bottom: 16px;
     color: rgba(255, 255, 255, 0.8);
@@ -75,7 +75,7 @@
 }
 
 .footer-section-title {
-    font-size: clamp(12px, 1.3vw, 14px);
+    font-size: var(--fz-sm);
     text-transform: uppercase;
     margin-bottom: 12px;
     color: rgba(255, 255, 255, 0.9);
@@ -85,7 +85,7 @@
     color: #6A7CFF;
     padding-top: 5px;
     text-decoration: underline;
-    font-size: clamp(14px, 1.5vw, 16px);
+    font-size: var(--fz-base);
     transition: color 0.3s ease;
 }
 
@@ -139,7 +139,7 @@
 }
 
 .contact-card p {
-    font-size: clamp(13px, 1.3vw, 15px);
+    font-size: var(--fz-sm);
     margin-bottom: 32px;
     color: rgba(255, 255, 255, 0.9);
     line-height: 1.5;
