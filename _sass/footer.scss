@@ -44,14 +44,14 @@
 }
 
 .period {
-    color: #FF0000;
+    color: var(--color-error);
 }
 
 .footer-left p {
     font-size: var(--fz-base);
     line-height: 1.6;
     margin-bottom: 16px;
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--color-text-muted);
     max-width: 500px;
 }
 
@@ -82,15 +82,15 @@
 }
 
 .footer-email {
-    color: #6A7CFF;
+    color: var(--color-primary);
     padding-top: 5px;
     text-decoration: underline;
     font-size: var(--fz-base);
-    transition: color 0.3s ease;
+    transition: color var(--transition-base);
 }
 
 .footer-email:hover {
-    color: #8A9CFF;
+    color: var(--color-primary-lighter);
 }
 
 .social-links {
@@ -104,17 +104,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
+    transition: all var(--transition-base);
 }
 
 .social-links a svg {
     width: 24px;
     height: 24px;
-    transition: all 0.3s ease;
+    transition: all var(--transition-base);
 }
 
 .social-links a:hover svg {
-    transform: translateY(-3px);
     opacity: 0.8;
 }
 
@@ -125,8 +124,8 @@
 
 /* Contact Card */
 .contact-card {
-    background: linear-gradient(135deg, #7B8CFF 0%, #6A7CFF 100%);
-    border-radius: 32px;
+    background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-primary) 100%);
+    border-radius: var(--radius-2xl);
     padding: 48px;
     box-shadow: 0 25px 70px rgba(106, 124, 255, 0.4);
 }
@@ -140,7 +139,7 @@
 
 .contact-card p {
     font-size: var(--fz-sm);
-    margin-bottom: 32px;
+    margin-bottom: var(--space-2xl);
     color: rgba(255, 255, 255, 0.9);
     line-height: 1.5;
 }

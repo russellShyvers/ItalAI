@@ -2,3 +2,91 @@
 layout: default
 title: What We Do
 ---
+
+<!-- Hero Section -->
+<section class="work-hero">
+  <div class="work-hero-content container">
+    <h1>
+      TURNING RESEARCH INTO<br>
+      <span class="highlight-blue italic">WORKING AI SYSTEMS</span><span class="period">.</span>
+    </h1>
+    <div class="breadcrumb">
+      <a href="/">HOME</a> / WHAT WE DO
+      <span class="breadcrumb-tagline">From research to deployment.</span>
+    </div>
+  </div>
+</section>
+
+<!-- What We Focus On Section -->
+<section class="focus-section">
+  <div class="focus-container container">
+    <div class="focus-image">
+      <div class="focus-shape"></div>
+    </div>
+    <div class="focus-content">
+      <p class="section-label">WHAT WE FOCUS ON</p>
+      <h2>
+        What we focus on<span class="period">.</span>
+      </h2>
+      <p class="description">
+        Our work starts from research and continues through system design and deployment.
+      </p>
+      <p class="description">
+        We focus on areas where scientific rigor and real-world constraints must coexist.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Capabilities Section -->
+<section class="capabilities-section">
+  <div class="capabilities-content container">
+    <p class="section-label">WHAT WE BUILD</p>
+    <h2>
+      CORE RESEARCH AND<br>
+      SYSTEM CAPABILITIES<span class="period">.</span>
+    </h2>
+    
+    <div class="capabilities-list">
+      {% for capability in site.data.capabilities %}
+      <details class="capability-item">
+        <summary class="capability-summary">
+          <h3 class="capability-number">{{ capability.number }}</h3>
+          <p class="capability-title">{{ capability.title }}</p>
+        </summary>
+        
+        <div class="capability-details">
+          {% if capability.type == 'papers' %}
+            <div class="papers-list">
+              {% for paper in capability.papers %}
+              <div class="paper-item">
+                <div class="paper-date-col">
+                  <span class="paper-date">{{ paper.date }}</span>
+                </div>
+                <div class="paper-topic-col">
+                  <span class="paper-topic">{{ paper.topic }}</span>
+                </div>
+                <div class="paper-content-col">
+                  <h4 class="paper-title">
+                    <a href="{{ paper.link }}">{{ paper.title }}</a>
+                  </h4>
+                  <p class="paper-description">{{ paper.description }}</p>
+                  {% if paper.acceptance %}
+                  <p class="paper-acceptance">{{ paper.acceptance }}</p>
+                  {% endif %}
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          {% else %}
+            <div class="capability-text">
+              {{ capability.content | markdownify }}
+            </div>
+          {% endif %}
+        </div>
+      </details>
+      {% endfor %}
+    </div>
+  </div>
+  <a class="cta-button cta-center cta-overlap" href="/roadmap">DISCOVER WHAT'S NEXT</a>
+</section>

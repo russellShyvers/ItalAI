@@ -1,4 +1,73 @@
 ---
 layout: default
-title: Roadmap
+title: What's Next
 ---
+
+<!-- Hero Section -->
+<section class="roadmap-hero">
+  <div class="roadmap-hero-content container">
+    <h1>
+      THE NEXT FRONTIER OF <span class="highlight-ai">AI</span><br>
+      IS <span class="highlight-physical italic">PHYSICAL</span><span class="period-red">.</span>
+    </h1>
+    <div class="breadcrumb">
+      <a href="/">HOME</a> / WHAT'S NEXT
+      <span class="breadcrumb-tagline">Beyond digital intelligence.</span>
+    </div>
+  </div>
+</section>
+
+<!-- Looking Ahead Section -->
+<section class="looking-ahead-section">
+  <div class="looking-ahead-container container">
+    <div class="looking-ahead-image">
+      <div class="spiral-shape"></div>
+    </div>
+    <div class="looking-ahead-content">
+      <p class="section-label">LOOKING AHEAD</p>
+      <h2>
+        From software to the<br>
+        physical world<span class="period-red">.</span>
+      </h2>
+      <p class="description">
+        AI has achieved extraordinary results in digital environments.
+      </p>
+      <p class="description">
+        The next challenge is operating in the physical world, where uncertainty, time, and interaction with the environment are unavoidable.
+      </p>
+      <p class="description">
+        Robotics marks a new phase for artificial intelligence, requiring systems that can perceive, act, and adapt beyond controlled settings.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Vision Cards Section - Dynamically Generated -->
+{% for card in site.data.roadmap_vision_cards %}
+<section class="vision-card-section {{ card.section_style }}">
+  <div class="vision-card-container container" style="background-image: linear-gradient(135deg, rgba(106, 124, 255, 0.45), rgba(106, 124, 255, 0.45)), url('{{ card.image }}');">
+    <div class="vision-card {{ card.card_style }}">
+      <h3>{{ card.title }}<span class="period-red">.</span></h3>
+      {% for paragraph in card.text %}
+      <p>{{ paragraph }}</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endfor %}
+
+<!-- Vision Statement Section -->
+<section class="vision-statement-section">
+  <div class="vision-statement-content container">
+    <h2>
+      THE FUTURE OF AI WILL NOT BE<br>
+      DEFINED BY SMARTER MODELS,<br>
+      <span class="highlight-green italic">BUT BY SYSTEMS THAT WORK<br>
+      IN THE REAL WORLD</span><span class="period-red">.</span>
+    </h2>
+    <a class="cta-alt-button cta-overlap" href="#contact">
+      <p class="cta-label cta-overlap">WANT TO KNOW MORE?</p>
+      GET IN TOUCH
+    </a>
+  </div>
+</section>

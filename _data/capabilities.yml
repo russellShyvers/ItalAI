@@ -1,0 +1,97 @@
+- number: "01"
+  title: "Frontier AI Research"
+  type: "papers"
+  papers:
+    - date: "CVPR'24"
+      topic: "Pretraining, Learning & Anomaly Detection"
+      title: "PREGO"
+      description: "Chroma modulate detection in Procedural FOGxcaramic videos"
+      link: "#"
+      
+    - date: "ICLR'24"
+      topic: "Uncertainty Estimation & Reason Adaptation"
+      title: "MALO"
+      description: "Multimodal Autoregressive Learning for Semantic Segmentation under Domain Shift"
+      link: "#"
+      
+    - date: "ICLR'24"
+      topic: "LLMs and Long-Term Reasoning / recognition"
+      title: "SERPENT"
+      description: "Spectral Reweighting for Efficient Long State Space Models"
+      link: "#"
+      
+    - date: "EMLM'24"
+      topic: "LLMs and Long-Term Reasoning / recognition"
+      title: "LONGCODEREACH"
+      description: "Evaluating Coding LLMs at 1M Context Windows"
+      link: "#"
+      
+    - date: "ECCV'24"
+      topic: "Multimodal Foundation Models"
+      title: "HYPERMODAL MULTIMODAL"
+      description: "Hyperbolic Learning with Multimodal Large Language Models"
+      link: "#"
+      
+    - date: "ICLR'25"
+      topic: "Multimodal Foundation Models"
+      title: "HYPOCLIP"
+      description: "Hyperbolic Contrastive Learning for Hyperbolic Vision-Language Models"
+      link: "#"
+      acceptance: "Accepted as oral paper at ICLR 2025"
+      
+    - date: "IROS'24"
+      topic: "Embodied AI"
+      title: "HYP2NAV"
+      description: "Hyperbolic Planning and Curiosity for Crowd Navigation"
+      link: "#"
+      
+    - date: "ICLR'25"
+      topic: "Embodied AI"
+      title: "SPA"
+      description: "Following the Human Thread in Social Navigation"
+      link: "#"
+      acceptance: "Accepted as oral paper at ICLR 2025"
+      
+    - date: "AAAT'26"
+      topic: "Computer Vision & Pattern Recognition"
+      title: "LISM"
+      description: "Latent Motion Unlearning"
+      link: "#"
+      
+    - date: "UNDER REVIEW"
+      topic: "Computer Vision & Pattern Recognition"
+      title: "VIDEO UNLEARNING"
+      description: "Via Low-Rank Latent Vector Unlearning"
+      link: "#"
+      
+    - date: "NEWEST"
+      topic: "Robotics"
+      title: "LEGO"
+      description: "Learning to Grasp Anything by Playing with Random Toys"
+      link: "#"
+
+- number: "02"
+  title: "Learning, Perception, and Representation"
+  type: "text"
+  content: |
+    We apply _advanced machine learning methods_ to complex, _real-world data_, with a strong focus on multimodal learning and representation.
+
+    Our work spans perception, learning under uncertainty, and vision-language models, enabling AI systems to reason across multiple data sources and time scales.
+
+    **We focus on methods that remain robust under domain shift and imperfect data, conditions that define real operational environments.**
+
+- number: "03"
+  title: "System-Level AI Design"
+  type: "text"
+  content: |
+    System-level AI design requires balancing theoretical advances with practical constraints. We focus on building efficient, scalable architectures that can be deployed in resource-constrained environments while maintaining high performance.
+    
+    Our work includes developing state space models for long-sequence processing, efficient training techniques for large-scale models, and architectures that can handle real-time inference requirements. We consider the entire system stack, from model architecture to deployment infrastructure.
+
+- number: "04"
+  title: "From Research to Real-World Systems"
+  type: "text"
+  content: |
+    Translating research into production systems requires careful attention to robustness, efficiency, and maintainability. We work on embodied AI systems that can navigate complex environments, interact with humans, and adapt to changing conditions.
+    
+    Our approach emphasizes rigorous testing, iterative refinement, and close collaboration between researchers and engineers. We focus on applications in robotics, autonomous navigation, and human-AI interaction, where theoretical advances must meet the demands of real-world deployment.
