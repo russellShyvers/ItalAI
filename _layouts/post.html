@@ -1,61 +1,153 @@
 ---
 layout: default
 ---
-<article class="post-paginated">
-  <header class="post-header">
-    <h1>{{ page.title }}</h1>
-    <time datetime="{{ page.date | date_to_xmlschema }}">
-      {{ page.date | date: "%B %d, %Y" }}
-    </time>
-    {% if page.series %}
-    <p class="series-link" style="margin-top: 1rem; font-size: 1.1rem;">
-      Part of the <a href="/series/{{ page.series | slugify }}/" style="color: #6A7CFF; text-decoration: none; font-weight: 600; border-bottom: 2px solid #6A7CFF; padding-bottom: 2px; transition: all 0.3s ease;">{{ page.series }}</a> series
-    </p>
-    {% endif %}
-  </header>
 
-  <div class="post-intro">
-    {{ content }}
-  </div>
+{% assign all_categories = site.posts | map: "category" | uniq | compact %}
+{% assign hero_image = page.hero_image | default: page.image %}
 
-  {% if page.series %}
-    {% assign series_posts = site.posts | where: "series", page.series | sort: "part" %}
-    {% assign current_part = page.part | plus: 0 %}
-    {% assign prev_part = current_part | minus: 1 %}
-    {% assign next_part = current_part | plus: 1 %}
-    {% assign prev_post = nil %}
-    {% assign next_post = nil %}
-    {% for post in series_posts %}
-      {% if post.part == prev_part %}
-        {% assign prev_post = post %}
-      {% endif %}
-      {% if post.part == next_part %}
-        {% assign next_post = post %}
-      {% endif %}
-    {% endfor %}
-
-  <nav class="page-navigation bottom-nav">
-    <div class="nav-arrows">
-      {% if prev_post %}
-      <a class="nav-btn" href="{{ prev_post.url }}" style="text-decoration: none;">
-        ← Previous: {{ prev_post.title }}
-      </a>
-      {% else %}
-      <button class="nav-btn" disabled>← Previous</button>
-      {% endif %}
-      
-      {% if next_post %}
-      <a class="nav-btn" href="{{ next_post.url }}" style="text-decoration: none;">
-        Next: {{ next_post.title }} →
-      </a>
-      {% else %}
-      <button class="nav-btn" disabled>Next →</button>
+<!-- Post Hero Section -->
+<section class="post-hero"{% if hero_image %} style="background: linear-gradient(135deg, rgba(16, 18, 43, 0.9), rgba(16, 18, 43, 0.88)), url('{{ hero_image }}'); background-size: cover; background-position: center;"{% endif %}>
+  <div class="post-hero-content container">
+    <h1 class="post-hero-title">{{ page.title }}</h1>
+    <div class="breadcrumb">
+      <span>
+        <a href="/">HOME</a> / <a href="/insights/">INSIGHTS</a> / {{ page.series | default: "POST" | upcase }}
+      </span>
+      {% assign hero_tagline = page.subtitle | default: page.excerpt %}
+      {% if hero_tagline %}
+        <span class="breadcrumb-tagline">{{ hero_tagline | strip_html | truncate: 90 }}</span>
       {% endif %}
     </div>
-    
-    <a class="nav-btn back-to-toc" href="/series/{{ page.series | slugify }}/" style="text-decoration: none;">
-      ← Back to Series Hub
-    </a>
-  </nav>
-  {% endif %}
-</article>
+  </div>
+</section>
+
+<!-- Post Content Section -->
+<section class="post-content-section">
+  <div class="container">
+    <div class="post-layout">
+      
+      <!-- Sidebar -->
+      <aside class="post-sidebar">
+        <!-- Post Categories -->
+        <div class="sidebar-widget">
+          <h3 class="sidebar-title">TAGS</h3>
+          <div class="category-tags">
+            {% if page.categories %}
+              {% for category in page.categories %}
+              <a href="/insights/?category={{ category | slugify }}" class="category-tag active">{{ category | upcase }}</a>
+              {% endfor %}
+            {% elsif page.category %}
+              <a href="/insights/?category={{ page.category | slugify }}" class="category-tag active">{{ page.category | upcase }}</a>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Recent Posts -->
+        <div class="sidebar-widget">
+          <h3 class="sidebar-title">RECENT POSTS</h3>
+          <div class="recent-posts">
+            {% assign recent_posts = site.posts | where_exp: "post", "post.published_in_blog != false" | limit: 3 %}
+            {% for post in recent_posts %}
+            <a href="{{ post.url }}" class="recent-post-item">
+              {% if post.image %}
+              <img src="{{ post.image }}" alt="{{ post.title }}" class="recent-post-thumb">
+              {% endif %}
+              <div class="recent-post-info">
+                <p class="recent-post-date">{{ post.date | date: "%d-%m-%Y" }}</p>
+                <p class="recent-post-title">{{ post.title | strip_html | truncatewords: 10 }}</p>
+              </div>
+            </a>
+            {% endfor %}
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <article class="post-main">
+        <!-- Featured Image -->
+        {% if page.image %}
+        <div class="post-featured-image">
+          {% if page.date %}
+          <span class="insight-tag" style="top: auto; bottom: var(--space-sm);">{{ page.date | date: "%d %b %Y" }}</span>
+          {% endif %}
+          {% if page.category %}
+          <span class="insight-tag" style="top: auto; bottom: var(--space-sm); left: auto; right: var(--space-sm); background: var(--color-secondary);">{{ page.category | upcase }}</span>
+          {% endif %}
+          <img src="{{ page.image }}" alt="{{ page.title }}">
+        </div>
+        {% endif %}
+
+        <!-- Post Body -->
+        <div class="post-body">
+          {{ content }}
+        </div>
+
+        <!-- Author Info (centralized from _data/people.yml) -->
+        {% if page.author %}
+        {% assign author_name = page.author %}
+        {% assign author_data = nil %}
+        {% for group in site.data.people %}
+          {% assign group_list = group[1] %}
+          {% if group_list %}
+            {% for person in group_list %}
+              {% if person.name == author_name %}
+                {% assign author_data = person %}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
+        <div class="post-author">
+          <h4>BY {{ author_name | upcase }}</h4>
+          {% if author_data %}
+            {% assign author_excerpt = author_data.excerpt | default: author_data.bio %}
+            {% if author_excerpt %}
+              <p>{{ author_excerpt | strip_html | truncatewords: 40 }}</p>
+            {% else %}
+              <p>{{ author_data.role }}{% if author_data.credentials %} — {{ author_data.credentials }}{% endif %}</p>
+            {% endif %}
+          {% elsif page.author_bio %}
+            <p>{{ page.author_bio | strip_html | truncatewords: 40 }}</p>
+          {% endif %}
+        </div>
+        {% endif %}
+
+        <!-- Post Navigation -->
+        {% if page.series %}
+        {% assign series_posts = site.posts | where: "series", page.series | sort: "part" %}
+        {% assign current_part = page.part | plus: 0 %}
+        {% assign prev_part = current_part | minus: 1 %}
+        {% assign next_part = current_part | plus: 1 %}
+        {% assign prev_post = nil %}
+        {% assign next_post = nil %}
+        {% for post in series_posts %}
+          {% if post.part == prev_part %}
+            {% assign prev_post = post %}
+          {% endif %}
+          {% if post.part == next_part %}
+            {% assign next_post = post %}
+          {% endif %}
+        {% endfor %}
+
+        <nav class="post-navigation">
+          {% if prev_post %}
+          <a class="nav-btn prev" href="{{ prev_post.url }}">
+            ← {{ prev_post.title }}
+          </a>
+          {% else %}
+          <span class="nav-btn disabled">← Previous</span>
+          {% endif %}
+          
+          {% if next_post %}
+          <a class="nav-btn next" href="{{ next_post.url }}">
+            {{ next_post.title }} →
+          </a>
+          {% else %}
+          <span class="nav-btn disabled">Next →</span>
+          {% endif %}
+        </nav>
+        {% endif %}
+
+      </article>
+    </div>
+  </div>
+</section>

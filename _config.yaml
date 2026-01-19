@@ -1,9 +1,17 @@
+permalink: /insights/:title/
+destination: ./_site
+source: ./
+
 social:
   twitter: https://x.com/_italai
   linkedin: https://www.linkedin.com/company/italai/
 markdown: kramdown
 kramdown:
   toc_levels: 2..5
+  math_engine: katex
+  math_engine_opts:
+    katex_opts:
+      throwOnError: false
 plugins:
   - jekyll-sitemap
   - jekyll-seo-tag

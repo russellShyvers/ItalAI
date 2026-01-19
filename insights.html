@@ -2,3 +2,357 @@
 layout: default
 title: Insights
 ---
+
+<!-- Hero Section -->
+<section class="insights-hero">
+  <div class="insights-hero-content container">
+    <h1>
+      FROM <span class="highlight italic">RESEARCH</span>
+      TO <span class="highlight-blue italic">REALITY</span><span class="period">.</span>
+    </h1>
+    <div class="breadcrumb">
+      <a href="/">HOME</a> / INSIGHTS
+      <span class="breadcrumb-tagline">Sharing ideas that shape intelligent systems.</span>
+    </div>
+  </div>
+</section>
+
+<!-- Filter Section -->
+<section class="insights-filter">
+  <div class="container">
+    <div class="filter-controls">
+      <h3 class="filter-title">FILTER BY CATEGORY</h3>
+      
+      <!-- Mobile/Dropdown Filter -->
+      <div class="filter-dropdown-wrapper">
+        <select id="categoryDropdown" class="filter-dropdown">
+          <option value="all">ALL CATEGORIES</option>
+          {% assign all_categories = "" | split: "," %}
+          {% for post in site.posts %}
+            {% if post.published_in_blog != false %}
+              {% if post.categories %}
+                {% for cat in post.categories %}
+                  {% unless all_categories contains cat %}
+                    {% assign all_categories = all_categories | push: cat %}
+                  {% endunless %}
+                {% endfor %}
+              {% elsif post.category %}
+                {% unless all_categories contains post.category %}
+                  {% assign all_categories = all_categories | push: post.category %}
+                {% endunless %}
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+          {% assign all_categories = all_categories | sort %}
+          {% for category in all_categories %}
+            <option value="{{ category | slugify }}">{{ category | upcase }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      
+      <!-- Desktop Filter Buttons -->
+      <div class="filter-buttons" id="filterButtons">
+        <button class="filter-btn active" data-category="all">ALL</button>
+        {% assign all_categories = "" | split: "," %}
+        {% for post in site.posts %}
+          {% if post.published_in_blog != false %}
+            {% if post.categories %}
+              {% for cat in post.categories %}
+                {% unless all_categories contains cat %}
+                  {% assign all_categories = all_categories | push: cat %}
+                {% endunless %}
+              {% endfor %}
+            {% elsif post.category %}
+              {% unless all_categories contains post.category %}
+                {% assign all_categories = all_categories | push: post.category %}
+              {% endunless %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+        {% assign all_categories = all_categories | sort %}
+        {% for category in all_categories %}
+          <button class="filter-btn" data-category="{{ category | slugify }}">{{ category | upcase }}</button>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Insights Grid Section -->
+<section class="insights-hub">
+  <div class="container">
+    <div class="insights-grid" id="insightsGrid">
+      {% comment %}
+      Sort posts by date (descending), then by series and part number.
+      For posts with the same date, sort by part number (ascending) so Part 1 comes before Part 2.
+      {% endcomment %}
+      {% assign sorted_posts = site.posts | sort: "part" | sort: "date" | reverse %}
+      {% for post in sorted_posts %}
+        {% if post.published_in_blog != false %}
+          <a href="{{ post.url }}" class="insight-card-link">
+            <div class="insight-card">
+              <div class="insight-card-image-wrapper">
+                <img src="{{ post.image }}" alt="{{ post.title }}" class="insight-card-image">
+              </div>
+              <div class="insight-card-content">
+                {% if post.series and post.part %}
+                  <div class="insight-card-series">
+                    <span class="series-name">{{ post.series | upcase }}</span>
+                    <span class="series-divider">•</span>
+                    <span class="series-part">PART {{ post.part }}</span>
+                  </div>
+                {% endif %}
+                <h3 class="insight-card-title">{{ post.title }}</h3>
+                <p class="insight-card-excerpt">{{ post.excerpt | strip_html | truncatewords: 25 }}</p>
+                <!-- Display all post categories as tags -->
+                <div class="insight-card-tags">
+                  {% if post.categories %}
+                    {% for cat in post.categories %}
+                      <button class="insight-card-tag" data-tag-category="{{ cat | slugify }}">{{ cat }}</button>
+                    {% endfor %}
+                  {% elsif post.category %}
+                    <button class="insight-card-tag" data-tag-category="{{ post.category | slugify }}">{{ post.category }}</button>
+                  {% else %}
+                    <button class="insight-card-tag" data-tag-category="research">Research</button>
+                  {% endif %}
+                </div>
+                <span class="insight-card-link-text">READ →</span>
+              </div>
+            </div>
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <!-- Pagination/Load More Section -->
+    <div class="insights-pagination" id="insightsPagination">
+      <button class="load-more-btn" id="loadMoreBtn" style="display: none;">
+        LOAD MORE INSIGHTS
+      </button>
+      <div class="pagination-info">
+        <span id="itemsShown">Showing all insights</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Pagination and filter logic
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log('Insights page loaded');
+    
+    const insightsGrid = document.getElementById('insightsGrid');
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+    const itemsShown = document.getElementById('itemsShown');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const categoryDropdown = document.getElementById('categoryDropdown');
+    const postsPerPage = 6; // Show 6 cards initially (2 rows)
+    
+    const allCards = Array.from(insightsGrid.querySelectorAll('.insight-card-link'));
+    console.log(`Total cards found: ${allCards.length}`);
+    
+    // Log all cards and their categories
+    allCards.forEach((card, index) => {
+      const tagButtons = card.querySelectorAll('.insight-card-tag');
+      const categories = Array.from(tagButtons).map(btn => {
+        return btn.getAttribute('data-tag-category');
+      }).join(', ');
+      console.log(`Card ${index + 1}: ${card.textContent.trim().split('\n')[0]} | Categories: ${categories}`);
+    });
+    
+    let currentCategory = 'all';
+    let currentPage = 1;
+    
+    // Check for category filter from URL
+    const params = new URLSearchParams(window.location.search);
+    const categoryParam = params.get('category');
+    
+    if (categoryParam) {
+      console.log(`URL category parameter detected: ${categoryParam}`);
+      currentCategory = categoryParam;
+      
+      // Update active button and dropdown
+      filterButtons.forEach(btn => {
+        if (btn.getAttribute('data-category') === categoryParam) {
+          btn.classList.add('active');
+        } else if (btn.getAttribute('data-category') === 'all') {
+          btn.classList.remove('active');
+        }
+      });
+      
+      if (categoryDropdown) {
+        categoryDropdown.value = categoryParam;
+      }
+    }
+    
+    function getFilteredCards() {
+      if (currentCategory === 'all') {
+        console.log('Showing all cards');
+        return allCards;
+      }
+      
+      const filtered = allCards.filter(card => {
+        const tagButtons = card.querySelectorAll('.insight-card-tag');
+        const categories = Array.from(tagButtons).map(btn => {
+          return btn.getAttribute('data-tag-category');
+        });
+        
+        const matches = categories.includes(currentCategory);
+        
+        if (matches) {
+          console.log(`  ✓ Matched: ${card.textContent.trim().split('\n')[0]} (categories: ${categories.join(', ')})`);
+        }
+        
+        return matches;
+      });
+      
+      console.log(`Filtered cards for category "${currentCategory}": ${filtered.length}`);
+      return filtered;
+    }
+    
+    function showCards(pageNum) {
+      const cards = getFilteredCards();
+      const totalCards = cards.length;
+      const end = pageNum * postsPerPage;
+      
+      console.log(`Showing page ${pageNum}, displaying ${Math.min(end, totalCards)} of ${totalCards} cards`);
+      
+      // Hide all cards first
+      allCards.forEach(card => {
+        card.style.display = 'none';
+      });
+      
+      // Show filtered cards up to current page
+      cards.forEach((card, index) => {
+        card.style.display = index < end ? 'block' : 'none';
+      });
+      
+      // Show load more button if there are more cards
+      if (end < totalCards) {
+        loadMoreBtn.style.display = 'block';
+      } else {
+        loadMoreBtn.style.display = 'none';
+      }
+      
+      // Update info text
+      const showing = Math.min(end, totalCards);
+      itemsShown.textContent = `Showing ${showing} of ${totalCards} insights`;
+      
+      if (totalCards === 0) {
+        itemsShown.textContent = 'No insights found for this category';
+      }
+    }
+    
+    // Filter button click handlers
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', function() {
+        const category = this.getAttribute('data-category');
+        console.log(`Filter button clicked: ${category}`);
+        
+        // Update active state
+        filterButtons.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        
+        // Update dropdown
+        if (categoryDropdown) {
+          categoryDropdown.value = category;
+        }
+        
+        // Update current category and reset page
+        currentCategory = category;
+        currentPage = 1;
+        
+        // Update URL
+        if (category === 'all') {
+          window.history.pushState({}, '', '/insights/');
+        } else {
+          window.history.pushState({}, '', `/insights/?category=${category}`);
+        }
+        
+        // Show filtered cards
+        showCards(currentPage);
+      });
+    });
+    
+    // Dropdown change handler
+    if (categoryDropdown) {
+      categoryDropdown.addEventListener('change', function() {
+        const category = this.value;
+        console.log(`Dropdown changed: ${category}`);
+        
+        // Update active state
+        filterButtons.forEach(b => b.classList.remove('active'));
+        if (category === 'all') {
+          filterButtons[0].classList.add('active');
+        } else {
+          filterButtons.forEach(b => {
+            if (b.getAttribute('data-category') === category) {
+              b.classList.add('active');
+            }
+          });
+        }
+        
+        // Update current category and reset page
+        currentCategory = category;
+        currentPage = 1;
+        
+        // Update URL
+        if (category === 'all') {
+          window.history.pushState({}, '', '/insights/');
+        } else {
+          window.history.pushState({}, '', `/insights/?category=${category}`);
+        }
+        
+        // Show filtered cards
+        showCards(currentPage);
+      });
+    }
+    
+    // Category tag click handlers
+    const categoryTags = document.querySelectorAll('.insight-card-tag');
+    categoryTags.forEach(tag => {
+      tag.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const category = this.getAttribute('data-tag-category');
+        console.log(`Category tag clicked: ${category}`);
+        
+        // Update active state
+        filterButtons.forEach(b => b.classList.remove('active'));
+        filterButtons.forEach(b => {
+          if (b.getAttribute('data-category') === category) {
+            b.classList.add('active');
+          }
+        });
+        
+        // Update dropdown
+        if (categoryDropdown) {
+          categoryDropdown.value = category;
+        }
+        
+        // Update current category and reset page
+        currentCategory = category;
+        currentPage = 1;
+        
+        // Update URL
+        window.history.pushState({}, '', `/insights/?category=${category}`);
+        
+        // Show filtered cards
+        showCards(currentPage);
+        
+        // Scroll to filter buttons
+        document.getElementById('filterButtons').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+    
+    loadMoreBtn.addEventListener('click', function() {
+      console.log('Load more button clicked');
+      currentPage++;
+      showCards(currentPage);
+    });
+    
+    // Initial display
+    showCards(currentPage);
+  });
+</script>

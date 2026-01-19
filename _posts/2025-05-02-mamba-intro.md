@@ -2,11 +2,12 @@
 layout: post
 title: "🏆 Introduction: Sequence-to-Sequence Modeling"
 category: "Transformers"
-image: "/assets/images/ssm.png"
+image: "/assets/images/blog/cards/ssm.png"
 excerpt: "Is there an alternative to transformer networks?"
 series: mamba
 part: 1
-published_in_blog: false
+published_in_blog: true
+author: "Guido Maria D'Amely di Melendugno"
 ---
 
 # 🏆 Introduction: Sequence-to-Sequence Modeling

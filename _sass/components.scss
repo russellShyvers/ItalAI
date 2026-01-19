@@ -18,10 +18,77 @@
  * ============================================================================
  */
 
-/* ============================================================================
- * 1. BUTTONS & CTAs
- * ============================================================================ */
+/* ============================================
+   COMPONENTS - Reusable UI Components
+   ============================================ */
 
+/* --- Person Cards --- */
+.category-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.category-header {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  text-transform: capitalize;
+}
+
+.person-card {
+  width: 245px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+  border: 2px solid black;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.person-image {
+  width: 100%;
+  height: 245px;
+  background: #6f83ff;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.person-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%);
+}
+
+.person-info {
+  text-align: center;
+  padding: 0.2rem;
+}
+
+.person-name {
+  color: black;
+  margin-top: 0.75rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.person-role,
+.person-credentials {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #555;
+  text-align: center;
+}
+
+/* --- Buttons --- */
 .cta-button {
   background: 
     linear-gradient(var(--color-primary), var(--color-primary)) padding-box,
@@ -128,7 +195,7 @@
 
 .submit-btn {
   background:
-    linear-gradient(black, black) padding-box,
+    linear-gradient(var(--color-dark), var(--color-dark)) padding-box,
     linear-gradient(
       90deg,
       var(--color-primary) 0%,
@@ -147,7 +214,7 @@
   letter-spacing: 1.5px;
   cursor: pointer;
   transition: all var(--transition-base);
-  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
+  box-shadow: var(--shadow-primary);
 }
 
 .submit-btn:hover {
@@ -182,6 +249,8 @@
   white-space: nowrap;
   cursor: pointer;
   flex: 0 1 auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .tag-button:hover {
@@ -204,13 +273,21 @@
   margin-left: auto;
   margin-right: auto;
   top: 50%;
-  margin-bottom: 0;
   transform: translateY(50%);
+  margin-bottom: 0;
 }
 
-/* ============================================================================
- * 4. ABOUT PAGE COMPONENTS
- * ============================================================================ */
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .cta-button,
+  .cta-alt-button {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+/* --- About Page Components --- */
+
+/* About Hero Section */
 .about-hero {
   background: var(--gradient-dark);
   padding: var(--space-2xl) var(--space-lg) var(--space-xl);
@@ -294,6 +371,7 @@
 }
 
 .who-container {
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 var(--space-lg);
   display: flex;
@@ -315,6 +393,11 @@
   max-width: 350px;
   height: auto;
   animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
 }
 
 .who-content {
@@ -690,6 +773,10 @@
 }
 
 .principle-card {
+  background: rgba(106, 124, 255, 0.1);
+  border: 1px solid rgba(106, 124, 255, 0.3);
+  border-radius: 15px;
+  padding: 2rem;
   position: relative;
   overflow: hidden;
   transition: all var(--transition-base);
@@ -704,7 +791,8 @@
 .principle-number {
   font-size: 3rem;
   font-weight: 800;
-  color: #6A7CFF;
+  color: #32B692;
+  margin-bottom: 1rem;
   line-height: 1;
   flex-shrink: 0;
 }
