@@ -4,3 +4,11 @@
 /styles
 /vendor
 /_site
+/node_modules
+/.lighthouseci
+/lighthouse-reports
+
+# Images - only track WebP format
+*.jpg
+*.jpeg
+*.png

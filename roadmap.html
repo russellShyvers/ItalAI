@@ -45,7 +45,8 @@ title: What's Next
 <!-- Vision Cards Section - Dynamically Generated -->
 {% for card in site.data.roadmap_vision_cards %}
 <section class="vision-card-section {{ card.section_style }}">
-  <div class="vision-card-container container" style="background-image: linear-gradient(135deg, rgba(106, 124, 255, 0.45), rgba(106, 124, 255, 0.45)), url('{{ card.image }}');">
+  <div class="vision-card-container container">
+    <img src="{{ card.image | replace: '.png', '.webp' | replace: '.jpg', '.webp' }}" alt="" class="vision-card-bg-image" loading="lazy">
     <div class="vision-card {{ card.card_style }}">
       <h3>{{ card.title }}<span class="period-red">.</span></h3>
       {% for paragraph in card.text %}
@@ -58,6 +59,7 @@ title: What's Next
 
 <!-- Vision Statement Section -->
 <section class="vision-statement-section">
+  <img src="/assets/images/hero-bg.webp" alt="" class="vision-statement-bg-image" loading="lazy">
   <div class="vision-statement-content container">
     <h2>
       THE FUTURE OF AI WILL NOT BE<br>

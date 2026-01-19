@@ -4,6 +4,7 @@ title: Home
 ---
 <!-- Hero Section -->
 <section class="hero">
+    <img src="/assets/images/hero-bg.webp" alt="" class="hero-bg-image" loading="lazy">
     <div class="hero-content container">
         <h1>
             WHERE FRONTIER AI <span class="highlight">RESEARCH</span>
@@ -23,19 +24,19 @@ title: Home
     <div class="container">
         <div class="cards-grid">
     <div class="card blue">
-      <!-- Placeholder for 3D cube/blocks image -->
+      <img src="/assets/images/hero-bg.webp" alt="" class="card-bg-image" loading="lazy">
       <h3 class="card-title">Frontier<br>Research</h3>
       <p class="card-text">Deep AI & robotics research at global scale.</p>
     </div>
     
     <div class="card dark">
-      <!-- Placeholder for sphere image -->
+      <img src="/assets/images/hero-bg.webp" alt="" class="card-bg-image" loading="lazy">
       <h3 class="card-title">Applied<br>Intelligence</h3>
       <p class="card-text">From scientific breakthroughs to real-world systems.</p>
     </div>
     
     <div class="card green">
-      <!-- Placeholder for cloud/organic shape image -->
+      <img src="/assets/images/hero-bg.webp" alt="" class="card-bg-image" loading="lazy">
       <h3 class="card-title">Global<br>Ecosystem</h3>
       <p class="card-text">Connected with Berkeley, NVIDIA, Panasonic, Sapienza.</p>
     </div>
@@ -102,8 +103,10 @@ title: Home
         <div class="content-cards">
             {% for card in site.data.revolution_cards %}
             <div class="content-card {% if forloop.first %}active{% endif %}" 
-                data-card="{{ card.id }}"
-                {% if card.background_image != "" %}style="background-image: linear-gradient(135deg, rgba(106, 124, 255, 0.45), rgba(106, 124, 255, 0.45)), url('{{ card.background_image }}');"{% endif %}>
+                data-card="{{ card.id }}">
+                {% if card.background_image != "" %}
+                <img src="{{ card.background_image | replace: '.png', '.webp' | replace: '.jpg', '.webp' }}" alt="" class="content-card-bg-image" loading="lazy">
+                {% endif %}
                 <h2>{{ card.title }} <em class="title-emphasis">{{ card.title_emphasis }}</em></h2>
                 <div class="content-text">
                     {% for paragraph in card.paragraphs %}

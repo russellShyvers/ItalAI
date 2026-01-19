@@ -2,16 +2,29 @@ permalink: /insights/:title/
 destination: ./_site
 source: ./
 
+description: "Your site description here"
+
+# Do not publish legacy raster assets; only WebP should ship in the build artifacts.
+exclude:
+  - "assets/images/**/*.jpg"
+  - "assets/images/**/*.jpeg"
+  - "assets/images/**/*.png"
+  - "assets/images/**/*.gif"
+  - "scripts"
+  - "lighthouse-reports"
+
 social:
   twitter: https://x.com/_italai
   linkedin: https://www.linkedin.com/company/italai/
+
 markdown: kramdown
 kramdown:
   toc_levels: 2..5
-  math_engine: katex
-  math_engine_opts:
-    katex_opts:
-      throwOnError: false
+  math_engine: null
+  math_output: latex
+sass:
+  style: compressed
+
 plugins:
   - jekyll-sitemap
   - jekyll-seo-tag

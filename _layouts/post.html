@@ -5,8 +5,22 @@ layout: default
 {% assign all_categories = site.posts | map: "category" | uniq | compact %}
 {% assign hero_image = page.hero_image | default: page.image %}
 
+<style>
+  /* Scope post body images to lazy-render and avoid layout shifts */
+  .post-body img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    content-visibility: auto;
+    contain-intrinsic-size: 800px auto;
+  }
+</style>
+
 <!-- Post Hero Section -->
-<section class="post-hero"{% if hero_image %} style="background: linear-gradient(135deg, rgba(16, 18, 43, 0.9), rgba(16, 18, 43, 0.88)), url('{{ hero_image }}'); background-size: cover; background-position: center;"{% endif %}>
+<section class="post-hero">
+  {% if hero_image %}
+  <img src="{{ hero_image | replace: '.png', '.webp' | replace: '.jpg', '.webp' }}" alt="" class="post-hero-bg-image" loading="lazy">
+  {% endif %}
   <div class="post-hero-content container">
     <h1 class="post-hero-title">{{ page.title }}</h1>
     <div class="breadcrumb">

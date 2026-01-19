@@ -24,7 +24,7 @@ The memory problem and the S4 model
 
 Bearing in mind the fundamental equations of discrete SSMs:
 
-$$ h_{n}=Ah\_{n-1}+Bx_n, \\
+$$ h_{n}=Ah_{n-1}+Bx_n, \\
 y_n = Ch_n+Dx_n $$
 
 we can see that the vector $$h_n$$ carries the information extracted from the input sequence $$𝑥$$ up to the current time $$n$$. This remark lets us interpret the internal state as the system's _memory_. Indeed, every new data point $$x_n$$ influences the next stage of the memory being "gated" by the input matrix $$B$$ and then added to the memory, including its piece of information within the history recorded by $$h_n$$. Moreover, the matrix $$A$$ describes the evolution of the memory through time, selecting the parts of it that need to be forgotten to allocate the information content of the more recent entries.
