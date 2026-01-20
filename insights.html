@@ -23,34 +23,6 @@ title: Insights
     <div class="filter-controls">
       <h3 class="filter-title">FILTER BY CATEGORY</h3>
       
-      <!-- Mobile/Dropdown Filter -->
-      <div class="filter-dropdown-wrapper">
-        <select id="categoryDropdown" class="filter-dropdown">
-          <option value="all">ALL CATEGORIES</option>
-          {% assign all_categories = "" | split: "," %}
-          {% for post in site.posts %}
-            {% if post.published_in_blog != false %}
-              {% if post.categories %}
-                {% for cat in post.categories %}
-                  {% unless all_categories contains cat %}
-                    {% assign all_categories = all_categories | push: cat %}
-                  {% endunless %}
-                {% endfor %}
-              {% elsif post.category %}
-                {% unless all_categories contains post.category %}
-                  {% assign all_categories = all_categories | push: post.category %}
-                {% endunless %}
-              {% endif %}
-            {% endif %}
-          {% endfor %}
-          {% assign all_categories = all_categories | sort %}
-          {% for category in all_categories %}
-            <option value="{{ category | slugify }}">{{ category | upcase }}</option>
-          {% endfor %}
-        </select>
-      </div>
-      
-      <!-- Desktop Filter Buttons -->
       <div class="filter-buttons" id="filterButtons">
         <button class="filter-btn active" data-category="all">ALL</button>
         {% assign all_categories = "" | split: "," %}

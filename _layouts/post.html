@@ -48,10 +48,10 @@ layout: default
           <div class="category-tags">
             {% if page.categories %}
               {% for category in page.categories %}
-              <a href="/insights/?category={{ category | slugify }}" class="category-tag active">{{ category | upcase }}</a>
+              <a href="/insights/?category={{ category | slugify }}" class="category-tag">{{ category | upcase }}</a>
               {% endfor %}
             {% elsif page.category %}
-              <a href="/insights/?category={{ page.category | slugify }}" class="category-tag active">{{ page.category | upcase }}</a>
+              <a href="/insights/?category={{ page.category | slugify }}" class="category-tag">{{ page.category | upcase }}</a>
             {% endif %}
           </div>
         </div>

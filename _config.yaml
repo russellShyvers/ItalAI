@@ -2,6 +2,8 @@ permalink: /insights/:title/
 destination: ./_site
 source: ./
 
+url: "https://italai.landofsharks.com"
+
 description: "Your site description here"
 
 # Do not publish legacy raster assets; only WebP should ship in the build artifacts.
@@ -9,9 +11,8 @@ exclude:
   - "assets/images/**/*.jpg"
   - "assets/images/**/*.jpeg"
   - "assets/images/**/*.png"
-  - "assets/images/**/*.gif"
+  # - "assets/images/**/*.gif"
   - "scripts"
-  - "lighthouse-reports"
 
 social:
   twitter: https://x.com/_italai

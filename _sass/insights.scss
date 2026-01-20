@@ -53,6 +53,8 @@
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: var(--space-lg);
   margin-bottom: var(--space-2xl);
+  margin-top: var(--space-lg);
+  clear: both;
   
   @media (max-width: 1024px) {
     grid-template-columns: repeat(2, 1fr);
@@ -72,11 +74,6 @@
   
   &:hover {
     transform: translateY(-8px);
-    
-    .insight-card {
-      box-shadow: var(--shadow-lg);
-      border-color: var(--color-primary);
-    }
     
     .insight-card-image {
       transform: scale(1.05);
@@ -105,34 +102,6 @@
   font-weight: 600;
   letter-spacing: 0.1em;
   margin-bottom: var(--space-md, 1.5rem);
-}
-
-.filter-dropdown-wrapper {
-  display: none;
-  margin-bottom: var(--space-md, 1.5rem);
-}
-
-.filter-dropdown {
-  width: 100%;
-  max-width: 300px;
-  padding: 0.75rem 1rem;
-  background: transparent;
-  border: 2px solid var(--color-accent, #00bfff);
-  color: var(--color-accent, #00bfff);
-  font-size: 0.875rem;
-  font-weight: 600;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.filter-dropdown option {
-  background: var(--color-bg-primary, #10122b);
-  color: var(--color-text-primary, #ffffff);
-}
-
-.filter-dropdown:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(0, 191, 255, 0.2);
 }
 
 .filter-buttons {
@@ -167,10 +136,6 @@
 
 /* Mobile responsive */
 @media (max-width: 768px) {
-  .filter-dropdown-wrapper {
-    display: block;
-  }
-
   .filter-buttons {
     display: none;
   }
@@ -212,6 +177,7 @@
 
 /* Insight Card Container */
 .insight-card {
+  box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
   background: var(--color-bg-dark);
@@ -382,25 +348,10 @@
   }
 }
 
-/* Empty State */
-.insights-empty {
-  text-align: center;
-  padding: var(--space-2xl);
-  color: rgba(255, 255, 255, 0.6);
-  
-  p {
-    font-size: var(--fz-base);
-  }
-}
-
 /* Responsive Adjustments */
 @media (max-width: 1024px) {
   .insights-hub {
     padding: var(--space-xl) var(--space-md);
-  }
-  
-  .insights-grid {
-    gap: var(--space-md);
   }
 }
 
@@ -411,10 +362,6 @@
   
   .insight-card-content {
     padding: var(--space-md);
-  }
-  
-  .insights-grid {
-    gap: var(--space-sm);
   }
 }
 

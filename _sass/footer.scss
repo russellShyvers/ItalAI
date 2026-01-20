@@ -43,10 +43,6 @@
     letter-spacing: -1px;
 }
 
-.period {
-    color: var(--color-error);
-}
-
 .footer-left p {
     font-size: var(--fz-base);
     line-height: 1.6;
@@ -91,30 +87,6 @@
 
 .footer-email:hover {
     color: var(--color-primary-lighter);
-}
-
-.social-links {
-    display: flex;
-    gap: 12px;
-}
-
-.social-links a {
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all var(--transition-base);
-}
-
-.social-links a svg {
-    width: 24px;
-    height: 24px;
-    transition: all var(--transition-base);
-}
-
-.social-links a:hover svg {
-    opacity: 0.8;
 }
 
 .footer-logo img {
