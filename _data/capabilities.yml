@@ -37,7 +37,6 @@
       title: "HYPOCLIP"
       description: "Hyperbolic Contrastive Learning for Hyperbolic Vision-Language Models"
       link: "#"
-      acceptance: "Accepted as oral paper at ICLR 2025"
       
     - date: "IROS'24"
       topic: "Embodied AI"
@@ -50,7 +49,6 @@
       title: "SPA"
       description: "Following the Human Thread in Social Navigation"
       link: "#"
-      acceptance: "Accepted as oral paper at ICLR 2025"
       
     - date: "AAAT'26"
       topic: "Computer Vision & Pattern Recognition"
