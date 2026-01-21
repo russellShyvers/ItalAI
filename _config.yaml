@@ -13,6 +13,7 @@ exclude:
   - "assets/images/**/*.png"
   # - "assets/images/**/*.gif"
   - "scripts"
+  - "README.md"
 
 social:
   twitter: https://x.com/_italai
