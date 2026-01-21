@@ -1,8 +1,3 @@
-title: "Your Post Title"
-categories: 
-title: "Your Post Title"
-description: "A short summary for SEO."
-
 # ItalAI
 
 ItalAI is a Jekyll-based static site dedicated to advancing AI capabilities and sharing insights. This repository contains the source code and content for the ItalAI website, including:
