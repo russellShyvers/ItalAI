@@ -3,19 +3,18 @@ layout: default
 title: Insights
 ---
 
-<!-- Hero Section -->
-<section class="insights-hero">
-  <div class="insights-hero-content container">
-    <h1>
-      FROM <span class="highlight italic">RESEARCH</span>
-      TO <span class="highlight-blue italic">REALITY</span><span class="period">.</span>
-    </h1>
-    <div class="breadcrumb">
-      <a href="/">HOME</a> / INSIGHTS
-      <span class="breadcrumb-tagline">Sharing ideas that shape intelligent systems.</span>
-    </div>
-  </div>
-</section>
+{%- capture hero_heading -%}
+SHARING IDEAS THAT SHAPE<br>
+<span class="highlight-blue italic weak">INTELLIGENT SYSTEMS</span><span class="period">.</span>
+{%- endcapture -%}
+{% include hero.html
+  heading=hero_heading
+  crumb_current="INSIGHTS"
+  tagline="Perspectives from research to reality."
+  title-style="color: #0D0221;"
+  hero-style="background: #D9CBB5; color: #0D0221;"
+  breadcrumb-style="background: #F6F4EC; color: #0D0221;"
+%}
 
 <!-- Filter Section -->
 <section class="insights-filter">

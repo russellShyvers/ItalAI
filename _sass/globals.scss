@@ -27,7 +27,7 @@
   --color-bg-darker: #0a0a1a;
   --color-bg-light: #F6F4EC;
   --color-text-dark: #0a0a1a;
-  --color-text-light: #fff;
+  --color-text-light: #F6F4EC;
   --color-text-muted: rgba(255, 255, 255, 0.8);
 
   /* Fluid type scale - maintains hierarchy at all viewport widths */
@@ -44,6 +44,7 @@
   --fz-display: clamp(2.5rem, 3vw + 2rem, 3.5rem);       /* 40px → 56px - h1 */
   --fz-hero: clamp(3rem, 4vw + 2rem, 4.5rem);            /* 48px → 72px - extra large hero */
   --fz-hero-meets: clamp(2rem, 3vw + 1.25rem, 3rem);     /* 32px → 48px - large hero variant */
+  --fz-hero-sm: clamp(1rem, 2vw + 1rem, 2rem);    /* 28px → 40px - small hero variant */
 
   /* Spacing & radii */
   --space-xs: 0.5rem;
@@ -163,8 +164,8 @@ body {
   font-weight: 400;
   font-size: var(--fz-base);
   letter-spacing: -0.03em;
-  background-color: #6A7CFF;
-  color: #fff;
+  background-color: #F6F4EC;
+  color: #F6F4EC;
 }
 
 /* Layout utilities (use these instead of styling all div/section) */

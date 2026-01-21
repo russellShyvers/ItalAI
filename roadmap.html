@@ -2,20 +2,19 @@
 layout: default
 title: What's Next
 ---
-
-<!-- Hero Section -->
-<section class="roadmap-hero">
-  <div class="roadmap-hero-content container">
-    <h1>
-      THE NEXT FRONTIER OF <span class="highlight-ai">AI</span><br>
-      IS <span class="highlight-physical italic">PHYSICAL</span><span class="period">.</span>
-    </h1>
-    <div class="breadcrumb">
-      <a href="/">HOME</a> / WHAT'S NEXT
-      <span class="breadcrumb-tagline">Beyond digital intelligence.</span>
-    </div>
-  </div>
-</section>
+{%- capture hero_heading -%}
+THE NEXT FRONTIER OF <span class="highlight-ai">AI</span><br>
+IS <span class="highlight-gray italic weak">PHYSICAL</span>
+<span class="period">.</span>
+{%- endcapture -%}
+{% include hero.html
+  heading=hero_heading
+  crumb_current="WHAT'S NEXT"
+  tagline="Beyond digital intelligence."
+  title-style="color: #F6F4EC;"
+  hero-style="background: linear-gradient(135deg, #6A7CFF 0%, #8B9CFF 100%);"
+  breadcrumb-style="background: #0D0221; color: #F6F4EC;"
+%}
 
 <!-- Looking Ahead Section -->
 <section class="looking-ahead-section">

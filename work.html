@@ -3,19 +3,19 @@ layout: default
 title: What We Do
 ---
 
-<!-- Hero Section -->
-<section class="work-hero">
-  <div class="work-hero-content container">
-    <h1>
-      TURNING RESEARCH INTO<br>
-      <span class="highlight-blue italic">WORKING AI SYSTEMS</span><span class="period">.</span>
-    </h1>
-    <div class="breadcrumb">
-      <a href="/">HOME</a> / WHAT WE DO
-      <span class="breadcrumb-tagline">From research to deployment.</span>
-    </div>
-  </div>
-</section>
+{%- capture hero_heading -%}
+Turning research into<br>
+<span class="highlight-blue italic weak">working AI systems</span>
+<span class="period">.</span>
+{%- endcapture -%}
+{% include hero.html
+  heading=hero_heading
+  crumb_current="WHAT WE DO"
+  tagline="From research to deployment."
+  title-style="color: #0D0221;"
+  hero-style="background: #C6FFE0;"
+  breadcrumb-style="background: #32B692; color: #F6F4EC;"
+%}
 
 <!-- What We Focus On Section -->
 <section class="focus-section">

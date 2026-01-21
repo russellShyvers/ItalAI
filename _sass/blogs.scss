@@ -1,7 +1,7 @@
 .nav-btn {
     padding: 12px 24px;
     background: var(--gradient-primary);
-    color: white;
+    color: #F6F4EC;
     border: none;
     border-radius: 10px;
     font-size: var(--fz-base);
@@ -217,7 +217,7 @@
     width: 100%;
     height: auto;
     display: block;
-    background: white;
+    background: #F6F4EC;
 }
 
 .post-body {
@@ -421,7 +421,7 @@
     flex: 1;
     padding: var(--space-md) var(--space-lg);
     background: var(--gradient-primary);
-    color: white;
+    color: #F6F4EC;
     text-decoration: none;
     border-radius: var(--radius-md);
     font-family: 'JetBrains Mono', monospace;
