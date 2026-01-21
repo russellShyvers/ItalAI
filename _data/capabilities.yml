@@ -3,70 +3,70 @@
   type: "papers"
   papers:
     - date: "CVPR'24"
-      topic: "Pretraining, Learning & Anomaly Detection"
+      topic: "Procedural Learning & Anomaly Detection"
       title: "PREGO"
-      description: "Chroma modulate detection in Procedural FOGxcaramic videos"
-      link: "#"
+      description: "Online mistake detection in PRocedural EGOcentric videos."
+      link: "https://arxiv.org/abs/2404.01933"
       
-    - date: "ICLR'24"
-      topic: "Uncertainty Estimation & Reason Adaptation"
-      title: "MALO"
-      description: "Multimodal Autoregressive Learning for Semantic Segmentation under Domain Shift"
-      link: "#"
+    - date: "ICLM'24"
+      topic: "Uncertainty Estimation & Domain Adaptation"
+      title: "HALO"
+      description: "Hyperbolic Active Learning for Semantic Segmentation under Domain Shift."
+      link: "https://arxiv.org/abs/2306.11180"
       
-    - date: "ICLR'24"
-      topic: "LLMs and Long-Term Reasoning / recognition"
+    - date: "ICLM'24"
+      topic: "LLMs and Long-Term Dependency recognition"
       title: "SERPENT"
-      description: "Spectral Reweighting for Efficient Long State Space Models"
-      link: "#"
+      description: "Selective Resampling for Expressive State Space Models."
+      link: "https://arxiv.org/abs/2306.11180"
       
-    - date: "EMLM'24"
-      topic: "LLMs and Long-Term Reasoning / recognition"
-      title: "LONGCODEREACH"
-      description: "Evaluating Coding LLMs at 1M Context Windows"
-      link: "#"
+    - date: "COLM'25"
+      topic: "LLMs and Long-Term Dependency recognition"
+      title: "LONGCODEBENCH"
+      description: "Evaluating Coding LLMs at 1M Context Windows."
+      link: "https://arxiv.org/abs/2306.11180"
       
     - date: "ECCV'24"
       topic: "Multimodal Foundation Models"
-      title: "HYPERMODAL MULTIMODAL"
-      description: "Hyperbolic Learning with Multimodal Large Language Models"
-      link: "#"
+      title: "HYBERMODAL MULTIMODAL"
+      description: "Hyperbolic Learning with Multimodal Large Language Models."
+      link: "https://arxiv.org/abs/2408.05097"
       
     - date: "ICLR'25"
       topic: "Multimodal Foundation Models"
-      title: "HYPOCLIP"
-      description: "Hyperbolic Contrastive Learning for Hyperbolic Vision-Language Models"
-      link: "#"
+      title: "HYCOCLIP"
+      description: "Compositional Entailment Learning for Hyperbolic Vision-Language Models."
+      link: "https://arxiv.org/abs/2410.06912"
       
     - date: "IROS'24"
       topic: "Embodied AI"
       title: "HYP2NAV"
-      description: "Hyperbolic Planning and Curiosity for Crowd Navigation"
-      link: "#"
+      description: "Hyperbolic Planning and Curiosity for Crowd Navigation."
+      link: "https://arxiv.org/abs/2410.06912"
       
-    - date: "ICLR'25"
+    - date: "ICLR'24"
       topic: "Embodied AI"
-      title: "SPA"
-      description: "Following the Human Thread in Social Navigation"
-      link: "#"
+      title: "SDA"
+      description: "Following the Human Thread in Social Navigation."
+      link: "https://arxiv.org/abs/2404.11327"
       
-    - date: "AAAT'26"
+    - date: "AAAI'26"
       topic: "Computer Vision & Pattern Recognition"
-      title: "LISM"
-      description: "Latent Motion Unlearning"
-      link: "#"
+      title: "LCR"
+      description: "Human Motion Unlearning."
+      link: "https://arxiv.org/abs/2503.18674"
       
     - date: "UNDER REVIEW"
       topic: "Computer Vision & Pattern Recognition"
       title: "VIDEO UNLEARNING"
-      description: "Via Low-Rank Latent Vector Unlearning"
-      link: "#"
+      description: "Via Low-Rank Refusal Vector"
+      link: "https://arxiv.org/abs/2506.07891"
       
     - date: "NEWEST"
       topic: "Robotics"
       title: "LEGO"
-      description: "Learning to Grasp Anything by Playing with Random Toys"
-      link: "#"
+      description: "Learning to Grasp Anything by Playing with Random Toys."
+      link: "https://arxiv.org/abs/2510.12866"
 
 - number: "02"
   title: "Learning, Perception, and Representation"
@@ -82,14 +82,14 @@
   title: "System-Level AI Design"
   type: "text"
   content: |
-    System-level AI design requires balancing theoretical advances with practical constraints. We focus on building efficient, scalable architectures that can be deployed in resource-constrained environments while maintaining high performance.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
     
-    Our work includes developing state space models for long-sequence processing, efficient training techniques for large-scale models, and architectures that can handle real-time inference requirements. We consider the entire system stack, from model architecture to deployment infrastructure.
+    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 - number: "04"
   title: "From Research to Real-World Systems"
   type: "text"
   content: |
-    Translating research into production systems requires careful attention to robustness, efficiency, and maintainability. We work on embodied AI systems that can navigate complex environments, interact with humans, and adapt to changing conditions.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
     
-    Our approach emphasizes rigorous testing, iterative refinement, and close collaboration between researchers and engineers. We focus on applications in robotics, autonomous navigation, and human-AI interaction, where theoretical advances must meet the demands of real-world deployment.
+    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.

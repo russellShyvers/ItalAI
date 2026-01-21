@@ -55,7 +55,7 @@ BRIDGING ACADEMIA AND INDUSTRY<span class='period'>.</span>
       <strong>Research, correctness, and long-term reliability guide every decision we make.</strong>
     </p>
   </div>
-  <a class="cta-button cta-center cta-overlap" href="#contact">
+  <a class="cta-center cta-button cta-overlap" href="#contact">
     <div class="cta-label cta-overlap">Want to know more?</div>
     GET IN TOUCH
   </a>
@@ -67,44 +67,27 @@ BRIDGING ACADEMIA AND INDUSTRY<span class='period'>.</span>
     <div class="values-header">
       <p class="section-label">VALUES</p>
       <h2 class="values-title">Our principles<span class="period">.</span></h2>
-      <p class="values-intro">These principles guide how we research, design, and collaborate, independent of technologies or market cycles.</p>
+      <div class="values-header-row">
+        <p class="values-intro">These principles guide how we research, design, and collaborate, independent of technologies or market cycles.</p>
+        <div class="principles-carousel-nav">
+          <button class="carousel-arrow prev" aria-label="Previous principle">&lt;</button>
+          <button class="carousel-arrow next" aria-label="Next principle">&gt;</button>
+        </div>
+      </div>
     </div>
     
-    <div class="principles-grid">
-      <div class="principle-card">
-        <div class="principle-content">
-          <div class="principle-number">01</div>
-          <div class="principle-text">
-            <h3 class="principle-card-title">Global Standards,<br>Local Excellence<span class="period">.</span></h3>
-            <p class="principle-card-text">We operate internationally while leveraging Italy's exceptional research talent and engineering culture.</p>
+    <div class="principles-grid" id="principlesGrid">
+      {% for principle in site.data.principles.principles %}
+        <div class="principle-card">
+          <div class="principle-content">
+            <div class="principle-number">{{ forloop.index | prepend: "0" | slice: -2, 2 }}</div>
+            <div class="principle-text">
+              <h3 class="principle-card-title">{{ principle.title }}<span class="period">.</span></h3>
+              <p class="principle-card-text">{{ principle.text }}</p>
+            </div>
           </div>
         </div>
-      </div>
-      
-      <div class="principle-card">
-        <div class="principle-content">
-          <div class="principle-number">02</div>
-          <div class="principle-text">
-            <h3 class="principle-card-title">Long-term Vision<span class="period">.</span></h3>
-            <p class="principle-card-text">We build systems meant to last in a fast-changing AI landscape.</p>
-          </div>
-        </div>
-      </div>
-      
-      <div class="principle-card">
-        <div class="principle-content">
-          <div class="principle-number">03</div>
-          <div class="principle-text">
-            <h3 class="principle-card-title">Depth before Scale<span class="period">.</span></h3>
-            <p class="principle-card-text">We favor technical depth and correctness before rapid expansion.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="principles-carousel-nav">
-      <button class="carousel-arrow prev" aria-label="Previous principle">←</button>
-      <button class="carousel-arrow next" aria-label="Next principle">→</button>
+      {% endfor %}
     </div>
   </div>
 </section>
@@ -122,7 +105,7 @@ BRIDGING ACADEMIA AND INDUSTRY<span class='period'>.</span>
     </h2>
     <div class="partner-container">
       <div class="partners-grid">
-        {% assign partner_files = site.static_files | where: "extname", ".png" %}
+        {% assign partner_files = site.static_files | where: "extname", ".webp" %}
         {% for file in partner_files %}
           {% if file.path contains "/assets/images/partners/" %}
             <div class="partner-card">

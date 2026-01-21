@@ -25,7 +25,14 @@ kramdown:
   math_output: latex
 sass:
   style: compressed
-
+  
+safe: false
 plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
+
+insights_manifest:
+  per_page: 12
+  output_dir: assets/data/insights
+  per_category: true
+  ndjson: true

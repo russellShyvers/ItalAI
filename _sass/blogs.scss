@@ -85,7 +85,6 @@
 }
 
 .post-content-section {
-    padding-top: var(--space-xl);
     padding-bottom: var(--space-xl);
     background: var(--color-bg-light);
     min-height: 100vh;
@@ -453,13 +452,20 @@
 @media (max-width: 1024px) {
     .post-layout {
         grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
     }
 
     .post-sidebar {
         position: static;
+        order: 2;
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: var(--space-lg);
+    }
+
+    .post-main {
+        order: 1;
     }
 }
 
@@ -473,7 +479,7 @@
     }
 
     .post-content-section {
-        padding: var(--space-lg) var(--space-sm);
+        padding: 0 var(--space-sm);
     }
 
     .post-main {

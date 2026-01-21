@@ -376,15 +376,33 @@
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
+/* Insight Tag - Date overlay on image */
 .insight-tag {
+    margin-left: 1rem;
+    margin-right: 1rem;
     position: absolute;
-    top: var(--space-sm);
+    bottom: var(--space-sm);
     left: var(--space-sm);
-    background: var(--color-dark-alt);
-    color: #F6F4EC;
-    padding: 6px 16px;
-    border-radius: var(--radius-lg);
-    font-size: 12px;
+    padding: 0.35rem 1.75rem;
+    color: white;
+    font-size: var(--fz-xs);
     font-weight: 600;
     text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: 4px;
+    white-space: nowrap;
+    z-index: 2;
+    background: var(--color-primary);
+}
+
+.insight-date {
+    background: var(--color-primary);
+}
+
+/* Card footer with read link and series tag */
+.insight-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
 }

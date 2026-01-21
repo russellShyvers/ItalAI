@@ -118,12 +118,12 @@ layout: default
           {% if author_data %}
             {% assign author_excerpt = author_data.excerpt | default: author_data.bio %}
             {% if author_excerpt %}
-              <p>{{ author_excerpt | strip_html | truncatewords: 40 }}</p>
+              <p>{{ author_excerpt | strip_html }}</p>
             {% else %}
               <p>{{ author_data.role }}{% if author_data.credentials %} — {{ author_data.credentials }}{% endif %}</p>
             {% endif %}
           {% elsif page.author_bio %}
-            <p>{{ page.author_bio | strip_html | truncatewords: 40 }}</p>
+            <p>{{ page.author_bio | strip_html }}</p>
           {% endif %}
         </div>
         {% endif %}
