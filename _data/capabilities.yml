@@ -1,0 +1,95 @@
+- number: "01"
+  title: "Frontier AI Research"
+  type: "papers"
+  papers:
+    - date: "CVPR'24"
+      topic: "Procedural Learning & Anomaly Detection"
+      title: "PREGO"
+      description: "Online mistake detection in PRocedural EGOcentric videos."
+      link: "https://arxiv.org/abs/2404.01933"
+      
+    - date: "ICLM'24"
+      topic: "Uncertainty Estimation & Domain Adaptation"
+      title: "HALO"
+      description: "Hyperbolic Active Learning for Semantic Segmentation under Domain Shift."
+      link: "https://arxiv.org/abs/2306.11180"
+      
+    - date: "ICLM'24"
+      topic: "LLMs and Long-Term Dependency recognition"
+      title: "SERPENT"
+      description: "Selective Resampling for Expressive State Space Models."
+      link: "https://arxiv.org/abs/2306.11180"
+      
+    - date: "COLM'25"
+      topic: "LLMs and Long-Term Dependency recognition"
+      title: "LONGCODEBENCH"
+      description: "Evaluating Coding LLMs at 1M Context Windows."
+      link: "https://arxiv.org/abs/2306.11180"
+      
+    - date: "ECCV'24"
+      topic: "Multimodal Foundation Models"
+      title: "HYBERMODAL MULTIMODAL"
+      description: "Hyperbolic Learning with Multimodal Large Language Models."
+      link: "https://arxiv.org/abs/2408.05097"
+      
+    - date: "ICLR'25"
+      topic: "Multimodal Foundation Models"
+      title: "HYCOCLIP"
+      description: "Compositional Entailment Learning for Hyperbolic Vision-Language Models."
+      link: "https://arxiv.org/abs/2410.06912"
+      
+    - date: "IROS'24"
+      topic: "Embodied AI"
+      title: "HYP2NAV"
+      description: "Hyperbolic Planning and Curiosity for Crowd Navigation."
+      link: "https://arxiv.org/abs/2410.06912"
+      
+    - date: "ICLR'24"
+      topic: "Embodied AI"
+      title: "SDA"
+      description: "Following the Human Thread in Social Navigation."
+      link: "https://arxiv.org/abs/2404.11327"
+      
+    - date: "AAAI'26"
+      topic: "Computer Vision & Pattern Recognition"
+      title: "LCR"
+      description: "Human Motion Unlearning."
+      link: "https://arxiv.org/abs/2503.18674"
+      
+    - date: "UNDER REVIEW"
+      topic: "Computer Vision & Pattern Recognition"
+      title: "VIDEO UNLEARNING"
+      description: "Via Low-Rank Refusal Vector"
+      link: "https://arxiv.org/abs/2506.07891"
+      
+    - date: "NEWEST"
+      topic: "Robotics"
+      title: "LEGO"
+      description: "Learning to Grasp Anything by Playing with Random Toys."
+      link: "https://arxiv.org/abs/2510.12866"
+
+- number: "02"
+  title: "Learning, Perception, and Representation"
+  type: "text"
+  content: |
+    We apply _advanced machine learning methods_ to complex, _real-world data_, with a strong focus on multimodal learning and representation.
+
+    Our work spans perception, learning under uncertainty, and vision-language models, enabling AI systems to reason across multiple data sources and time scales.
+
+    **We focus on methods that remain robust under domain shift and imperfect data, conditions that define real operational environments.**
+
+- number: "03"
+  title: "System-Level AI Design"
+  type: "text"
+  content: |
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    
+    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+- number: "04"
+  title: "From Research to Real-World Systems"
+  type: "text"
+  content: |
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    
+    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.

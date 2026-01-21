@@ -1,0 +1,20 @@
+<section class="common-hero"{% if include.hero-style %} style="{{ include.hero-style }}"{% endif %}>
+    {% if include.bg_image %}
+        <img src="{{ include.bg_image }}" alt="" loading="lazy">
+    {% endif %}
+    <div class="common-hero-content container">
+        <h1 {% if include.title-style %}style="{{ include.title-style }}"{% endif %}>{{ include.heading }}</h1>
+        <div class="breadcrumb"{% if include.breadcrumb-style %} style="{{ include.breadcrumb-style }}"{% endif %}>
+            <span>
+                <a href="/">HOME</a> /
+                {% if include.crumb_parent_url %}
+                    <a href="{{ include.crumb_parent_url }}">{{ include.crumb_parent_label }}</a> /
+                {% endif %}
+                <strong>{{ include.crumb_current | default: page.title | upcase }}</strong>
+            </span>
+            {% if include.tagline %}
+                <span class="breadcrumb-tagline">{{ include.tagline }}</span>
+            {% endif %}
+        </div>
+    </div> 
+</section> 

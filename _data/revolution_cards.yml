@@ -1,0 +1,37 @@
+- id: robotics
+  title_short: "Robotics"
+  title: "ROBOTICS IS MOVING"
+  title_emphasis: "FROM LABS<br>TO THE REAL WORLD."
+  background_image: "/assets/images/robotics-bg.png"
+  paragraphs:
+    - "Robotics is no longer confined to controlled environments or research labs. Advances in AI, simulation, and learning systems are enabling robots to operate in real, complex, and dynamic environments. This shift is transforming how we build, inspect, design, and operate, across manufacturing, infrastructure, logistics, and beyond. And it is happening faster than any technological wave before."
+    - "This shift is transforming how we build, inspect, design, and operate, across manufacturing, infrastructure, logistics, and beyond. And it is happening faster than any technological wave before."
+- id: ai-scale
+  title_short: "AI at Scale"
+  title: "AI IS SCALING"
+  title_emphasis: "BEYOND EXPECTATIONS."
+  background_image: ""
+  paragraphs:
+    - "AI systems are now deployed at unprecedented scale across industries."
+    - "Machine learning models are processing billions of data points in real-time."
+    - "This acceleration is reshaping how we approach problems in every sector."
+
+- id: industry-transformation
+  title_short: "Industry Transformation"
+  title: "INDUSTRIES ARE TRANSFORMING"
+  title_emphasis: "AT BREAKNECK SPEED."
+  background_image: ""
+  paragraphs:
+    - "Traditional manufacturing is being revolutionized by smart systems."
+    - "Supply chains are becoming autonomous and self-optimizing."
+    - "The pace of change is accelerating across all sectors."
+
+- id: research-acceleration
+  title_short: "Research Acceleration"
+  title: "RESEARCH IS ACCELERATING"
+  title_emphasis: "DISCOVERY TIMELINES."
+  background_image: ""
+  paragraphs:
+    - "Scientific breakthroughs that took decades now happen in years."
+    - "AI-powered research tools are unlocking new frontiers."
+    - "The cycle from theory to application has never been faster."

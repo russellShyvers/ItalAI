@@ -1,0 +1,260 @@
+(function () {
+  const grid = document.getElementById('insightsGrid');
+  const loadMoreBtn = document.getElementById('loadMoreBtn');
+  const itemsShown = document.getElementById('itemsShown');
+  const filterButtons = Array.from(document.querySelectorAll('.filter-btn'));
+  const categoryDropdown = document.getElementById('categoryDropdown');
+
+  if (!grid) return;
+
+  const BASE_PATH = '/assets/data/insights/insights-page1.json';
+  const CATEGORY_BASE = '/assets/data/insights/categories/category-';
+  const USE_NDJSON = true; // prefer streaming when CDN allows
+
+  const state = {
+    currentCategory: 'all',
+    nextPagePath: BASE_PATH,
+    totalItems: 0,
+    totalPages: 0,
+    perPage: 12,
+    loadedPages: new Set(),
+  };
+
+  async function fetchNdjson(url) {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`Failed to fetch ${url}: ${res.status}`);
+
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = '';
+    const meta = {};
+    const items = [];
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+      let idx;
+      while ((idx = buffer.indexOf('\n')) >= 0) {
+        const line = buffer.slice(0, idx).trim();
+        buffer = buffer.slice(idx + 1);
+        if (!line) continue;
+        const obj = JSON.parse(line);
+        if (obj.type === 'meta') {
+          Object.assign(meta, obj);
+        } else if (obj.type === 'item') {
+          items.push(obj);
+        }
+      }
+    }
+    const tail = buffer.trim();
+    if (tail) {
+      const obj = JSON.parse(tail);
+      if (obj.type === 'meta') Object.assign(meta, obj);
+      else if (obj.type === 'item') items.push(obj);
+    }
+    return { meta, items };
+  }
+
+  async function fetchJson(url) {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`Failed to fetch ${url}: ${res.status}`);
+    const data = await res.json();
+    const { items = [] } = data;
+    const meta = {
+      page: data.page,
+      per_page: data.per_page,
+      total_pages: data.total_pages,
+      total_items: data.total_items,
+      next_page_path: data.next_page_path,
+    };
+    return { meta, items };
+  }
+
+  async function fetchManifest(url) {
+    const ndjsonUrl = url.replace(/\.json$/, '.ndjson');
+    if (USE_NDJSON) {
+      try {
+        return await fetchNdjson(ndjsonUrl);
+      } catch (err) {
+        console.warn('NDJSON fetch failed, falling back to JSON', err);
+      }
+    }
+    return fetchJson(url);
+  }
+
+  function renderCard(item) {
+    const el = document.createElement('a');
+    el.className = 'insight-card-link';
+    el.href = item.url;
+    el.innerHTML = `
+      <div class="insight-card">
+        <div class="insight-card-image-wrapper">
+          ${item.image ? `<img src="${item.image}" alt="${escapeHtml(item.title)}" class="insight-card-image" loading="lazy">` : ''}
+          ${item.date ? `<span class="insight-tag insight-date">${formatDate(item.date)}</span>` : ''}
+        </div>
+        <div class="insight-card-content">
+          <h3 class="insight-card-title">${escapeHtml(item.title || '')}</h3>
+          <p class="insight-card-excerpt">${escapeHtml(item.excerpt || '')}</p>
+          <div class="insight-card-tags">
+            ${renderTags(item.categories)}
+          </div>
+          <div class="insight-card-footer">
+            <span class="insight-card-link-text">READ →</span>
+            ${item.series && item.part ? `<span class="insight-card-link-text">${escapeHtml(String(item.series)).toUpperCase()} • P${escapeHtml(String(item.part))}</span>` : ''}
+          </div>
+        </div>
+      </div>
+    `;
+    return el;
+  }
+
+  function renderTags(categories) {
+    const cats = Array.isArray(categories) ? categories : (categories ? [categories] : []);
+    if (!cats.length) return '<button class="insight-card-tag" data-tag-category="research">Research</button>';
+    return cats
+      .map((cat) => {
+        const slug = slugify(cat);
+        return `<button class="insight-card-tag" data-tag-category="${slug}">${escapeHtml(cat)}</button>`;
+      })
+      .join('');
+  }
+
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function slugify(str) {
+    return String(str)
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  }
+
+  function formatDate(str) {
+    // Expect YYYY-MM-DD
+    return str;
+  }
+
+  function updateMeta(meta) {
+    state.perPage = meta.per_page || state.perPage;
+    state.totalPages = meta.total_pages || state.totalPages;
+    state.totalItems = meta.total_items || state.totalItems;
+    state.nextPagePath = meta.next_page_path || null;
+  }
+
+  function updateCounters(renderedCount, totalAvailable) {
+    if (!itemsShown) return;
+    const total = typeof totalAvailable === 'number' ? totalAvailable : renderedCount;
+    itemsShown.textContent = `Showing ${renderedCount} of ${total} insights`;
+  }
+
+  function toggleLoadMore(visible) {
+    if (!loadMoreBtn) return;
+    loadMoreBtn.style.display = visible ? 'block' : 'none';
+  }
+
+  function attachTagHandlers(scope) {
+    const tags = scope.querySelectorAll('.insight-card-tag');
+    tags.forEach((tag) => {
+      tag.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const slug = tag.getAttribute('data-tag-category');
+        applyFilter(slug);
+      });
+    });
+  }
+
+  function clearGrid() {
+    grid.innerHTML = '';
+  }
+
+  function appendItems(items) {
+    const frag = document.createDocumentFragment();
+    items.forEach((item) => frag.appendChild(renderCard(item)));
+    attachTagHandlers(frag);
+    grid.appendChild(frag);
+  }
+
+  async function loadPage(url, { reset = false } = {}) {
+    try {
+      const { meta, items } = await fetchManifest(url);
+      if (reset) clearGrid();
+      appendItems(items);
+      updateMeta(meta);
+      const renderedCount = grid.querySelectorAll('.insight-card-link').length;
+      updateCounters(renderedCount, meta.total_items);
+      toggleLoadMore(Boolean(meta.next_page_path));
+      state.loadedPages.add(url);
+    } catch (err) {
+      console.error(err);
+      toggleLoadMore(false);
+    }
+  }
+
+  function buildPath(pageNum, categorySlug) {
+    if (categorySlug && categorySlug !== 'all') {
+      return `${CATEGORY_BASE}${categorySlug}-page${pageNum}.json`;
+    }
+    return `/assets/data/insights/insights-page${pageNum}.json`;
+  }
+
+  async function applyFilter(categorySlug) {
+    state.currentCategory = categorySlug || 'all';
+    state.loadedPages.clear();
+    const path = buildPath(1, state.currentCategory);
+    await loadPage(path, { reset: true });
+  }
+
+  async function handleLoadMore() {
+    if (!state.nextPagePath) {
+      toggleLoadMore(false);
+      return;
+    }
+    // Avoid duplicate fetches if user double-clicks
+    if (state.loadedPages.has(state.nextPagePath)) return;
+    await loadPage(state.nextPagePath, { reset: false });
+  }
+
+  function bindFilters() {
+    filterButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        filterButtons.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        const cat = btn.getAttribute('data-category');
+        if (categoryDropdown) categoryDropdown.value = cat;
+        applyFilter(cat);
+      });
+    });
+
+    if (categoryDropdown) {
+      categoryDropdown.addEventListener('change', () => {
+        const cat = categoryDropdown.value;
+        filterButtons.forEach((b) => b.classList.remove('active'));
+        const match = filterButtons.find((b) => b.getAttribute('data-category') === cat);
+        if (match) match.classList.add('active');
+        applyFilter(cat);
+      });
+    }
+  }
+
+  function bindLoadMore() {
+    if (!loadMoreBtn) return;
+    loadMoreBtn.addEventListener('click', handleLoadMore);
+  }
+
+  async function init() {
+    bindFilters();
+    bindLoadMore();
+    await applyFilter('all');
+  }
+
+  document.addEventListener('DOMContentLoaded', init);
+})();

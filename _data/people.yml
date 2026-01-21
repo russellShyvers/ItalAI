@@ -1,0 +1,61 @@
+team:
+  - name: Luca Rigazio
+    role: Co-founder & CEO
+    
+  - name: Fabio Galasso
+    role: Co-founder & CTO
+    
+  - name: Cristiana Polici
+    role: VP & Operations
+
+  - name: Anastasiia Motyreva
+    role: Head of Marketing & Communications
+    
+  - name: Luca Franco
+    role: General Manager
+    credentials: PhD in Data Science
+
+  - name: Alessio Sampieri
+    role: Lead Researcher
+    credentials: PhD in Data Science
+    
+  - name: Matteo Migliarini
+    role: Researcher
+    credentials: PhD student in Computer Science
+    
+  - name: Christian Bianchi
+    role: Researcher
+    credentials: MSc in AI & Robotics
+    
+  - name: Stefano D'Arrigo
+    role: Researcher
+    credentials: PhD student in AI
+    
+  - name: Luca Romani
+    role: Researcher
+    credentials: PhD-c in AI
+
+  - name: Edoardo De Matteis
+    role: Research Intern
+    credentials: PhD-c in Computer Science
+    
+  - name: Michele Palma
+    role: Research Intern
+    credentials: MSc in Computer Science
+    
+  - name: Stefano Saravalle
+    role: Researcher Intern
+    credentials: PhD student in AI
+    
+  - name: Matteo Gioia
+    role: ItalAI Intern at Panasonic R&D Labs
+    credentials: PhD student in Data Science
+    
+  - name: Luca Zhou
+    role: ItalAI Intern at Panasonic R&D Labs
+    credentials: PhD student in Computer Science
+
+other:
+  - name: Guido Maria D'Amely di Melendugno
+    role: Post-Doc Research Associate
+    bio: Guido M. D'Amely di Melendugno is a postdoctoral researcher at the PINlab research group in the Department of Computer Science at Sapienza University of Rome. His research focuses on deep learning, with a particular interest in computer vision and hyperbolic learning. He is currently working on generative models for video, online mistake detection, and hierarchical image-text alignment. Passionate about both research and teaching, he enjoys sharing complex AI concepts in a clear and accessible way. 

@@ -1,0 +1,11 @@
+/.bundle
+/.jekyll-cache
+/vendor
+
+# Build output
+/_site
+
+# Images - only track WebP format
+*.jpg
+*.jpeg
+*.png
