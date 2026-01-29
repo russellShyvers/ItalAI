@@ -53,7 +53,7 @@ function flowmap_deformation() {
                 // When image is wider than viewport (res.z < 1), keep centered horizontally
                 if (res.w < 1.0) {
                     // Image is cropped vertically, align to top
-                    myUV.y = uv.y * res.w;
+                    myUV.y += 0.1 * res.w;
                 }
                 
                 // Apply flowmap deformation
