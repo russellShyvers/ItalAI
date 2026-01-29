@@ -42,21 +42,8 @@ function flowmap_deformation() {
                 // B value is the velocity length
                 vec3 flow = texture2D(tFlow, vUv).rgb;
 
-                // Calculate UV coordinates
-                vec2 uv = .5 * gl_FragCoord.xy / res.xy;
-                
-                // Apply aspect ratio scaling - res.zw contains the aspect correction
-                vec2 myUV = (uv - vec2(0.5)) * res.zw + vec2(0.5);
-                
-                // Adjust vertical position for "top center" alignment
-                // When image is taller than viewport (res.w < 1), shift up
-                // When image is wider than viewport (res.z < 1), keep centered horizontally
-                if (res.w < 1.0) {
-                    // Image is cropped vertically, align to top
-                    myUV.y += 0.1 * res.w;
-                }
-                
-                // Apply flowmap deformation
+                vec2 uv = .5 * gl_FragCoord.xy / res.xy ;
+                vec2 myUV = (uv - vec2(0.5))*res.zw + vec2(0.5);
                 myUV -= flow.xy * (0.15 * 0.7);
 
                 vec3 tex = texture2D(tWater, myUV).rgb;
@@ -89,7 +76,10 @@ function flowmap_deformation() {
                 aspect = box.offsetWidth / box.offsetHeight;
             }
 
-            const flowmap = new Flowmap(gl, { falloff: 0.6 });
+            const flowmap = new Flowmap(gl, { 
+                falloff: 0.6,
+                dissipation: 0.96  // explicitly set to match - try lower values for faster snapback
+            });
 
             const geometry = new Geometry(gl, {
                 position: {
