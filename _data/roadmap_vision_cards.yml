@@ -1,7 +1,7 @@
 - title: "BEYOND DIGITAL INTELLIGENCE"
   text:
-    - "We develop physical-digital systems enabling models that reason within virtual environments."
-    - "The next frontier is moving AI into the physical world, where uncertainty and time are unavoidable."
+    - "AI has reshaped digital systems, enabling models that reason within virtual environments."
+    - "The next challenge is <span class=\"highlight-light-alt italic strong\">operating in the physical world</span>, where uncertainty and time are unavoidable."
   card_style: "blue"
   section_style: "dark"
   image: "/assets/images/code.jpg"

@@ -129,7 +129,7 @@ layout: default
         {% endif %}
 
         <!-- Post Navigation -->
-        {% if page.series %}
+        {% if page.series and page.part %}
         {% assign series_posts = site.posts | where: "series", page.series | sort: "part" %}
         {% assign current_part = page.part | plus: 0 %}
         {% assign prev_part = current_part | minus: 1 %}
@@ -147,19 +147,19 @@ layout: default
 
         <nav class="post-navigation">
           {% if prev_post %}
-          <a class="nav-btn prev" href="{{ prev_post.url }}">
+          <a class="cta-button-alt prev" href="{{ prev_post.url }}">
             ← {{ prev_post.title }}
           </a>
           {% else %}
-          <span class="nav-btn disabled">← Previous</span>
+          <span class="cta-button-alt disabled">← Previous</span>
           {% endif %}
           
           {% if next_post %}
-          <a class="nav-btn next" href="{{ next_post.url }}">
+          <a class="cta-button-alt next" href="{{ next_post.url }}">
             {{ next_post.title }} →
           </a>
           {% else %}
-          <span class="nav-btn disabled">Next →</span>
+          <span class="cta-button-alt disabled">Next →</span>
           {% endif %}
         </nav>
         {% endif %}

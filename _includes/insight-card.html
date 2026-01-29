@@ -1,31 +1,28 @@
-<a href="{{ include.post.url }}" class="insight-card-link">
-  <div class="insight-card">
-    <div class="insight-card-image-wrapper">
-      <img src="{{ include.post.image }}" alt="{{ include.post.title }}" class="insight-card-image">
-      {% if include.post.date %}
-        <span class="insight-tag insight-date">{{ include.post.date | date: "%d %b %Y" }}</span>
-      {% endif %}
-    </div>
-    <div class="insight-card-content">
-      <h3 class="insight-card-title">{{ include.post.title }}</h3>
-      <p class="insight-card-excerpt">{{ include.post.excerpt | strip_html | truncatewords: 25 }}</p>
+<div class="insight-card">
+  <div class="insight-card-image-wrapper">
+    <a href="{{ include.post.url }}">
+      <img src="{{ include.post.image | default: '/assets/images/blog/cards/coming.webp' }}" alt="{{ include.post.title | default: 'Placeholder Title' }}" class="insight-card-image">
+    </a>
+    <span class="insight-tag">{{ include.post.date | date: "%d %b %Y" }}</span>
+  </div>
+  <div class="insight-card-content">
+    <a class="insight-card-title" href="{{ include.post.url }}">
+      <h3>{{ include.post.title }}</h3>
+    </a>
+    <div class="insight-card-footer">
       <div class="insight-card-tags">
         {% if include.post.categories %}
-          {% for cat in include.post.categories %}
-            <button class="insight-card-tag" data-tag-category="{{ cat | slugify }}">{{ cat }}</button>
+          {% assign displayed_categories = include.post.categories | slice: 0, 2 %}
+          {% for cat in displayed_categories %}
+            <a class="insight-card-tag" href="/insights/?category={{ cat | slugify }}">{{ cat }}</a>
           {% endfor %}
         {% elsif include.post.category %}
-          <button class="insight-card-tag" data-tag-category="{{ include.post.category | slugify }}">{{ include.post.category }}</button>
-        {% else %}
-          <button class="insight-card-tag" data-tag-category="research">Research</button>
+          <a class="insight-card-tag" href="/insights/?category={{ include.post.category | slugify }}">{{ include.post.category }}</a>
         {% endif %}
       </div>
-      <div class="insight-card-footer">
-        <span class="insight-card-link-text">READ →</span>
-        {% if include.post.series and include.post.part %}
-          <span class="insight-card-link-text">{{ include.post.series | upcase }} • P{{ include.post.part }}</span>
-        {% endif %}
-      </div>
+      {% if include.post.series and include.post.part %}
+        <span class="insight-card-series">{{ include.post.series | upcase }} • P{{ include.post.part }}</span>
+      {% endif %}
     </div>
   </div>
-</a>
+</div>

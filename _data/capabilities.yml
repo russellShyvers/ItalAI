@@ -82,14 +82,10 @@
   title: "System-Level AI Design"
   type: "text"
   content: |
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-    
-    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    We design AI at the system level, not as isolated models. Our work spans the full stack: from data pipelines and learning architectures to deployment constraints, compute efficiency, and long-term maintainability. We focus on how components interact in real settings — where perception, decision-making, and learning must operate together under latency, reliability, and safety constraints. This approach allows us to build AI systems that are not only performant in controlled environments, but stable and scalable in production.
 
 - number: "04"
   title: "From Research to Real-World Systems"
   type: "text"
   content: |
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-    
-    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    We translate cutting-edge research into deployable, real-world AI solutions. Our team works closely with industry partners to move from prototypes to operational systems, ensuring that research outcomes deliver measurable impact beyond the lab. The result is AI that is grounded in strong scientific foundations while remaining usable, reliable, and aligned with real business and operational needs.

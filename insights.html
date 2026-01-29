@@ -17,7 +17,7 @@ SHARING IDEAS THAT SHAPE<br>
 %}
 
 <!-- Filter Section -->
-<section class="insights-filter">
+<section class="insights-filter" id="filter">
   <div class="container">
     <div class="filter-controls">
       <h3 class="filter-title">FILTER BY CATEGORY</h3>
@@ -56,14 +56,16 @@ SHARING IDEAS THAT SHAPE<br>
 
     <!-- Pagination/Load More Section -->
     <div class="insights-pagination" id="insightsPagination">
-      <button class="load-more-btn" id="loadMoreBtn" style="display: none;">
+      <span id="itemsShown" class="cta-label">Showing all insights</span>
+      <button class="cta-button-alt" id="loadMoreBtn" style="display: none;">
         LOAD MORE INSIGHTS
       </button>
-      <div class="pagination-info">
-        <span id="itemsShown">Showing all insights</span>
-      </div>
     </div>
   </div>
 </section>
 
 <script src="/assets/js/insights.js"></script>
+
+<template id="insightCardTemplate">
+  {% include insight-card.html post="" %}
+</template>

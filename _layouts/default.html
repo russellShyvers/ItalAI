@@ -3,99 +3,35 @@
 <head>
 <link rel="icon" type="image/svg+xml" href="/assets/logo.svg">
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, maximum-scale=0.45">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="{{ page.description | default: site.description }}">
 <title>{{ page.title }}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<script defer src="/assets/fontawesome/js/fontawesome.js"></script>
+<script defer src="/assets/fontawesome/js/brands.js"></script>
+<script defer src="/assets/fontawesome/js/solid.js"></script>
 <noscript>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;800&display=swap" rel="stylesheet" style="font-display: swap;">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400&display=swap" rel="stylesheet" style="font-display: swap;">
 </noscript>
-<style>
-  /* Defer painting of large display math blocks to cut initial render cost */
-  .math-block,
-  .kdmath {
-    content-visibility: auto;
-    contain-intrinsic-size: 24lh auto;
-  }
-</style>
 <link rel="stylesheet" href="/assets/css/styles.css">
 </head>
-<body>
+<body class="no-js">
+    <script src="/assets/js/js-check.js"></script>
+
+    <!-- No-JS Warning Banner -->
+    {% include loading-screen.html %}
+    {% include warning.html %}
     {% include header.html %}
     {{ content }}
     {% include footer.html %}
 <script src="/assets/js/form.js" defer></script>
 <script src="/assets/js/revolution_cards.js" defer></script>
 <script src="/assets/js/principles_carousel.js" defer></script>
-<script>
-(function() {
-  var katexRoot = document.querySelector('.kdmath, .math-block');
-  if (!katexRoot) return;
-
-  var cssHref = 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css';
-  var jsHref = 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js';
-  var autoRenderHref = 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js';
-
-  function whenIdle(fn) {
-    if ('requestIdleCallback' in window) {
-      return requestIdleCallback(fn, { timeout: 2000 });
-    }
-    return setTimeout(fn, 200);
-  }
-
-  function loadCSS(href) {
-    return new Promise(function(resolve, reject) {
-      var link = document.createElement('link');
-      link.rel = 'preload';
-      link.as = 'style';
-      link.href = href;
-      link.onload = function() {
-        link.rel = 'stylesheet';
-        resolve();
-      };
-      link.onerror = reject;
-      document.head.appendChild(link);
-    });
-  }
-
-  function loadScript(src) {
-    return new Promise(function(resolve, reject) {
-      var script = document.createElement('script');
-      script.src = src;
-      script.defer = true;
-      script.onload = resolve;
-      script.onerror = reject;
-      document.head.appendChild(script);
-    });
-  }
-
-  function renderMath() {
-    if (!window.renderMathInElement) return;
-    window.renderMathInElement(document.body, {
-      delimiters: [
-        { left: '$$', right: '$$', display: true },
-        { left: '$', right: '$', display: false }
-      ],
-      throwOnError: false,
-      ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    });
-  }
-
-  whenIdle(function() {
-    loadCSS(cssHref)
-      .then(function() { return loadScript(jsHref); })
-      .then(function() { return loadScript(autoRenderHref); })
-      .then(renderMath)
-      .catch(function(err) {
-        console.error('KaTeX failed to load', err);
-      });
-  });
-})();
-</script>
-
+<script src="/assets/js/katex-loader.js" defer></script>
+<script src="/assets/js/loading-screen.js"></script>
 </body>
 </html>

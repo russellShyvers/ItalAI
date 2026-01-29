@@ -1,10 +1,16 @@
 ---
 ---
-/* Import partials from _sass */
 @use "globals";
 @use "components";
+@use "katex";
+@use "warning";
+@use "loading-screen";
 @use "header";
-@use "main";
-@use "blogs";
+@use "index";
+@use "about";
+@use "work";
+@use "roadmap";
 @use "insights";
+@use "blogs";
 @use "footer";
+@use "responsives";

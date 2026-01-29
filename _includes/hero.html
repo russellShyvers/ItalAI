@@ -1,20 +1,51 @@
+{% if page.url == "/" %}
+<section class="main-hero"
+         data-flowmap="on" 
+         data-flowmap-url="{{ include.bg_image }}" 
+         data-flowmap-width="1536" 
+         data-flowmap-height="1024">
+    {% if include.bg_image %}
+        <img src="{{ include.bg_image }}" alt="" loading="lazy">
+    {% endif %}
+    <div class="container">
+        <div class="main-hero-content">
+            <h1>
+                {{ include.title }}
+            </h1>
+            {% if include.subtitle %}
+                {% assign subtitle_lines = include.subtitle | split: '<br>' %}
+                {% for line in subtitle_lines %}
+                <h5 class="highlight-green-alt italic">
+                    {{ line }}
+                </h5>
+                {% endfor %}
+            {% endif %}
+            <a class="cta-button-alt" href="/about">{{ include.cta_text }}</a>
+        </div>
+    </div>
+</section>
+<script type="module" src="/assets/js/flowmap_hero.js"></script>
+{% else %}
 <section class="common-hero"{% if include.hero-style %} style="{{ include.hero-style }}"{% endif %}>
     {% if include.bg_image %}
         <img src="{{ include.bg_image }}" alt="" loading="lazy">
     {% endif %}
-    <div class="common-hero-content container">
-        <h1 {% if include.title-style %}style="{{ include.title-style }}"{% endif %}>{{ include.heading }}</h1>
-        <div class="breadcrumb"{% if include.breadcrumb-style %} style="{{ include.breadcrumb-style }}"{% endif %}>
-            <span>
-                <a href="/">HOME</a> /
-                {% if include.crumb_parent_url %}
-                    <a href="{{ include.crumb_parent_url }}">{{ include.crumb_parent_label }}</a> /
+    <div class="container">
+        <div class="common-hero-content">
+            <h2 class="common-hero-title" {% if include.title-style %}style="{{ include.title-style }}"{% endif %}>{{ include.heading }}</h2>
+            <div class="breadcrumb"{% if include.breadcrumb-style %} style="{{ include.breadcrumb-style }}"{% endif %}>
+                <span class="breadcrumb-trail">
+                    <a href="/">HOME</a> /
+                    {% if include.crumb_parent_url %}
+                        <a href="{{ include.crumb_parent_url }}">{{ include.crumb_parent_label }}</a> /
+                    {% endif %}
+                    <a class="strong">{{ include.crumb_current | default: page.title | upcase }}</a>
+                </span>
+                {% if include.tagline %}
+                    <span class="breadcrumb-tagline">{{ include.tagline }}</span>
                 {% endif %}
-                <strong>{{ include.crumb_current | default: page.title | upcase }}</strong>
-            </span>
-            {% if include.tagline %}
-                <span class="breadcrumb-tagline">{{ include.tagline }}</span>
-            {% endif %}
-        </div>
-    </div> 
-</section> 
+            </div>
+        </div> 
+    </div>
+</section>
+{% endif %}
