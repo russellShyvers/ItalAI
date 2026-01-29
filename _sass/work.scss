@@ -15,7 +15,7 @@
     }
 }
 .focus-grid {
-    padding: 0 2rem;
+    padding: 2rem 2rem 8rem;
     display: grid;
     gap: 40px;
     grid-template-columns: 1fr 2fr;
@@ -136,8 +136,11 @@
 }
 
 .capability-text {
-    color: #666;
-    line-height: 1.6;
+    color: var(--standard-dark);
+    em,
+    strong{
+      color: var(--standard-blue);
+    }
 }
 
 /* Papers List Styles */
@@ -153,7 +156,7 @@
   column-gap: 2.5rem;
   align-items: center;
   padding: 1rem 0;
-  border-bottom: 1px solid rgba(10, 10, 26, 0.15);
+  border-bottom: 1px solid var(--standard-light);
 }
 
 .paper-item:first-child {

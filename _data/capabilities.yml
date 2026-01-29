@@ -56,7 +56,7 @@
       description: "Human Motion Unlearning."
       link: "https://arxiv.org/abs/2503.18674"
       
-    - date: "UNDER REVIEW"
+    - date: "UNDER<br>REVIEW"
       topic: "Computer Vision & Pattern Recognition"
       title: "VIDEO UNLEARNING"
       description: "Via Low-Rank Refusal Vector"
