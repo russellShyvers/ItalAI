@@ -17,7 +17,12 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;800&display=swap" rel="stylesheet" style="font-display: swap;">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400&display=swap" rel="stylesheet" style="font-display: swap;">
 </noscript>
-<link rel="stylesheet" href="/assets/css/styles.css">
+{% if page.url contains 'blogging' %}
+  {% assign stylesheet = 'post' %}
+{% else %}
+  {% assign stylesheet = page.url | remove: '/' | default: 'index' %}
+{% endif %}
+<link rel="stylesheet" href="/assets/css/{{ stylesheet }}.css">
 </head>
 <body class="no-js">
     <script src="/assets/js/js-check.js"></script>
