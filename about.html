@@ -11,9 +11,9 @@ BRIDGING ACADEMIA AND INDUSTRY<span class='period'>.</span>
   heading=hero_heading
   crumb_current="ABOUT"
   tagline="Building intelligent systems from research to reality."
-  title-style="color: #F6F4EC;"
-  hero-style="background: #0D0221;"
-  breadcrumb-style="background: linear-gradient(135deg, #6A7CFF 0%, #8B9CFF 100%);"
+  title-style="color: var(--standard-light);"
+  hero-style="background: var(--standard-dark);"
+  breadcrumb-style="background: var(--standard-blue); color: var(--standard-light);"
 %}
 
 <!-- Who We Are Section - 1/3 Image, 2/3 Content -->
@@ -106,84 +106,7 @@ BRIDGING ACADEMIA AND INDUSTRY<span class='period'>.</span>
     </div>
   </div>
 </section>
-<script>
-class ValuesCarousel {
-  constructor() {
-    this.grid = document.getElementById('valuesGrid');
-    this.prevBtn = document.getElementById('prevBtn');
-    this.nextBtn = document.getElementById('nextBtn');
-    this.cards = Array.from(document.querySelectorAll('.value-card'));
-    this.currentIndex = 0;
-    
-    this.init();
-  }
-  
-  init() {
-    this.updateCardsPerView();
-    this.updateButtons();
-    
-    this.prevBtn.addEventListener('click', () => this.prev());
-    this.nextBtn.addEventListener('click', () => this.next());
-    
-    window.addEventListener('resize', () => {
-      this.updateCardsPerView();
-      this.updatePosition();
-      this.updateButtons();
-    });
-  }
-  
-  updateCardsPerView() {
-    const width = window.innerWidth;
-    if (width <= 768) {
-      this.cardsPerView = 1;
-    } else if (width <= 1024) {
-      this.cardsPerView = 2;
-    } else {
-      this.cardsPerView = 3;
-    }
-  }
-  
-  get maxIndex() {
-    return Math.max(0, this.cards.length - this.cardsPerView);
-  }
-  
-  prev() {
-    if (this.currentIndex > 0) {
-      this.currentIndex--;
-      this.updatePosition();
-      this.updateButtons();
-    }
-  }
-  
-  next() {
-    if (this.currentIndex < this.maxIndex) {
-      this.currentIndex++;
-      this.updatePosition();
-      this.updateButtons();
-    }
-  }
-  
-  updatePosition() {
-    const cardWidth = this.cards[0].offsetWidth;
-    const gap = 16; // 1rem
-    const offset = -(this.currentIndex * (cardWidth + gap));
-    this.grid.style.transform = `translateX(${offset}px)`;
-  }
-  
-  updateButtons() {
-    this.prevBtn.disabled = this.currentIndex === 0;
-    this.nextBtn.disabled = this.currentIndex >= this.maxIndex;
-  }
-}
-
-// Initialize carousel when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
-  new ValuesCarousel();
-});
-</script>
-
-
-
+<script src="/assets/js/values-carousel.js" defer></script>
 
 <!-- Partners Section -->
 <section class="partners-section">
@@ -222,7 +145,6 @@ document.addEventListener('DOMContentLoaded', () => {
     </div>
   </div>
 </section>
-<!-- Add these scripts before closing </body> tag -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 <script>
@@ -265,12 +187,12 @@ $(document).ready(function(){
 <section class="team-section">
   <div class="container">
     <div class="team-content">
-      {% assign total_points = site.data.people.team.size | plus: 3 %} <!-- Total points: people + workwithus (2) + research (1) -->
-      {% assign grid_points = 0 %} <!-- Track points in the current grid -->
+      {% assign total_points = site.data.people.team.size | plus: 3 %}
+      {% assign grid_points = 0 %}
 
-      <div class="team-grid"> <!-- Start the first grid -->
+      <div class="team-grid">
       {% for person in site.data.people.team %}
-        {% if forloop.index0 == 0 %} <!-- Inject workwithus at index 0 -->
+        {% if forloop.index0 == 0 %}
           <div class="work-with-us-card">
             <div class="work-with-us-content">
               <p class="section-label">TEAM</p>
@@ -284,18 +206,17 @@ $(document).ready(function(){
               </a>
             </div>
           </div>
-          {% assign grid_points = grid_points | plus: 2 %} <!-- workwithus takes 2 points -->
+          {% assign grid_points = grid_points | plus: 2 %}
         {% endif %}
 
-        {% if forloop.index0 == 4 %} <!-- Inject research at index 5 -->
+        {% if forloop.index0 == 4 %}
           <div class="research-driven-card">
             <h2 class="research-label highlight-green">Research<br>driven</h2>
             <h4 class="research-subtext strong">Team</h4>
           </div>
-          {% assign grid_points = grid_points | plus: 1 %} <!-- research takes 1 point -->
+          {% assign grid_points = grid_points | plus: 1 %}
         {% endif %}
 
-        <!-- Insert person card -->
         <div class="person-card">
           {% if person.links %}
             <div class="team-item-socials">
@@ -329,26 +250,24 @@ $(document).ready(function(){
             <p class="person-role">{{ person.role }}{% if person.credentials %}, {{ person.credentials }}{% endif %}</p>
           </div>
         </div>
-        {% assign grid_points = grid_points | plus: 1 %} <!-- person takes 1 point -->
-
-        <!-- {{ grid_points }} -->
-        {% if grid_points == 4 %} <!-- Close and start a new grid if 4 points are reached -->
-          </div> <!-- Close current grid -->
-          {% assign grid_points = 0 %} <!-- Reset grid points -->
+        {% assign grid_points = grid_points | plus: 1 %}
+        {% if grid_points == 4 %}
+          </div>
+          {% assign grid_points = 0 %}
           {% assign last_index = total_points | minus: 1 %}
-          {% if forloop.index0 != last_index %} <!-- Avoid starting a new grid after the last item -->
-            <div class="team-grid"> <!-- Start a new grid -->
+          {% if forloop.index0 != last_index %}
+            <div class="team-grid">
           {% endif %}
         {% endif %}
       {% endfor %}
 
-      {% assign remaining_points = 4 | minus: grid_points %} <!-- Fill remaining slots in the last grid -->
+      {% assign remaining_points = 4 | minus: grid_points %}
       {% for i in (1..remaining_points) %}
         <div class="person-card blank-card">
           <!-- Empty card to fill the grid -->
         </div>
       {% endfor %}
-      </div> <!-- Close the last grid -->
+      </div>
     </div>
   </div>
 </section>
