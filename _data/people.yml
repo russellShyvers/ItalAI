@@ -1,9 +1,17 @@
 team:
   - name: Luca Rigazio
     role: Co-founder & CEO
+    links:
+      linkedin: https://www.linkedin.com/in/lucarigazio/
     
   - name: Fabio Galasso
     role: Co-founder & CTO
+    links:
+      github: https://github.com/fgalasso
+      linkedin: https://www.linkedin.com/in/fabio-galasso-61141b32/
+      scholar: https://scholar.google.com/citations?user=2gSuGBEAAAAJ
+      x: https://x.com/GalassoFab10
+      url: https://fgalasso.bitbucket.io/
     
   - name: Cristiana Polici
     role: VP & Operations

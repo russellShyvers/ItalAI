@@ -33,7 +33,7 @@ module Jekyll
         return
       end
 
-      posts.sort_by! { |doc| doc.data['date'] || doc.date || Time.at(0) }
+      posts.sort_by! { |doc| [(doc.data['date'] || doc.date || Time.at(0)), (doc.data['part'] || 0).to_i] }
       posts.reverse!
 
       write_manifests(site, posts, output_dir, per_page, 'insights', emit_ndjson)
@@ -107,13 +107,13 @@ module Jekyll
       excerpt = doc.data['excerpt'] || doc.data['description'] || doc.content
       excerpt = strip_html_basic(excerpt.to_s)
       excerpt = excerpt.gsub(/\s+/, ' ').strip[0, 240]
-
+      Jekyll.logger.debug "Date: #{(doc.data['date'] || doc.date)&.strftime('%d %b %Y')}"
       {
         'url' => doc.url,
         'title' => doc.data['title'],
         'excerpt' => excerpt,
         'image' => doc.data['image'],
-        'date' => (doc.data['date'] || doc.date)&.strftime('%Y-%m-%d'),
+        'date' => (doc.data['date'] || doc.date)&.strftime('%d %b %Y'),
         'categories' => doc.data['categories'] || Array(doc.data['category']),
         'series' => doc.data['series'],
         'part' => doc.data['part']

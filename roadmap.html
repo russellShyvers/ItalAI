@@ -11,64 +11,74 @@ IS <span class="highlight-gray italic weak">PHYSICAL</span>
   heading=hero_heading
   crumb_current="WHAT'S NEXT"
   tagline="Beyond digital intelligence."
-  title-style="color: #F6F4EC;"
-  hero-style="background: linear-gradient(135deg, #6A7CFF 0%, #8B9CFF 100%);"
-  breadcrumb-style="background: #0D0221; color: #F6F4EC;"
+  title-style="color: var(--standard-light);"
+  hero-style="background: var(--standard-blue);"
+  breadcrumb-style="background: var(--standard-dark); color: var(--standard-light);"
 %}
 
 <!-- Looking Ahead Section -->
-<section class="looking-ahead-section">
-  <div class="looking-ahead-container container">
-    <div class="looking-ahead-image">
-      <div class="spiral-shape"></div>
+<section class="ahead-section">
+  <div class="container">
+    <div class="ahead-grid">
+      <div class="ahead-image">
+        <img src="/assets/images/team.webp" alt="Looking Ahead" loading="lazy">
+      </div>
+      <div class="ahead-content">
+        <p class="section-label">LOOKING AHEAD</p>
+        <h2>
+          From software to the<br>
+          physical world<span class="period">.</span>
+        </h2>
+        <p class="description">
+          AI has achieved extraordinary results in digital environments.
+        </p>
+        <p class="description">
+          The next challenge is operating in the physical world, where uncertainty, time, and interaction with the environment are unavoidable.
+        </p>
+        <p class="description">
+          Robotics marks a new phase for artificial intelligence, requiring systems that can perceive, act, and adapt beyond controlled settings.
+        </p>
+      </div>
     </div>
-    <div class="looking-ahead-content">
-      <p class="section-label">LOOKING AHEAD</p>
-      <h2>
-        From software to the<br>
-        physical world<span class="period">.</span>
-      </h2>
-      <p class="description">
-        AI has achieved extraordinary results in digital environments.
-      </p>
-      <p class="description">
-        The next challenge is operating in the physical world, where uncertainty, time, and interaction with the environment are unavoidable.
-      </p>
-      <p class="description">
-        Robotics marks a new phase for artificial intelligence, requiring systems that can perceive, act, and adapt beyond controlled settings.
-      </p>
-    </div>
+
   </div>
 </section>
 
-<!-- Vision Cards Section - Dynamically Generated -->
-{% for card in site.data.roadmap_vision_cards %}
-<section class="vision-card-section {{ card.section_style }}">
-  <div class="vision-card-container container">
-    <img src="{{ card.image | replace: '.png', '.webp' | replace: '.jpg', '.webp' }}" alt="" class="vision-card-bg-image" loading="lazy">
-    <div class="vision-card {{ card.card_style }}">
-      <h5>{{ card.title }}<span class="period">.</span></h5>
-      {% for paragraph in card.text %}
-      <p>{{ paragraph }}</p>
-      {% endfor %}
+<!-- HTML SNIPPET --> <!-- Vision Cards Section - Dynamically Generated --> 
+<section class="vision-card-section">
+  <div class="container">
+    <div class="vision-card-content">
+    {% for card in site.data.vision-cards %}
+      <div class="vision-card {{ card.section_style }}"> 
+        <img src="{{ card.image | replace: '.png', '.webp' | replace: '.jpg', '.webp' }}" alt="" class="vc-img" loading="lazy"> 
+        <div class="vc-content {{ card.card_style }}"> 
+          <h4>{{ card.title }}<span class="period">.</span></h4> 
+          {% for paragraph in card.text %} 
+          <p>{{ paragraph }}</p> 
+          {% endfor %} 
+        </div> 
+      </div>
+    {% endfor %}
     </div>
   </div>
-</section>
-{% endfor %}
+</section> 
+<script src="/assets/js/vision-cards.js" defer></script>
 
 <!-- Vision Statement Section -->
-<section class="vision-statement-section">
-  <img src="/assets/images/hero-bg.webp" alt="" class="vision-statement-bg-image" loading="lazy">
-  <div class="vision-statement-content container">
-    <h2>
-      THE FUTURE OF AI WILL NOT BE<br>
-      DEFINED BY SMARTER MODELS,<br>
-      <span class="highlight-green italic">BUT BY SYSTEMS THAT WORK<br>
-      IN THE REAL WORLD</span><span class="period">.</span>
-    </h2>
-    <a class="cta-alt-button cta-overlap" href="#contact">
-      <p class="cta-label cta-overlap">WANT TO KNOW MORE?</p>
-      GET IN TOUCH
-    </a>
+<section class="vision-section">
+  <img src="/assets/images/vision.webp" alt="" class="vision-bg-image" loading="lazy">
+  <div class="container">
+    <div class="vision-content">
+      <h2>
+        THE FUTURE OF AI WILL NOT BE<br>
+        DEFINED BY SMARTER MODELS,<br>
+        <span class="highlight-green-alt italic">BUT BY SYSTEMS THAT WORK<br>
+        IN THE REAL WORLD</span><span class="period">.</span>
+      </h2>
+      <a class="cta-label highlight-green-alt">Want to know more?</a>
+      <a class="cta-button" href="#contact">
+        GET IN TOUCH
+      </a>
+    </div>
   </div>
 </section>

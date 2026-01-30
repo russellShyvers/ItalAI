@@ -84,25 +84,24 @@
   }
 
   function renderCard(item) {
-    const el = document.createElement('a');
-    el.className = 'insight-card-link';
-    el.href = item.url;
+    const el = document.createElement('div');
+    el.className = 'insight-card';
     el.innerHTML = `
-      <div class="insight-card">
-        <div class="insight-card-image-wrapper">
-          ${item.image ? `<img src="${item.image}" alt="${escapeHtml(item.title)}" class="insight-card-image" loading="lazy">` : ''}
-          ${item.date ? `<span class="insight-tag insight-date">${formatDate(item.date)}</span>` : ''}
-        </div>
-        <div class="insight-card-content">
+      <div class="insight-card-image-wrapper">
+        <a href="${item.url}">
+          <img src="${item.image || '/assets/images/blog/cards/coming.webp'}" alt="${escapeHtml(item.title || 'Placeholder Title')}" class="insight-card-image">
+        </a>
+        ${item.date ? `<span class="insight-tag insight-date">${formatDate(item.date)}</span>` : ''}
+      </div>
+      <div class="insight-card-content">
+        <a href="${item.url}">
           <h3 class="insight-card-title">${escapeHtml(item.title || '')}</h3>
-          <p class="insight-card-excerpt">${escapeHtml(item.excerpt || '')}</p>
+        </a>
+        <div class="insight-card-footer">
           <div class="insight-card-tags">
             ${renderTags(item.categories)}
           </div>
-          <div class="insight-card-footer">
-            <span class="insight-card-link-text">READ →</span>
-            ${item.series && item.part ? `<span class="insight-card-link-text">${escapeHtml(String(item.series)).toUpperCase()} • P${escapeHtml(String(item.part))}</span>` : ''}
-          </div>
+          ${item.series && item.part ? `<span class="insight-card-series">${escapeHtml(String(item.series)).toUpperCase()} • P${escapeHtml(String(item.part))}</span>` : ''}
         </div>
       </div>
     `;
@@ -110,14 +109,24 @@
   }
 
   function renderTags(categories) {
-    const cats = Array.isArray(categories) ? categories : (categories ? [categories] : []);
-    if (!cats.length) return '<button class="insight-card-tag" data-tag-category="research">Research</button>';
-    return cats
-      .map((cat) => {
-        const slug = slugify(cat);
-        return `<button class="insight-card-tag" data-tag-category="${slug}">${escapeHtml(cat)}</button>`;
-      })
-      .join('');
+    const cats = Array.isArray(categories) ? categories.slice(0, 2) : (categories ? [categories] : []);
+    const frag = document.createDocumentFragment();
+
+    cats.forEach((cat) => {
+      const slug = slugify(cat);
+      const tag = document.createElement('button');
+      tag.className = 'insight-card-tag';
+      tag.setAttribute('data-tag-category', slug);
+      tag.textContent = `${cat}`;
+      frag.appendChild(tag);
+    });
+
+    // Attach event handlers to the tags
+    attachTagHandlers(frag);
+
+    const container = document.createElement('div');
+    container.appendChild(frag);
+    return container.innerHTML;
   }
 
   function escapeHtml(str) {
@@ -139,6 +148,7 @@
 
   function formatDate(str) {
     // Expect YYYY-MM-DD
+    console.log('Formatting date:', str);
     return str;
   }
 
@@ -165,9 +175,9 @@
     tags.forEach((tag) => {
       tag.addEventListener('click', (e) => {
         e.preventDefault();
-        e.stopPropagation();
         const slug = tag.getAttribute('data-tag-category');
         applyFilter(slug);
+        window.location.hash = 'filter'; // Navigate to #filter
       });
     });
   }
@@ -189,7 +199,7 @@
       if (reset) clearGrid();
       appendItems(items);
       updateMeta(meta);
-      const renderedCount = grid.querySelectorAll('.insight-card-link').length;
+      const renderedCount = grid.querySelectorAll('.insight-card').length;
       updateCounters(renderedCount, meta.total_items);
       toggleLoadMore(Boolean(meta.next_page_path));
       state.loadedPages.add(url);

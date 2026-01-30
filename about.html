@@ -4,175 +4,270 @@ title: About Us
 ---
 
 {%- capture hero_heading -%}
-ITALAI IS A <span class='highlight italic weak'>RESEARCH-DRIVEN ORGANIZATION</span> 
+ITALAI IS A <span class='highlight-green italic weak'>RESEARCH-DRIVEN ORGANIZATION</span> 
 BRIDGING ACADEMIA AND INDUSTRY<span class='period'>.</span>
 {%- endcapture -%}
 {% include hero.html
   heading=hero_heading
   crumb_current="ABOUT"
   tagline="Building intelligent systems from research to reality."
-  title-style="color: #F6F4EC;"
-  hero-style="background: #0D0221;"
-  breadcrumb-style="background: linear-gradient(135deg, #6A7CFF 0%, #8B9CFF 100%);"
+  title-style="color: var(--standard-light);"
+  hero-style="background: var(--standard-dark);"
+  breadcrumb-style="background: var(--standard-blue); color: var(--standard-light);"
 %}
 
 <!-- Who We Are Section - 1/3 Image, 2/3 Content -->
-<section class="who-we-are">
-  <div class="who-container container">
-    <div class="who-image">
-      <!-- Image placeholder - add image here later -->
+<section class="who-section">
+  <div class="container">
+    <div class="who-grid">
+      <div class="who-image">
+        <img src="/assets/images/team.webp" alt="Who We Are" loading="lazy">
+      </div>
+      <div class="who-content">
+        <p class="section-label">WHO WE ARE</p>
+        <h2>
+          A <span class="highlight-green italic">research-first</span><br>
+          <span class="highlight-blue">AI</span> organization<span class="period">.</span>
+        </h2>
+        <p class="description">
+          Founded in 2024, ItalAI operates at the intersection of academic research and industrial application.
+        </p>
+        <p class="description">
+          <a class="strong">We collaborate with leading universities, research centers,</a> and <a class="strong">technology partners</a> to advance artificial intelligence, and translate that knowledge into deployable systems. Our work spans fundamental research, applied AI, and system-level design, with a <span class="emphasis">strong emphasis on correctness, reliability, and scalability.</span>
+        </p>
+        <p class="description">
+          We do not position ourselves as a traditional AI consultancy. Our role is to <span class="emphasis">invent, engineer, and validate AI systems</span> designed to function beyond experimental settings.
+        </p>
+      </div>
     </div>
-    <div class="who-content">
-      <p class="section-label">WHO WE ARE</p>
-      <h2>
-        A <span class="highlight-green italic">research-first</span><br>
-        <span class="highlight-blue">AI</span> organization<span class="period">.</span>
-      </h2>
-      <p class="description">
-        Founded in 2024, ItalAI operates at the intersection of academic research and industrial application.
-      </p>
-      <p class="description">
-        <strong>We collaborate with leading universities, research centers,</strong> and <strong>technology partners</strong> to advance artificial intelligence, and translate that knowledge into deployable systems. Our work spans fundamental research, applied AI, and system-level design, with a <span class="emphasis">strong emphasis on correctness, reliability, and scalability.</span>
-      </p>
-      <p class="description">
-        We do not position ourselves as a traditional AI consultancy. Our role is to <span class="emphasis">invent, engineer, and validate AI systems</span> designed to function beyond experimental settings.
-      </p>
-    </div>
+
   </div>
 </section>
 
 <!-- Principles Section - Light Background -->
-<section class="principles-light">
-  <div class="principles-light-content container">
-    <h2 class="principle-statement">
-      <span class="principle-label highlight-green">DEPTH</span> BEFORE SCALE<span class="period">.</span>
-    </h2>
-    <h2 class="principle-statement">
-      <span class="principle-label highlight-blue">RIGOR</span> BEFORE SPEED<span class="period">.</span>
-    </h2>
-    <p class="principle-description">
-      <strong class="highlight-blue">We design AI systems starting from first principles.</strong><br>
-      <strong>Research, correctness, and long-term reliability guide every decision we make.</strong>
-    </p>
+<section class="principle-light">
+  <div class="container">
+    <div class="principles-grid">
+      <div class="principle-cell principle-depth">
+        <span class="principle-label highlight-green">DEPTH&#160</span>
+      </div>
+      <div class="principle-cell principle-scale">
+        BEFORE SCALE<span class="period">.</span>
+      </div>
+      <div class="principle-cell principle-rigor">
+        <span class="principle-label highlight-blue">RIGOR&#160</span>
+      </div>
+      <div class="principle-cell principle-speed">
+        BEFORE SPEED<span class="period">.</span>
+      </div>
+      <div class="principle-cell principle-desc">
+        <span class="highlight-blue">We design AI systems starting from first principles.</span><br>
+        Research, correctness, and long-term reliability guide every decision we make.
+      </div>
+    </div>
+    <a class="cta-label cta-overlap">Want to know more?</a>
+    <a class="cta-button-alt cta-overlap" href="#contact">
+      GET IN TOUCH
+    </a>
   </div>
-  <a class="cta-center cta-button cta-overlap" href="#contact">
-    <div class="cta-label cta-overlap">Want to know more?</div>
-    GET IN TOUCH
-  </a>
 </section>
 
 <!-- Values Section - Dark Background -->
-<section class="values-section">
-  <div class="values-container container">
-    <div class="values-header">
-      <p class="section-label">VALUES</p>
-      <h2 class="values-title">Our principles<span class="period">.</span></h2>
-      <div class="values-header-row">
-        <p class="values-intro">These principles guide how we research, design, and collaborate, independent of technologies or market cycles.</p>
-        <div class="principles-carousel-nav">
-          <button class="carousel-arrow prev" aria-label="Previous principle">&lt;</button>
-          <button class="carousel-arrow next" aria-label="Next principle">&gt;</button>
+<section class="principle-dark">
+  <div class="container">
+    <div class="values-content">
+      <div class="values-header">
+        <h7 class="section-label">VALUES</h7>
+        <h2 class="values-title">Our principles<span class="period">.</span></h2>
+        <div class="values-header-row">
+          <p class="values-intro">These principles guide how we research, design, and collaborate, independent of technologies or market cycles.</p>
+          <div class="values-carousel-nav">
+            <button class="carousel-arrow prev" id="prevBtn" aria-label="Previous principle">←</button>
+            <button class="carousel-arrow next" id="nextBtn" aria-label="Next principle">→</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="carousel-container">
+        <div class="carousel-wrapper">
+          <div class="values-grid" id="valuesGrid">
+          {% for principle in site.data.principles.principles %}
+            <div class="value-card">
+              <div class="value-content">
+                <h1 class="value-number">{{ forloop.index | prepend: "0" | slice: -2, 2 }}</h1>
+                <h3 class="value-card-title">{{ principle.title }}<span class="period">.</span></h3>
+                <p class="value-card-text">{{ principle.text }}</p>
+              </div>
+            </div>
+          {% endfor %}
+          </div>
         </div>
       </div>
     </div>
-    
-    <div class="principles-grid" id="principlesGrid">
-      {% for principle in site.data.principles.principles %}
-        <div class="principle-card">
-          <div class="principle-content">
-            <div class="principle-number">{{ forloop.index | prepend: "0" | slice: -2, 2 }}</div>
-            <div class="principle-text">
-              <h3 class="principle-card-title">{{ principle.title }}<span class="period">.</span></h3>
-              <p class="principle-card-text">{{ principle.text }}</p>
-            </div>
-          </div>
-        </div>
-      {% endfor %}
-    </div>
   </div>
 </section>
-
-
-
+<script src="/assets/js/values-carousel.js" defer></script>
 
 <!-- Partners Section -->
 <section class="partners-section">
-  <div class="partners-inner container">
-    <p class="section-label">PARTNERSHIP</p>
-    <h2 class="partners-title">
-      Advancing AI through<br>
-      <span class="highlight-blue italic">global collaboration</span><span class="period">.</span>
-    </h2>
-    <div class="partner-container">
-      <div class="partners-grid">
-        {% assign partner_files = site.static_files | where: "extname", ".webp" %}
-        {% for file in partner_files %}
-          {% if file.path contains "/assets/images/partners/" %}
-            <div class="partner-card">
-              <img src="{{ file.path }}" alt="{{ file.name | split: "." | first | replace: "-", " " | replace: "_", " " | capitalize }}" class="partner-logo" loading="lazy">
-            </div>
-          {% endif %}
-        {% endfor %}
+  <div class="container">
+    <div class="partners-content">
+      <p class="section-label">PARTNERSHIP</p>
+      <h2 class="partners-title uppercase">
+        Advancing AI through<br>
+        <span class="highlight-blue uppercase weak italic">global collaboration</span><span class="period">.</span>
+      </h2>
+      <div class="partner-container">
+          <!-- Static Grid for Desktop -->
+          <div class="partners-grid">
+              {% assign partner_files = site.static_files | where: "extname", ".webp" %}
+              {% for file in partner_files %}
+                  {% if file.path contains "/assets/images/partners/" %}
+              <div class="partner-card">
+                  <img src="{{ file.path }}" alt="{{ file.name | split: "." | first | replace: "-", " " | replace: "_", " " | capitalize }}" class="partner-logo" loading="lazy">
+              </div>
+                  {% endif %}
+              {% endfor %}
+          </div>
+
+          <!-- Carousel for Mobile/Tablet (same content) -->
+          <div class="partners-carousel owl-carousel owl-theme">
+              {% assign partner_files = site.static_files | where: "extname", ".webp" %}
+              {% for file in partner_files %}
+                  {% if file.path contains "/assets/images/partners/" %}
+              <div class="partner-card">
+                  <img src="{{ file.path }}" alt="{{ file.name | split: "." | first | replace: "-", " " | replace: "_", " " | capitalize }}" class="partner-logo" loading="lazy">
+              </div>
+                  {% endif %}
+              {% endfor %}
+          </div>
       </div>
     </div>
   </div>
 </section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script>
+$(document).ready(function(){
+    var owl = $('.partners-carousel');
+    
+    owl.owlCarousel({
+        loop: true,
+        margin: 20,
+        dots: true,
+        autoplay: false,
+        responsive: {
+            0: {
+                items: 1,
+                nav: true,
+                dots: true
+            },
+            480: {
+                items: 2,
+                nav: true,
+                dots: true
+            },
+            600: {
+                items: 3,
+                nav: true,
+                dots: true
+            }
+        }
+    });
+    
+    // Force enable navigation after initialization
+    setTimeout(function() {
+        $('.owl-nav').removeClass('disabled');
+        $('.owl-dots').removeClass('disabled');
+    }, 100);
+});
+</script>
 
 <!-- Team Section -->
 <section class="team-section">
-  <div class="team-grid-wrapper container">
-    <div class="team-grid">
-      <!-- Work With Us Section - Injected into grid -->
-      <div class="work-with-us-card">
-        <div class="work-with-us-content">
-          <p class="section-label">TEAM</p>
-          <h2>
-            Blending AI research<br>
-            and Industry<br>
-            Expertise<span class="period">.</span>
-          </h2>
-          <a class="cta-alt-button" href="#contact">
-            WORK WITH US
-          </a>
-        </div>
-      </div>
+  <div class="container">
+    <div class="team-content">
+      {% assign total_points = site.data.people.team.size | plus: 3 %}
+      {% assign grid_points = 0 %}
 
-
-      {% assign person_count = 0 %}
+      <div class="team-grid">
       {% for person in site.data.people.team %}
-            {% if person_count == 4 %}
-              <!-- Research Driven Team Section - Injected into grid -->
-              <div class="research-driven-card">
-                <div class="research-driven-content">
-                  <p class="research-label highlight-green">Research driven</p>
-                  <p class="research-subtext">Team</p>
-                </div>
+        {% if forloop.index0 == 0 %}
+          <div class="work-with-us-card">
+            <div class="work-with-us-content">
+              <p class="section-label">TEAM</p>
+              <h2>
+                Blending AI research<br>
+                and Industry<br>
+                Expertise<span class="period">.</span>
+              </h2>
+              <a class="cta-button" href="#contact">
+                WORK WITH US
+              </a>
+            </div>
+          </div>
+          {% assign grid_points = grid_points | plus: 2 %}
+        {% endif %}
+
+        {% if forloop.index0 == 4 %}
+          <div class="research-driven-card">
+            <h2 class="research-label highlight-green">Research<br>driven</h2>
+            <h4 class="research-subtext strong">Team</h4>
+          </div>
+          {% assign grid_points = grid_points | plus: 1 %}
+        {% endif %}
+
+        <div class="person-card">
+          {% if person.links %}
+            <div class="team-item-socials">
+              <div class="socials-trigger">
+                <i class="fa-solid fa-share-nodes"></i>
               </div>
-            {% endif %}
-            
-            <div class="person-card">
-              <div class="person-image">
-                <img
-                  src="/assets/images/people/{{ person.name | replace: " ", "-" | downcase }}.png"
-                  alt="{{ person.name }}"
-                  class="person-img"
-                  {% if person.url %}
-                    onclick="window.open('{{ person.url }}', '_blank')"
-                    style="cursor: pointer;"
-                  {% endif %}
-                >
-              </div>
-              <div class="person-info">
-                <h3 class="person-name">{{ person.name }}</h3>
-                <p class="person-role">{{ person.role }}</p>
-                {% if person.credentials %}
-                    <p class="person-credentials">{{ person.credentials }}</p>
-                {% endif %}
+              <div class="team-socials-wrapper">
+                <ul class="team-socials wrapper-socials">
+                  {% if person.links.linkedin %}<li><a class="socials" href="{{ person.links.linkedin }}" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a></li>{% endif %}
+                  {% if person.links.x %}<li><a class="socials" href="{{ person.links.x }}" target="_blank"><i class="fa-brands fa-x-twitter"></i></a></li>{% endif %}
+                  {% if person.links.scholar %}<li><a class="socials" href="{{ person.links.scholar }}" target="_blank"><i class="fa-brands fa-google-scholar"></i></a></li>{% endif %}
+                  {% if person.links.github %}<li><a class="socials" href="{{ person.links.github }}" target="_blank"><i class="fa-brands fa-github"></i></a></li>{% endif %}
+                  {% if person.links.website %}<li><a class="socials" href="{{ person.links.website }}" target="_blank"><i class="fa-solid fa-globe"></i></a></li>{% endif %}
+                </ul>
               </div>
             </div>
-            
-            {% assign person_count = person_count | plus: 1 %}
+          {% endif %}
+          <div class="person-image">
+            <img
+              src="/assets/images/people/{{ person.name | replace: ' ', '-' | downcase }}.png"
+              alt="{{ person.name }}"
+              class="person-img"
+              {% if person.url %}
+              onclick="window.open('{{ person.url }}', '_blank')"
+              style="cursor: pointer;"
+              {% endif %}
+            >
+          </div>
+          <div class="person-info">
+            <h4 class="person-name">{{ person.name }}</h4>
+            <p class="person-role">{{ person.role }}{% if person.credentials %}, {{ person.credentials }}{% endif %}</p>
+          </div>
+        </div>
+        {% assign grid_points = grid_points | plus: 1 %}
+        {% if grid_points == 4 %}
+          </div>
+          {% assign grid_points = 0 %}
+          {% assign last_index = total_points | minus: 1 %}
+          {% if forloop.index0 != last_index %}
+            <div class="team-grid">
+          {% endif %}
+        {% endif %}
       {% endfor %}
+
+      {% assign remaining_points = 4 | minus: grid_points %}
+      {% for i in (1..remaining_points) %}
+        <div class="person-card blank-card">
+          <!-- Empty card to fill the grid -->
+        </div>
+      {% endfor %}
+      </div>
     </div>
   </div>
 </section>

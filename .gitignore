@@ -1,9 +1,12 @@
 /.bundle
+/.env
 /.jekyll-cache
+/styles
 /vendor
-
-# Build output
 /_site
+/node_modules
+/.lighthouseci
+/lighthouse-reports
 
 # Images - only track WebP format
 *.jpg

@@ -2,9 +2,10 @@ permalink: /insights/:title/
 destination: ./_site
 source: ./
 
-url: "https://italailabs.com/"
+url: "https://italai.landofsharks.com"
 
-description: "ItalAI is a technology accelerator and startup incubator aiming to revolutionize the landscape of AI development."
+description: "Your site description here"
+loading_debug: true
 
 # Do not publish legacy raster assets; only WebP should ship in the build artifacts.
 exclude:
@@ -18,6 +19,7 @@ exclude:
 social:
   twitter: https://x.com/_italai
   linkedin: https://www.linkedin.com/company/italai/
+  github: https://github.com/ItalAILabs
 
 markdown: kramdown
 kramdown:
