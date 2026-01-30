@@ -355,7 +355,7 @@ The discretization bridges the gap between continuous theoretical models and the
 One of the unique strengths of State Space Models is their dual nature: they can be expressed both as **recurrent models** and as **convolutional operations**. This versatility makes SSMs particularly powerful in sequence modeling and signal processing.
 
 ![Recurrent representation step 2](/assets/images/blog/pages/ssm/ssm_2_img6.png)
-{:style="float: right; margin-left: 20px; margin-bottom: 20px; max-width: 200px; width: 100%;"}
+{:style="float: right; margin-bottom: 20px; max-width: 200px; width: 100%;"}
 
 *   **Recurrent Representation:**  
     The discretized state equation allows SSMs to process sequences one step at a time, updating the internal state iteratively based on the inputs. We can see it explicitly by inspecting the process from its start:

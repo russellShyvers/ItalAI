@@ -17,7 +17,7 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;800&display=swap" rel="stylesheet" style="font-display: swap;">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400&display=swap" rel="stylesheet" style="font-display: swap;">
 </noscript>
-{% if page.url contains 'blogging' %}
+{% if page.url contains '/insights/' and page.url != '/insights/' %}
   {% assign stylesheet = 'post' %}
 {% else %}
   {% assign stylesheet = page.url | remove: '/' | default: 'index' %}
