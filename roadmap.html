@@ -48,7 +48,7 @@ IS <span class="highlight-gray italic weak">PHYSICAL</span>
 <section class="vision-card-section">
   <div class="container">
     <div class="vision-card-content">
-    {% for card in site.data.roadmap_vision_cards %}
+    {% for card in site.data.vision-cards %}
       <div class="vision-card {{ card.section_style }}"> 
         <img src="{{ card.image | replace: '.png', '.webp' | replace: '.jpg', '.webp' }}" alt="" class="vc-img" loading="lazy"> 
         <div class="vc-content {{ card.card_style }}"> 
