@@ -5,8 +5,9 @@
  * Usage:
  * 1. Include this script in your page
  * 2. Add 'card-animated' class + animation class to your cards
- * 3. Cards will animate when scrolled into view after loading completes
- * 4. Optional: Add data-delay="500" to delay animation by 500ms
+ * 3. Add 'header-animated' class + animation class to your headers
+ * 4. Elements will animate when scrolled into view after loading completes
+ * 5. Optional: Add data-delay="500" to delay animation by 500ms
  */
 
 (function() {
@@ -14,12 +15,12 @@
 
   // Configuration
   const CONFIG = {
-    threshold: 0.2,              // Trigger when 20% of card is visible
+    threshold: 0.2,              // Trigger when 20% of element is visible
     rootMargin: '0px 0px -50px 0px', // Start slightly before entering viewport
     loadingScreenId: 'loading-screen',   // ID of your loading screen element
     loadingScreenClass: 'loaded',        // Class added when loading is done
     transitionDelay: 600,        // Wait for loading screen transition (ms)
-    observeOnce: false,          // Set to true to animate only once per card
+    observeOnce: false,          // Set to true to animate only once per element
   };
 
   // Store active timeouts for cleanup
@@ -29,37 +30,37 @@
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        const card = entry.target;
-        const delay = parseInt(card.getAttribute('data-delay')) || 0;
+        const element = entry.target;
+        const delay = parseInt(element.getAttribute('data-delay')) || 0;
         
-        // Clear any existing timeout for this card
-        if (activeTimeouts.has(card)) {
-          clearTimeout(activeTimeouts.get(card));
+        // Clear any existing timeout for this element
+        if (activeTimeouts.has(element)) {
+          clearTimeout(activeTimeouts.get(element));
         }
         
         // Apply animation after delay
         const timeoutId = setTimeout(() => {
-          card.classList.add('is-visible');
-          activeTimeouts.delete(card);
+          element.classList.add('is-visible');
+          activeTimeouts.delete(element);
         }, delay);
         
-        activeTimeouts.set(card, timeoutId);
+        activeTimeouts.set(element, timeoutId);
         
         // Stop observing if configured for one-time animation
         if (CONFIG.observeOnce) {
-          observer.unobserve(card);
+          observer.unobserve(element);
         }
       } else if (!CONFIG.observeOnce) {
-        const card = entry.target;
+        const element = entry.target;
         
-        // Clear pending timeout if card leaves viewport
-        if (activeTimeouts.has(card)) {
-          clearTimeout(activeTimeouts.get(card));
-          activeTimeouts.delete(card);
+        // Clear pending timeout if element leaves viewport
+        if (activeTimeouts.has(element)) {
+          clearTimeout(activeTimeouts.get(element));
+          activeTimeouts.delete(element);
         }
         
         // Remove class when out of view (for repeat animations)
-        card.classList.remove('is-visible');
+        element.classList.remove('is-visible');
       }
     });
   }, {
@@ -84,6 +85,22 @@
   }
 
   /**
+   * Initialize header animations
+   * Finds all headers with 'header-animated' class and observes them
+   */
+  function initHeaderAnimations() {
+    const headers = document.querySelectorAll('.header-animated');
+    
+    if (headers.length === 0) {
+      console.warn('[CardAnimations] No elements with class "header-animated" found');
+      return;
+    }
+
+    headers.forEach(header => observer.observe(header));
+    console.log(`[CardAnimations] Initialized ${headers.length} animated headers`);
+  }
+
+  /**
    * Wait for loading screen to complete
    * Handles multiple scenarios: class-based, removal, or no loading screen
    */
@@ -94,13 +111,17 @@
     if (!loadingScreen) {
       console.log('[CardAnimations] No loading screen found, initializing immediately');
       initCardAnimations();
+      initHeaderAnimations();
       return;
     }
 
     // Loading screen already has 'loaded' class
     if (loadingScreen.classList.contains(CONFIG.loadingScreenClass)) {
       console.log('[CardAnimations] Loading screen already complete');
-      setTimeout(initCardAnimations, CONFIG.transitionDelay);
+      setTimeout(() => {
+        initCardAnimations();
+        initHeaderAnimations();
+      }, CONFIG.transitionDelay);
       return;
     }
 
@@ -112,7 +133,10 @@
         if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
           if (loadingScreen.classList.contains(CONFIG.loadingScreenClass)) {
             console.log('[CardAnimations] Loading screen completed (class detected)');
-            setTimeout(initCardAnimations, CONFIG.transitionDelay);
+            setTimeout(() => {
+              initCardAnimations();
+              initHeaderAnimations();
+            }, CONFIG.transitionDelay);
             classObserver.disconnect();
           }
         }
@@ -131,6 +155,7 @@
           if (node.id === CONFIG.loadingScreenId) {
             console.log('[CardAnimations] Loading screen completed (removal detected)');
             initCardAnimations();
+            initHeaderAnimations();
             removalObserver.disconnect();
             classObserver.disconnect();
           }
@@ -148,6 +173,7 @@
       if (stillExists && !stillExists.classList.contains(CONFIG.loadingScreenClass)) {
         console.warn('[CardAnimations] Loading screen timeout - forcing initialization');
         initCardAnimations();
+        initHeaderAnimations();
         classObserver.disconnect();
         removalObserver.disconnect();
       }
@@ -161,26 +187,39 @@
     /**
      * Initialize animations manually
      */
-    init: initCardAnimations,
+    init: function() {
+      initCardAnimations();
+      initHeaderAnimations();
+    },
+
+    /**
+     * Initialize only card animations
+     */
+    initCards: initCardAnimations,
+
+    /**
+     * Initialize only header animations
+     */
+    initHeaders: initHeaderAnimations,
 
     /**
      * Reset all animations
      */
     reset: function() {
-      const cards = document.querySelectorAll('.card-animated');
+      const elements = document.querySelectorAll('.card-animated, .header-animated');
       
       // Clear all active timeouts
       activeTimeouts.forEach(timeoutId => clearTimeout(timeoutId));
       activeTimeouts.clear();
       
-      cards.forEach(card => {
-        card.classList.remove('is-visible');
-        observer.observe(card);
+      elements.forEach(element => {
+        element.classList.remove('is-visible');
+        observer.observe(element);
       });
     },
 
     /**
-     * Stop observing all cards
+     * Stop observing all elements
      */
     destroy: function() {
       // Clear all active timeouts

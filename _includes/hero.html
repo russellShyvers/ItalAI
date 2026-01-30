@@ -9,22 +9,17 @@
     {% endif %}
     <div class="container">
         <div class="main-hero-content">
-            <h1>
-                {{ include.title }}
-            </h1>
+            {% include animated-header.html title=include.title %}
             {% if include.subtitle %}
-                {% assign subtitle_lines = include.subtitle | split: '<br>' %}
-                {% for line in subtitle_lines %}
                 <h5 class="highlight-green-alt italic">
-                    {{ line }}
+                    {{ include.subtitle }}
                 </h5>
-                {% endfor %}
             {% endif %}
             <a class="cta-button-alt" href="/about">{{ include.cta_text }}</a>
         </div>
     </div>
 </section>
-<script type="module" src="/assets/js/flowmap_hero.js"></script>
+<script type="module" src="/assets/js/flowmap-hero.js"></script>
 {% else %}
 <section class="common-hero"{% if include.hero-style %} style="{{ include.hero-style }}"{% endif %}>
     {% if include.bg_image %}

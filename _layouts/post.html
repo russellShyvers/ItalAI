@@ -87,9 +87,6 @@ layout: default
           {% if page.date %}
           <span class="insight-tag" style="top: auto; bottom: var(--space-sm);">{{ page.date | date: "%d %b %Y" }}</span>
           {% endif %}
-          {% if page.category %}
-          <span class="insight-tag" style="top: auto; bottom: var(--space-sm); left: auto; right: var(--space-sm); background: var(--color-secondary);">{{ page.category | upcase }}</span>
-          {% endif %}
           <img src="{{ page.image }}" alt="{{ page.title }}" fetchpriority="high">
         </div>
         {% endif %}
@@ -148,7 +145,7 @@ layout: default
         <nav class="post-navigation">
           {% if prev_post %}
           <a class="cta-button-alt prev" href="{{ prev_post.url }}">
-            ← {{ prev_post.title }}
+            ← Previous
           </a>
           {% else %}
           <span class="cta-button-alt disabled">← Previous</span>
@@ -156,7 +153,7 @@ layout: default
           
           {% if next_post %}
           <a class="cta-button-alt next" href="{{ next_post.url }}">
-            {{ next_post.title }} →
+            Next →
           </a>
           {% else %}
           <span class="cta-button-alt disabled">Next →</span>

@@ -6,6 +6,10 @@ $mobile-extra: 767px;
 $mobile: 575px;
 
 @media (max-width: $tablet-extra) {
+
+}
+
+@media (max-width: $tablet) {
     .navbar {
         display: flex;
         align-items: center;
@@ -65,9 +69,8 @@ $mobile: 575px;
             background: var(--standard-blue);
         }
     }
-}
 
-@media (max-width: $tablet) {
+
     .card-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr); /* 2 columns */

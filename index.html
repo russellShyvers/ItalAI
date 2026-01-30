@@ -3,14 +3,9 @@ layout: default
 title: Home
 ---
 
-{% capture hero_heading -%}
-WHERE FRONTIER AI <span class="highlight-green">RESEARCH</span><br>
-<span class="meets">meets</span>
-REAL-WORLD IMPACT<span class="period">.</span>
-{%- endcapture %}
 <!-- Hero Section -->
 {% include hero.html
-    title=hero_heading
+    title="WHERE FRONTIER AI|RESEARCH,highlight-green|break|meets,italic weak lowercase|break|REAL-WORLD IMPACT,period"
     subtitle="We build the technologies powering<br/>the next industrial revolution."
     cta_text="Discover Who We Are"
     bg_image="/assets/images/hero-bg.webp"
@@ -65,12 +60,7 @@ REAL-WORLD IMPACT<span class="period">.</span>
     <div class="content">
       <h6 class="section-label">What We Do</h6>
 
-      <h2>
-        Turning frontier
-        <span class="highlight-blue">AI and robotics<br/> research</span> into
-        <span class="highlight-blue italic weak">real-world systems</span
-        ><span class="period">.</span>
-      </h2>
+      {% include animated-header.html title="Turning frontier|AI and robotics,highlight-blue|break|research|into|real-world systems,highlight-blue italic weak period" tag="h2" %}
 
       <p class="content-description">
         We design and deploy AI and robotics systems that move beyond the lab and
@@ -156,6 +146,7 @@ REAL-WORLD IMPACT<span class="period">.</span>
     <a class="cta-center cta-button-alt" href="/roadmap">SEE WHERE WE ARE GOING</a>
   </div>
 </section>
+
 <section class="insights-section">
   <div class="container">
     <div class="insights-content">
@@ -164,7 +155,7 @@ REAL-WORLD IMPACT<span class="period">.</span>
         <h2 class="">
           From <span class="highlight-green italic weak">research</span> to
           <span class="highlight-blue italic weak">reality</span>
-          ><span class="period">.</span>
+          <span class="period">.</span>
         </h2>
         <a class="cta-button-alt" href="/insights">READ MORE</a>
       </div>
@@ -189,4 +180,4 @@ REAL-WORLD IMPACT<span class="period">.</span>
     </div>
   </div>
 </section>
-<script src="/assets/js/animation_observer.js"></script>
+<script src="/assets/js/animation-observer.js"></script>

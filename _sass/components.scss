@@ -256,6 +256,7 @@
 }
 .period {
     @extend .highlight-red;
+    font-style: normal;
     font-size: 125%;
     line-height: 0.2;
 }
@@ -273,6 +274,9 @@ weak,
 }
 .uppercase {
     text-transform: uppercase;
+}
+.lowercase {
+    text-transform: lowercase;
 }
 
 
@@ -294,6 +298,46 @@ weak,
 /* Animation triggers when card is visible */
 .card-animated.is-visible {
   animation-play-state: running;
+}
+
+.word {
+  perspective: 800px;
+  perspective-origin: 50% 50%;
+}
+.char {
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  opacity: 0;
+  transform-origin: 50% 100%;
+  transform: rotateX(90deg);
+  animation: fadeIn 0.3s cubic-bezier(.26,-.14,0,1.01) forwards,
+             headingAnimation 0.7s cubic-bezier(.26,-.14,0,1.01) forwards;
+  animation-play-state: paused;
+}
+
+.header-animated.is-visible {
+  animation-play-state: running;
+}
+
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes headingAnimation {
+  from {
+    -webkit-transform:rotateX(90deg);
+    -ms-transform:rotateX(90deg);
+    transform:rotateX(90deg)
+  }
+  to {
+    -webkit-transform:rotateX(0);
+    -ms-transform:rotateX(0);
+    transform:rotateX(0)
+  }
 }
 
 /* ========================================
